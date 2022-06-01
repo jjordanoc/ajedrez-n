@@ -4,15 +4,15 @@
 #include <iostream>
 #include "PieceFactory.h"
 
-using namespace std;
-
-
 
 class Piece {
+protected:
     Color color;
+    std::pair<int, int> position;
+    int value = 0;
 public:
-    virtual string repr() = 0;
+    virtual std::string repr() = 0;
 };
 
 
-#endif //PROYECTO_PIECE_H
+#endif

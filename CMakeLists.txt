@@ -3,4 +3,4 @@ project(proyecto)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(proyecto main.cpp Piece.h PieceFactory.h Board.cpp Board.h)
+add_executable(proyecto main.cpp pieces/Piece.h pieces/PieceFactory.h game/Engine.cpp game/Engine.h game/Board.cpp game/Board.h)

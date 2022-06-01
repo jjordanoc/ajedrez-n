@@ -6,10 +6,9 @@
 #include <memory>
 #include "Piece.h"
 
-using namespace std;
 
 template<typename T>
-using smart_ptr = shared_ptr<T>;
+using smart_ptr = std::shared_ptr<T>;
 
 enum Color {
     black,
@@ -17,10 +16,10 @@ enum Color {
 };
 
 class PieceFactory {
-    unordered_map<string, function<smart_ptr<Piece>(Color)>> callbacks;
+    unordered_map<std::string, function<smart_ptr<Piece>(Color)>> callbacks;
 protected:
-
+    
 };
 
 
-#endif //PROYECTO_PIECEFACTORY_H
+#endif
