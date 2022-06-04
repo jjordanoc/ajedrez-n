@@ -45,7 +45,7 @@ void chess::Engine::initGame() {
     // Probamos si podemos seleccionar alguna pieza
     board->print();
     while (true) {
-        PosType row=0, col=0, newRow=0, newCol=0;
+        int row=0, col=0, newRow=0, newCol=0;
         std::cout << "Ingrese una fila y columna para seleccionar una pieza: " << std::endl;
         std::cin >> row >> col;
         if(player1->getColor() == board->getPiece(row, col)->getColor()){
@@ -55,12 +55,18 @@ void chess::Engine::initGame() {
                 std::cout << "Posibles movimientos: " << std::endl;
                 std::cout << e.first << " " << e.second << std::endl;
             }
-            std::cout << "Ingrese una fila y columna para moverte: " << std::endl;
-            std::cin >> newRow >> newCol;
+            if (!vec.empty()) {
+                std::cout << "Ingrese una fila y columna para moverte: " << std::endl;
+                std::cin >> newRow >> newCol;
+                if (newRow == -1 || newCol == -1) {
+                    break;
+                }
+                board->movePiece(row, col, newRow, newCol);
+            }
         } else {
             std::cout << "Esta no es tu pieza!!!" << std::endl;
         }
-        board->movePiece(row, col, newRow, newCol);
+
         board->print();
     }
 }

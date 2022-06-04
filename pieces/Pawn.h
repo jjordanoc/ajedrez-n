@@ -20,10 +20,12 @@ namespace chess {
                 off = -1;
             }
             for (int i = -1; i <= 1; i += 2) {
-                if (inBounds(fromRow + off, fromCol + i) && boardData.at(fromRow + off).at(fromCol + i) != nullptr) {
+                // Enemy in pawn's diagonal
+                if (inBounds(fromRow + off, fromCol + i) && boardData.at(fromRow + off).at(fromCol + i) != nullptr && boardData.at(fromRow + off).at(fromCol + i)->getColor() != color) {
                     moves.emplace_back(fromRow + off, fromCol + i);
                 }
             }
+            // Empty in front of pawn
             if (inBounds(fromRow + off, fromCol) && boardData.at(fromRow + off).at(fromCol) == nullptr) {
                 moves.emplace_back(fromRow + off, fromCol);
             }
