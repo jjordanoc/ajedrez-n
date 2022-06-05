@@ -4,6 +4,7 @@
 #include "Piece.h"
 namespace chess {
     class King : public Piece {
+        bool hasMoved = false;
     public:
         King(const Color &color) : Piece(color) {
         }
@@ -17,9 +18,18 @@ namespace chess {
                         if (i == 0 && j == 0) {
                             continue;
                         }
-                    if (inBounds(fromRow + i, fromCol + j)) {
-                        moves.emplace_back(fromRow + i, fromCol + j);
+                    if (inBounds(fromRow + i, fromCol + j)){
+                        if(boardData.at(fromRow + i).at(fromCol + j) != nullptr){
+                            if(boardData.at(fromRow + i).at(fromCol + j)->getColor() != color){
+                                if(boardData.at(fromRow + i).at(fromCol + j)->repr()  != "King0" && boardData.at(fromRow + i).at(fromCol + j)->repr()  != "King1"){
+                                    moves.emplace_back(fromRow + i, fromCol + j);
+                                }
+                            }
+                        } else {
+                            moves.emplace_back(fromRow + i, fromCol + j);
+                        }
                     }
+
                 }
             }
             return moves;
