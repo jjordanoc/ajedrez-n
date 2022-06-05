@@ -9,7 +9,6 @@ chess::Board::Board() : pieceFactory(std::make_unique<PieceFactory>()) {
 }
 
 bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol) {
-
     if (mainBoard.at(newRow).at(newCol) == nullptr) {
         mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
         return true;
@@ -17,7 +16,6 @@ bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, Pos
         mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
         return true;
     }
-
     return false;
 }
 

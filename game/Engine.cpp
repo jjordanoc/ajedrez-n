@@ -3,7 +3,7 @@
 chess::Engine::Engine() : board(std::make_unique<Board>()), player1(std::make_unique<Player>(BLACK)), player2(std::make_unique<Player>(WHITE)) {
 }
 
-void chess::Engine::initBoard(){
+void chess::Engine::initBoard() {
     // generar reglas del juego en base al n
 
     // si n es 0, se crea el juego base
@@ -32,29 +32,31 @@ void chess::Engine::initBoard(){
     board->putPiece("Bishop", Color::BLACK, 0, 5);
 
 
-    for(int i = 0; i < BOARD_SIZE; i++){
+    for (int i = 0; i < BOARD_SIZE; i++) {
         board->putPiece("Pawn", Color::WHITE, 6, i);
     }
 
-    for(int i = 0; i < BOARD_SIZE; i++){
+    for (int i = 0; i < BOARD_SIZE; i++) {
         board->putPiece("Pawn", Color::BLACK, 1, i);
     }
 }
 void chess::Engine::initGame() {
-
     // Probamos si podemos seleccionar alguna pieza
     board->print();
     while (true) {
-        int row=0, col=0, newRow=0, newCol=0;
+        int row = 0, col = 0, newRow = 0, newCol = 0;
         std::cout << "Ingrese una fila y columna para seleccionar una pieza: " << std::endl;
         std::cin >> row >> col;
         if (row == -1 || col == -1) {
             return;
         }
-        if(player1->getColor() == board->getPiece(row, col)->getColor()){
+        if (board->getPiece(row, col) == nullptr) {
+            continue ;
+        }
+        if (turn == board->getPiece(row, col)->getColor()) {
             std::vector<std::pair<PosType, PosType>> vec = board->getPiece(row, col)->possibleMoves(row, col, board->getBoardData());
             // agregar mas restricciones
-            for(const auto& e : vec){
+            for (const auto &e: vec) {
                 std::cout << "Posibles movimientos: " << std::endl;
                 std::cout << e.first << " " << e.second << std::endl;
             }
@@ -65,11 +67,11 @@ void chess::Engine::initGame() {
                     return;
                 }
                 board->movePiece(row, col, newRow, newCol);
+                nextTurn();
             }
         } else {
             std::cout << "Esta no es tu pieza!!!" << std::endl;
         }
-
         board->print();
     }
 }
@@ -81,4 +83,12 @@ chess::Engine *chess::Engine::get_instance() {
 }
 chess::Engine::~Engine() {
     delete instance;
+}
+
+void chess::Engine::nextTurn() {
+    if (turn == BLACK) {
+        turn = WHITE;
+    } else {
+        turn = BLACK;
+    }
 }
