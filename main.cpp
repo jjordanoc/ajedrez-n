@@ -3,9 +3,9 @@
 #include <iostream>
 
 int main() {
-    chess::Engine engine;
-    engine.initBoard();
-    engine.initGame();
+    chess::Engine *engine = chess::Engine::get_instance();
+    engine->initBoard();
+    engine->initGame();
 
     return 0;
 }

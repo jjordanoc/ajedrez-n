@@ -48,6 +48,9 @@ void chess::Engine::initGame() {
         int row=0, col=0, newRow=0, newCol=0;
         std::cout << "Ingrese una fila y columna para seleccionar una pieza: " << std::endl;
         std::cin >> row >> col;
+        if (row == -1 || col == -1) {
+            return;
+        }
         if(player1->getColor() == board->getPiece(row, col)->getColor()){
             std::vector<std::pair<PosType, PosType>> vec = board->getPiece(row, col)->possibleMoves(row, col, board->getBoardData());
             // agregar mas restricciones
@@ -59,7 +62,7 @@ void chess::Engine::initGame() {
                 std::cout << "Ingrese una fila y columna para moverte: " << std::endl;
                 std::cin >> newRow >> newCol;
                 if (newRow == -1 || newCol == -1) {
-                    break;
+                    return;
                 }
                 board->movePiece(row, col, newRow, newCol);
             }
@@ -69,4 +72,13 @@ void chess::Engine::initGame() {
 
         board->print();
     }
+}
+chess::Engine *chess::Engine::get_instance() {
+    if (instance == nullptr) {
+        instance = new Engine();
+    }
+    return instance;
+}
+chess::Engine::~Engine() {
+    delete instance;
 }

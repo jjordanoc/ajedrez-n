@@ -10,10 +10,13 @@ namespace chess {
         std::unique_ptr<Player> player2;
         std::unique_ptr<Board> board;
         unsigned long long n = 0;
-    public:
+        inline static Engine *instance = nullptr;
         Engine();
+    public:
+        static Engine *get_instance();
         void initBoard();
         void initGame();
+        ~Engine();
     };
 
 }// namespace chess

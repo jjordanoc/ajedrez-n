@@ -4,8 +4,8 @@
 
 #include "Piece.h"
 namespace chess {
-    bool hasMoved = false;
-    bool onJaque = false;
+//    bool hasMoved = false;
+//    bool onJaque = false;
     class Rook : public Piece {
     public:
         Rook(const Color &color) : Piece(color) {
