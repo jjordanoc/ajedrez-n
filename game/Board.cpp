@@ -53,10 +53,16 @@ bool chess::Board::isChecked(const chess::Color &color) {
     else {
         other = WHITE;
     }
-    for (const auto &row: mainBoard) {
-        for (const auto &piece: row) {
-            if (piece != nullptr && piece->getColor() == other && piece->getIsCheckingKing()) {
-                return true;
+    for (int i = 0; i < BOARD_SIZE; ++i) {
+        for (int j = 0; j < BOARD_SIZE; ++j) {
+            auto piece = mainBoard.at(i).at(j);
+            if (piece != nullptr && piece->getColor() == other) {
+                // actualizar
+                piece->possibleMoves(i, j, mainBoard);
+                // obtener
+                if (piece->getIsCheckingKing()) {
+                    return true;
+                }
             }
         }
     }

@@ -24,11 +24,12 @@ namespace chess {
         Color getColor() {
             return color;
         }
-        bool getIsCheckingKing() const {
+        bool getIsCheckingKing() {
             return isCheckingKing;
         }
         virtual std::string repr() = 0;
         virtual std::vector<std::pair<PosType, PosType>> possibleMoves(PosType fromRow, PosType fromCol, const std::array<std::array<std::shared_ptr<Piece>, BOARD_SIZE>, BOARD_SIZE> &boardData) = 0;
+
     };
 }
 
