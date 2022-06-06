@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-chess::Engine::Engine() : board(std::make_unique<Board>()), player1(std::make_unique<Player>(BLACK)), player2(std::make_unique<Player>(WHITE)) {
+chess::Engine::Engine() : board(std::make_unique<Board>()), player1(std::make_unique<Player>(BLACK)), player2(std::make_unique<Player>(WHITE)), turn(chess::WHITE){
 }
 
 void chess::Engine::initBoard() {
@@ -44,8 +44,9 @@ void chess::Engine::initGame() {
     // Probamos si podemos seleccionar alguna pieza
     board->print();
     while (true) {
+        std::cout << "IT IS " << turn << "'S TURN" << std::endl;
         int row = 0, col = 0, newRow = 0, newCol = 0;
-        std::cout << "Ingrese una fila y columna para seleccionar una pieza: " << std::endl;
+        std::cout << "SELECT A PIECE (EX: 0 1): " << std::endl;
         std::cin >> row >> col;
         if (row == -1 || col == -1) {
             return;
@@ -53,15 +54,21 @@ void chess::Engine::initGame() {
         if (board->getPiece(row, col) == nullptr) {
             continue ;
         }
+        if (board->isChecked(chess::WHITE)) {
+            std::cout << "WHITE IS CHECKED!" << std::endl;
+        }
+        if (board->isChecked(chess::BLACK)) {
+            std::cout << "BLACK IS CHECKED!" << std::endl;
+        }
         if (turn == board->getPiece(row, col)->getColor()) {
             std::vector<std::pair<PosType, PosType>> vec = board->getPiece(row, col)->possibleMoves(row, col, board->getBoardData());
             // agregar mas restricciones
             for (const auto &e: vec) {
-                std::cout << "Posibles movimientos: " << std::endl;
+                std::cout << "POSSIBLE MOVES: " << std::endl;
                 std::cout << e.first << " " << e.second << std::endl;
             }
             if (!vec.empty()) {
-                std::cout << "Ingrese una fila y columna para moverte: " << std::endl;
+                std::cout << "SELECT A MOVE (EX: 0 1): " << std::endl;
                 std::cin >> newRow >> newCol;
                 if (newRow == -1 || newCol == -1) {
                     return;
@@ -70,7 +77,7 @@ void chess::Engine::initGame() {
                 nextTurn();
             }
         } else {
-            std::cout << "Esta no es tu pieza!!!" << std::endl;
+            std::cout << "YOU CAN'T MOVE THIS PIECE" << std::endl;
         }
         board->print();
     }
