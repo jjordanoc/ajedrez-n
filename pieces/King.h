@@ -4,7 +4,6 @@
 #include "Piece.h"
 namespace chess {
     class King : public Piece {
-        bool hasMoved = false;
     public:
         King(const Color &color) : Piece(color) {
         }

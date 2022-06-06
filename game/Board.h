@@ -6,9 +6,9 @@
 #include <array>
 #include <memory>
 // Liberias locales
+#include "../global/Global.h"
 #include "../pieces/Piece.h"
 #include "../pieces/PieceFactory.h"
-#include "../global/Global.h"
 
 
 namespace chess {
@@ -22,6 +22,7 @@ namespace chess {
         std::shared_ptr<Piece> getPiece(PosType row, PosType col);
         void putPiece(const std::string &pieceType, const Color &color, PosType row, PosType col);
         void print();
+        bool isChecked(const Color &color);
         BoardType &getBoardData() {
             return mainBoard;
         }

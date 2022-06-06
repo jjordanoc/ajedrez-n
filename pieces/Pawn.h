@@ -6,6 +6,7 @@
 namespace chess {
     class Pawn : public Piece {
         bool hasMoved = false;
+
     public:
         Pawn(const Color &color) : Piece(color) {
         }
@@ -20,13 +21,16 @@ namespace chess {
             } else {
                 off = -1;
             }
+            PosType numChecks = 0;
             for (int i = -1; i <= 1; i += 2) {
                 // Enemy in pawn's diagonal
                 if (inBounds(fromRow + off, fromCol + i)) {
-                    if (boardData.at(fromRow + off).at(fromCol + i) != nullptr){
-                        if (boardData.at(fromRow + off).at(fromCol + i)->getColor() != color){
+                    if (boardData.at(fromRow + off).at(fromCol + i) != nullptr) {
+                        if (boardData.at(fromRow + off).at(fromCol + i)->getColor() != color) {
                             if (boardData.at(fromRow + off).at(fromCol + i)->repr() != "King0" && boardData.at(fromRow + off).at(fromCol + i)->repr() != "King1") {
                                 moves.emplace_back(fromRow + off, fromCol + i);
+                            } else {
+                                ++numChecks;
                             }
                         }
                     }
@@ -37,9 +41,14 @@ namespace chess {
                 moves.emplace_back(fromRow + off, fromCol);
             }
             // if pawn hasn`t moved, it can move 2 steps
-            if (!hasMoved){
+            if (!hasMoved) {
                 moves.emplace_back(fromRow + off + off, fromCol);
                 hasMoved = true;
+            }
+            if (numChecks != 0) {
+                isCheckingKing = true;
+            } else {
+                isCheckingKing = false;
             }
             return moves;
         }

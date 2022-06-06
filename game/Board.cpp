@@ -8,6 +8,9 @@ chess::Board::Board() : pieceFactory(std::make_unique<PieceFactory>()) {
     }
 }
 
+
+
+
 bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol) {
     if (mainBoard.at(newRow).at(newCol) == nullptr) {
         mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
@@ -40,4 +43,22 @@ void chess::Board::print() {
         std::cout << std::endl;
     }
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
+}
+bool chess::Board::isChecked(const chess::Color &color) {
+    // check if any {{color}} piece is checking the other color's king
+    Color other;
+    if (color == WHITE) {
+        other = BLACK;
+    }
+    else {
+        other = WHITE;
+    }
+    for (const auto &row: mainBoard) {
+        for (const auto &piece: row) {
+            if (piece != nullptr && piece->getColor() == other && piece->getIsCheckingKing()) {
+                return true;
+            }
+        }
+    }
+    return false;
 }

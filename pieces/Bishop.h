@@ -15,7 +15,7 @@ namespace chess {
         std::vector<std::pair<PosType, PosType>> possibleMoves(PosType fromRow, PosType fromCol, const std::array<std::array<std::shared_ptr<Piece>, BOARD_SIZE>, BOARD_SIZE> &boardData) override {
             std::vector<std::pair<PosType, PosType>> moves;
             std::vector<bool> flags(4, false);
-
+            PosType numChecks = 0;
             for (int i = 0; i < BOARD_SIZE; i++) {
                 if (i == 0) {
                     continue;
@@ -26,7 +26,6 @@ namespace chess {
                         {2, {fromRow + i, fromCol - i}},
                         {3, {fromRow - i, fromCol - i}}
                 };
-
                 for (auto const &[key, pos] : mappings) {
                     if (!flags.at(key) && inBounds(pos.first, pos.second)) {
                         if (boardData.at(pos.first).at(pos.second) != nullptr) {
@@ -35,12 +34,21 @@ namespace chess {
                                 if(boardData.at(pos.first).at(pos.second)->repr()  != "King0" && boardData.at(pos.first).at(pos.second)->repr()  != "King1"){
                                     moves.emplace_back(pos.first, pos.second);
                                 }
+                                else {
+                                    ++numChecks;
+                                }
                             }
                         } else {
                             moves.emplace_back(pos.first, pos.second);
                         }
                     }
                 }
+            }
+            if (numChecks != 0) {
+                isCheckingKing = true;
+            }
+            else {
+                isCheckingKing = false;
             }
             return moves;
         }
