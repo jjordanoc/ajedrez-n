@@ -46,9 +46,10 @@ void chess::Engine::initGame() {
     // Probamos si podemos seleccionar alguna pieza
     board->print();
     while (true) {
-        if (board->isCheckMate()) {
-            board->print();
+        if (board->isCheckMate(chess::WHITE) || board->isCheckMate(chess::BLACK)) {
+//            board->print();
             std::cout << "SE ACABÓ EL JUEGO :D" << std::endl;
+            return;
         } else {
             std::cout << "IT IS " << turn << "'S TURN" << std::endl;
             int row = 0, col = 0, newRow = 0, newCol = 0;

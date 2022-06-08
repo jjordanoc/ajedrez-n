@@ -29,7 +29,7 @@ namespace chess {
         void print();
         void putKingChecked(const Color &color);
         bool isChecked(const Color &color);
-        bool isCheckMate();
+        bool isCheckMate(const chess::Color &color);
         BoardType &getBoardData() {
             return mainBoard;
         }

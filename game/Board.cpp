@@ -162,13 +162,33 @@ bool chess::Board::isChecked(const chess::Color &color) {
     return false;
 }
 
-bool chess::Board::isCheckMate() {
+bool chess::Board::isCheckMate(const chess::Color &color) {
+    Color other;
+    if (color == WHITE) {
+        other = BLACK;
+    } else {
+        other = WHITE;
+    }
+    if (!isChecked(other)) {
+        return false;
+    }
     for (int i = 0; i < BOARD_SIZE; ++i) {
         for (int j = 0; j < BOARD_SIZE; ++j) {
             auto piece = mainBoard.at(i).at(j);
-            if (piece != nullptr && (piece->repr() == "King0" || piece->repr() == "King1")) {
-                if (std::dynamic_pointer_cast<King>(piece)->isChecked &&
-                    piece->possibleMoves(i, j, mainBoard).empty()) {
+            if (piece != nullptr && piece->getColor() == other && (piece->repr() == "King0" || piece->repr() == "King1")) {
+                if (std::dynamic_pointer_cast<King>(piece)->getIsInCheck()) {
+                    // check if king can escape a checked state by moving
+                    auto moves = piece->possibleMoves(i, j, mainBoard);
+                    for (const auto & mv : moves) {
+                        // perform move
+                        Board tmp{};
+                        tmp.mainBoard = mainBoard;
+                        // if performing the move lets the king escape the check, then it can perform that move
+                        if (tmp.movePiece(i, j, mv.first, mv.second) && !tmp.isChecked(other)) {
+                            return false;
+                        }
+                    }
+                    // otherwise, the king can't escape the check
                     return true;
                 }
             }

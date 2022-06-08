@@ -5,9 +5,8 @@
 
 namespace chess {
     class King : public Piece {
-    public:
         bool isChecked = false;
-
+    public:
         King(const Color &color) : Piece(color) {
         }
 
@@ -17,6 +16,8 @@ namespace chess {
 
         void setIsInCheck(bool i) { isChecked = i; }
 
+        bool getIsInCheck() const {return isChecked;}
+
         std::vector<std::pair<PosType, PosType>> possibleMoves(PosType fromRow, PosType fromCol,
                                                                const std::array<std::array<std::shared_ptr<Piece>, BOARD_SIZE>, BOARD_SIZE> &boardData) override {
             std::vector<std::pair<PosType, PosType>> moves;
@@ -25,29 +26,17 @@ namespace chess {
                     if (i == 0 && j == 0) {
                         continue;
                     }
-                    if (inBounds(fromRow + i, fromCol + j)) {
-                        if (boardData.at(fromRow + i).at(fromCol + j) != nullptr) {
-                            if (boardData.at(fromRow + i).at(fromCol + j)->getColor() != color) {
-                                if (boardData.at(fromRow + i).at(fromCol + j)->repr() != "King0" &&
-                                    boardData.at(fromRow + i).at(fromCol + j)->repr() != "King1") {
-
-
-
-                                    moves.emplace_back(fromRow + i, fromCol + j);
-                                }
-                            }
-                        } else {
-                            moves.emplace_back(fromRow + i, fromCol + j);
-                        }
+                    if (inBounds(fromRow + i, fromCol + j) && boardData.at(fromRow + i).at(fromCol + j) != nullptr && boardData.at(fromRow + i).at(fromCol + j)->getColor() != color && boardData.at(fromRow + i).at(fromCol + j)->repr() != "King0" &&
+                        boardData.at(fromRow + i).at(fromCol + j)->repr() != "King1") {
+                        // check if potential move actually puts king in a check state
+                        moves.emplace_back(fromRow + i, fromCol + j);
                     }
-
                 }
             }
 
             // Castling's logic
             // Check if king has moved
             if (!hasMoved && !isChecked) {
-
                 if (color == BLACK) {
                     // Check long Castling
                     // Check if the nearest rook has moved
@@ -99,7 +88,6 @@ namespace chess {
                         if (nearest_rook->getColor() == WHITE) {
                             if (!nearest_rook->getHasMoved()) {
                                 moves.emplace_back(7, 6);
-
                             }
                         }
                     }
@@ -137,11 +125,10 @@ namespace chess {
             }
 
 
-
             return moves;
         }
     };
-}
+}// namespace chess
 
 
 #endif//PROYECTO_KING_H
