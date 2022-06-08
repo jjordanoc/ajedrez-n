@@ -11,6 +11,7 @@
 namespace chess {
     class Piece {
     protected:
+        bool hasMoved = false;
         Color color;
         PosType value = 0;
         bool isCheckingKing = false;
@@ -24,6 +25,8 @@ namespace chess {
         Color getColor() {
             return color;
         }
+        bool getHasMoved() const {return hasMoved;}
+        void setHasMoved(bool h){hasMoved = h;}
         bool getIsCheckingKing() {
             return isCheckingKing;
         }

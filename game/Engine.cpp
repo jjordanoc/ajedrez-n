@@ -1,6 +1,7 @@
 #include "Engine.h"
 
-chess::Engine::Engine() : board(std::make_unique<Board>()), player1(std::make_unique<Player>(BLACK)), player2(std::make_unique<Player>(WHITE)), turn(chess::WHITE){
+chess::Engine::Engine() : board(std::make_unique<Board>()), player1(std::make_unique<Player>(BLACK)),
+                          player2(std::make_unique<Player>(WHITE)), turn(chess::WHITE) {
 }
 
 void chess::Engine::initBoard() {
@@ -10,11 +11,11 @@ void chess::Engine::initBoard() {
 
     // se crea el tablero
 
-    board->putPiece("King", Color::WHITE, 7, 3);
-    board->putPiece("King", Color::BLACK, 0, 3);
+    board->putPiece("King", Color::WHITE, 7, 4);
+    board->putPiece("King", Color::BLACK, 0, 4);
 
-    board->putPiece("Queen", Color::WHITE, 7, 4);
-    board->putPiece("Queen", Color::BLACK, 0, 4);
+    board->putPiece("Queen", Color::WHITE, 7, 3);
+    board->putPiece("Queen", Color::BLACK, 0, 3);
 
     board->putPiece("Rook", Color::WHITE, 7, 0);
     board->putPiece("Rook", Color::WHITE, 7, 7);
@@ -40,54 +41,64 @@ void chess::Engine::initBoard() {
         board->putPiece("Pawn", Color::BLACK, 1, i);
     }
 }
+
 void chess::Engine::initGame() {
     // Probamos si podemos seleccionar alguna pieza
     board->print();
     while (true) {
-        std::cout << "IT IS " << turn << "'S TURN" << std::endl;
-        int row = 0, col = 0, newRow = 0, newCol = 0;
-        std::cout << "SELECT A PIECE (EX: 0 1): " << std::endl;
-        std::cin >> row >> col;
-        if (row == -1 || col == -1) {
-            return;
-        }
-        if (board->getPiece(row, col) == nullptr) {
-            continue ;
-        }
-        if (board->isChecked(chess::WHITE)) {
-            std::cout << "WHITE IS CHECKED!" << std::endl;
-        }
-        if (board->isChecked(chess::BLACK)) {
-            std::cout << "BLACK IS CHECKED!" << std::endl;
-        }
-        if (turn == board->getPiece(row, col)->getColor()) {
-            std::vector<std::pair<PosType, PosType>> vec = board->getPiece(row, col)->possibleMoves(row, col, board->getBoardData());
-            // agregar mas restricciones
-            for (const auto &e: vec) {
-                std::cout << "POSSIBLE MOVES: " << std::endl;
-                std::cout << e.first << " " << e.second << std::endl;
-            }
-            if (!vec.empty()) {
-                std::cout << "SELECT A MOVE (EX: 0 1): " << std::endl;
-                std::cin >> newRow >> newCol;
-                if (newRow == -1 || newCol == -1) {
-                    return;
-                }
-                board->movePiece(row, col, newRow, newCol);
-                nextTurn();
-            }
+        if (board->isCheckMate()) {
+            std::cout << "SE ACABÓ EL JUEGO :D" << std::endl;
         } else {
-            std::cout << "YOU CAN'T MOVE THIS PIECE" << std::endl;
+            std::cout << "IT IS " << turn << "'S TURN" << std::endl;
+            int row = 0, col = 0, newRow = 0, newCol = 0;
+            std::cout << "SELECT A PIECE (EX: 0 1): " << std::endl;
+            std::cin >> row >> col;
+            if (row == -1 || col == -1) {
+                return;
+            }
+            if (board->getPiece(row, col) == nullptr) {
+                continue;
+            }
+            if (board->isChecked(chess::WHITE)) {
+                std::cout << "WHITE IS CHECKED!" << std::endl;
+            }
+            if (board->isChecked(chess::BLACK)) {
+                std::cout << "BLACK IS CHECKED!" << std::endl;
+            }
+            if (turn == board->getPiece(row, col)->getColor()) {
+                std::vector<std::pair<PosType, PosType>> vec = board->getPiece(row, col)->possibleMoves(row, col,
+                                                                                                        board->getBoardData());
+                // add more restrictions
+                for (const auto &e: vec) {
+                    std::cout << "POSSIBLE MOVES: " << std::endl;
+                    std::cout << e.first << " " << e.second << std::endl;
+                }
+                if (!vec.empty()) {
+                    std::cout << "SELECT A MOVE (EX: 0 1): " << std::endl;
+                    std::cin >> newRow >> newCol;
+                    if (newRow == -1 || newCol == -1) {
+                        return;
+                    }
+                    board->checkCastling(row, col, newRow, newCol);
+                    board->getPiece(row, col)->setHasMoved(true);
+                    board->movePiece(row, col, newRow, newCol);
+                    nextTurn();
+                }
+            } else {
+                std::cout << "YOU CAN'T MOVE THIS PIECE" << std::endl;
+            }
+            board->print();
         }
-        board->print();
     }
 }
+
 chess::Engine *chess::Engine::get_instance() {
     if (instance == nullptr) {
         instance = new Engine();
     }
     return instance;
 }
+
 chess::Engine::~Engine() {
     delete instance;
 }

@@ -24,7 +24,7 @@ namespace chess {
                 const std::unordered_map<PosType, std::pair<short, short>> mappings = {
                         {0, {fromRow + i, fromCol}},
                         {1, {fromRow - i, fromCol}},
-                        {2, {fromRow, fromCol - i}},
+                        {2, {fromRow, fromCol + i}},
                         {3, {fromRow, fromCol - i}}};
 
                 for (auto const &[key, pos]: mappings) {
@@ -50,6 +50,7 @@ namespace chess {
             } else {
                 isCheckingKing = false;
             }
+
             return moves;
         }
     };

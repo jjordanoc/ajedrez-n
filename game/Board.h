@@ -16,13 +16,19 @@ namespace chess {
     class Board {
         BoardType mainBoard;
         std::unique_ptr<chess::PieceFactory> pieceFactory;
+        bool isMakingCastling = false;
+        bool isMakingShortCastling = false;
+        bool isMakingLongCastling = false;
     public:
         Board();
+        void checkCastling(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol);
         bool movePiece(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol);
         std::shared_ptr<Piece> getPiece(PosType row, PosType col);
         void putPiece(const std::string &pieceType, const Color &color, PosType row, PosType col);
         void print();
+        void putKingChecked(const Color &color);
         bool isChecked(const Color &color);
+        bool isCheckMate();
         BoardType &getBoardData() {
             return mainBoard;
         }

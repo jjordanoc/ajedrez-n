@@ -5,7 +5,6 @@
 #include "Piece.h"
 namespace chess {
     class Pawn : public Piece {
-        bool hasMoved = false;
 
     public:
         Pawn(const Color &color) : Piece(color) {
@@ -43,7 +42,6 @@ namespace chess {
             // if pawn hasn`t moved, it can move 2 steps
             if (!hasMoved) {
                 moves.emplace_back(fromRow + off + off, fromCol);
-                hasMoved = true;
             }
             if (numChecks != 0) {
                 isCheckingKing = true;
