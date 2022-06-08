@@ -21,6 +21,7 @@ namespace chess {
         bool isMakingLongCastling = false;
     public:
         Board();
+        void checkPawnPromotion(PosType newRow, PosType newCol);
         void checkCastling(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol);
         bool movePiece(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol);
         std::shared_ptr<Piece> getPiece(PosType row, PosType col);

@@ -47,6 +47,7 @@ void chess::Engine::initGame() {
     board->print();
     while (true) {
         if (board->isCheckMate()) {
+            board->print();
             std::cout << "SE ACABÓ EL JUEGO :D" << std::endl;
         } else {
             std::cout << "IT IS " << turn << "'S TURN" << std::endl;
@@ -82,6 +83,7 @@ void chess::Engine::initGame() {
                     board->checkCastling(row, col, newRow, newCol);
                     board->getPiece(row, col)->setHasMoved(true);
                     board->movePiece(row, col, newRow, newCol);
+                    board->checkPawnPromotion(newRow, newCol);
                     nextTurn();
                 }
             } else {

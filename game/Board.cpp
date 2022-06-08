@@ -8,6 +8,30 @@ chess::Board::Board() : pieceFactory(std::make_unique<PieceFactory>()) {
     }
 }
 
+void chess::Board::checkPawnPromotion(PosType newRow, PosType newCol){
+    auto piece = mainBoard.at(newRow).at(newCol);
+    // If the piece is a pawn
+    if(std::dynamic_pointer_cast<Pawn>(piece) != nullptr){
+        Color PawnColor = piece->getColor();
+        // If black pawn is in the row 7 or white pawn is in the row 0, that pawn is promoted
+        if(PawnColor == BLACK && newRow == 7){
+            std::string name;
+            std::cout << "Black Pawn Promoted" << std::endl;
+            std::cout << "Write the name of the piece you wanna change it to (except the King) e.i Queen: ";
+            std::cin >> name;
+            mainBoard.at(newRow).at(newCol) = nullptr;
+            putPiece(name, PawnColor, newRow, newCol);
+        } else if(PawnColor == WHITE && newRow == 0){
+            std::string name;
+            std::cout << "White Pawn Promoted" << std::endl;
+            std::cout << "Write the name of the piece you wanna change it to (except the King) e.i Queen: ";
+            std::cin >> name;
+            mainBoard.at(newRow).at(newCol) = nullptr;
+            putPiece(name, PawnColor, newRow, newCol);
+        }
+    }
+}
+
 void chess::Board::checkCastling(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol) {
     if (!isMakingCastling) {
         auto king = mainBoard.at(oldRow).at(oldCol);
