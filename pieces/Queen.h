@@ -2,6 +2,7 @@
 #define PROYECTO_QUEEN_H
 
 #include "Piece.h"
+
 namespace chess {
     class Queen : public Piece {
     public:
