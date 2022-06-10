@@ -40,7 +40,7 @@ namespace chess {
                 moves.emplace_back(fromRow + off, fromCol);
             }
             // if pawn hasn`t moved, it can move 2 steps
-            if (!hasMoved) {
+            if (!hasMoved && boardData.at(fromRow + off + off).at(fromCol) == nullptr) {
                 moves.emplace_back(fromRow + off + off, fromCol);
             }
             if (numChecks != 0) {

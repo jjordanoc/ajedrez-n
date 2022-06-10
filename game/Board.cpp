@@ -123,12 +123,10 @@ void chess::Board::putKingChecked(const chess::Color &color) {
             if (piece != nullptr) {
                 if (color == BLACK) {
                     if (piece->repr() == "King0") {
-                        std::cout << "Black king is checked" << "\n";
                         std::dynamic_pointer_cast<King>(piece)->setIsInCheck(true);
                     }
                 } else if (color == WHITE) {
                     if (piece->repr() == "King1") {
-                        std::cout << "White king is checked" << "\n";
                         std::dynamic_pointer_cast<King>(piece)->setIsInCheck(true);
                     }
                 }
@@ -188,13 +186,33 @@ bool chess::Board::isCheckMate(const chess::Color &color) {
                             return false;
                         }
                     }
-                    // otherwise, the king can't escape the check
-                    return true;
+                    // otherwise, the king can't escape the check by his own
+
                 }
             }
         }
     }
-    return false;
+
+    for (int i = 0; i < BOARD_SIZE; ++i){
+        for (int j = 0; j < BOARD_SIZE; ++j){
+            if(mainBoard.at(i).at(j) != nullptr && mainBoard.at(i).at(j)->getColor() == other){
+                // check if another piece can help him
+                auto piece = mainBoard.at(i).at(j);
+                auto moves = piece->possibleMoves(i, j, mainBoard);
+                for (const auto & mv : moves) {
+                    // perform move
+                    Board tmp{};
+                    tmp.mainBoard = mainBoard;
+                    // if performing the move lets the king escape the check, then it can perform that move
+                    if (tmp.movePiece(i, j, mv.first, mv.second) && !tmp.isChecked(other)) {
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+
+    return true;
 }
 
 
