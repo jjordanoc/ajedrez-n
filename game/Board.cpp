@@ -66,11 +66,11 @@ bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, Pos
 
         if (isMakingShortCastling) {
             if (king->getColor() == BLACK) {
-                mainBoard.at(0).at(3) = std::move(mainBoard.at(0).at(7));
+                mainBoard.at(0).at(5) = std::move(mainBoard.at(0).at(7));
                 mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
                 return true;
             } else {
-                mainBoard.at(7).at(3) = std::move(mainBoard.at(7).at(7));
+                mainBoard.at(7).at(5) = std::move(mainBoard.at(7).at(7));
                 mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
                 return true;
             }
@@ -102,8 +102,18 @@ void chess::Board::putPiece(const std::string &pieceType, const Color &color, Po
 }
 
 void chess::Board::print() {
-    std::cout << std::setw(10);
+    std::cout << std::setw(20);
+    for(int i=0; i < BOARD_SIZE; i++){
+        std::cout << i << std::setw(10);
+    }
+    std::cout << std::endl;
+
+    int count = 0;
     for (const auto &row: mainBoard) {
+        if(row == mainBoard.at(count)){
+            std::cout << count << std::setw(10);
+            count++;
+        }
         for (const auto &piece: row) {
             if (piece != nullptr) {
                 std::cout << piece->repr() << std::setw(10);
@@ -207,6 +217,7 @@ bool chess::Board::isCheckMate(const chess::Color &color) {
                     if (tmp.movePiece(i, j, mv.first, mv.second) && !tmp.isChecked(other)) {
                         return false;
                     }
+                    // add positions of the pieces who can safe the king
                 }
             }
         }
@@ -239,7 +250,7 @@ bool chess::Board::isStaleMate(const chess::Color &color){
         if(countPieces == countPiecesCantMove){
             return true;
         }
-        return false;
     }
+    return false;
 };
 

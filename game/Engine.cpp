@@ -47,7 +47,7 @@ void chess::Engine::initGame() {
     board->print();
     while (true) {
         if (board->isStaleMate(chess::WHITE)) {
-            std::cout << "StaleMate :D" << std::endl;
+            std::cout << "IT'S A DRAW :D" << std::endl;
             return;
         }
         if (board->isCheckMate(chess::WHITE)){
