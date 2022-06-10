@@ -215,5 +215,31 @@ bool chess::Board::isCheckMate(const chess::Color &color) {
     return true;
 }
 
-
+bool chess::Board::isStaleMate(const chess::Color &color){
+    Color other;
+    if (color == WHITE) {
+        other = BLACK;
+    } else {
+        other = WHITE;
+    }
+    if (!isChecked(other)) {
+        int countPieces = 0;
+        int countPiecesCantMove = 0;
+        for (int i = 0; i < BOARD_SIZE; ++i){
+            for (int j = 0; j < BOARD_SIZE; ++j){
+                if(mainBoard.at(i).at(j) != nullptr && mainBoard.at(i).at(j)->getColor() == other){
+                    auto piece = mainBoard.at(i).at(j);
+                    auto moves = piece->possibleMoves(i, j, mainBoard);
+                    if(moves.empty()){
+                        countPiecesCantMove++;
+                    }
+                }
+            }
+        }
+        if(countPieces == countPiecesCantMove){
+            return true;
+        }
+        return false;
+    }
+};
 

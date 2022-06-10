@@ -46,9 +46,15 @@ void chess::Engine::initGame() {
     // Probamos si podemos seleccionar alguna pieza
     board->print();
     while (true) {
-        if (board->isCheckMate(chess::WHITE) || board->isCheckMate(chess::BLACK)) {
-//            board->print();
-            std::cout << "SE ACABÓ EL JUEGO :D" << std::endl;
+        if (board->isStaleMate(chess::WHITE)) {
+            std::cout << "StaleMate :D" << std::endl;
+            return;
+        }
+        if (board->isCheckMate(chess::WHITE)){
+            std::cout << "WHITE WON :D" << std::endl;
+            return;
+        } else if(board->isCheckMate(chess::BLACK)) {
+            std::cout << "BLACK WON :D" << std::endl;
             return;
         } else {
             std::cout << "IT IS " << turn << "'S TURN" << std::endl;
@@ -70,7 +76,6 @@ void chess::Engine::initGame() {
             if (turn == board->getPiece(row, col)->getColor()) {
                 std::vector<std::pair<PosType, PosType>> vec = board->getPiece(row, col)->possibleMoves(row, col,
                                                                                                         board->getBoardData());
-                // add more restrictions
                 for (const auto &e: vec) {
                     std::cout << "POSSIBLE MOVES: " << std::endl;
                     std::cout << e.first << " " << e.second << std::endl;
