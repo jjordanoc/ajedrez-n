@@ -2,7 +2,6 @@
 #define PROYECTO_BISHOP_H
 
 
-
 #include "Piece.h"
 namespace chess {
     class Bishop : public Piece {

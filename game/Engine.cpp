@@ -74,8 +74,7 @@ void chess::Engine::initGame() {
                 std::cout << "BLACK IS CHECKED!" << std::endl;
             }
             if (turn == board->getPiece(row, col)->getColor()) {
-                std::vector<std::pair<PosType, PosType>> vec = board->getPiece(row, col)->possibleMoves(row, col,
-                                                                                                        board->getBoardData());
+                std::vector<std::pair<PosType, PosType>> vec = board->getPiece(row, col)->possibleMoves(row, col, *board);
                 for (const auto &e: vec) {
                     std::cout << "POSSIBLE MOVES: " << std::endl;
                     std::cout << e.first << " " << e.second << std::endl;

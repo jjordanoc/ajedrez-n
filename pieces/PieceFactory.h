@@ -19,7 +19,7 @@
 
 namespace chess {
 
-    using Callback = std::function<std::shared_ptr<Piece>(Color color)>;
+    using Callback = std::function<std::shared_ptr<chess::Piece>(Color color)>;
 
     class PieceFactory {
         std::unordered_map<std::string, Callback> callbacks;

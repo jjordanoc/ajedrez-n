@@ -8,31 +8,25 @@
 
 
 
+
 namespace chess {
+    class Board;
     class Piece {
     protected:
         bool hasMoved = false;
         Color color;
         PosType value = 0;
         bool isCheckingKing = false;
-        bool inBounds(int row, int col) {
-            return row >= 0 & row < 8 & col >= 0 & col < 8;
-        }
+        bool inBounds(int row, int col);
+        virtual void addPlausibleMoves(PosType fromRow, PosType fromCol, PosType toRow, PosType toCol, std::vector<std::pair<PosType, PosType>> &moves, Board &currentBoard);
     public:
-        Piece(const Color &color) : color(color) {
-
-        }
-        Color getColor() {
-            return color;
-        }
-        bool getHasMoved() const {return hasMoved;}
-        void setHasMoved(bool h){hasMoved = h;}
-        bool getIsCheckingKing() {
-            return isCheckingKing;
-        }
+        Piece(const Color &color);
+        Color getColor();
+        bool getHasMoved();
+        void setHasMoved(bool h);
+        bool getIsCheckingKing();
         virtual std::string repr() = 0;
-        virtual std::vector<std::pair<PosType, PosType>> possibleMoves(PosType fromRow, PosType fromCol, const std::array<std::array<std::shared_ptr<Piece>, BOARD_SIZE>, BOARD_SIZE> &boardData) = 0;
-
+        virtual std::vector<std::pair<PosType, PosType>> possibleMoves(PosType fromRow, PosType fromCol, Board &currentBoard) = 0;
     };
 }
 
