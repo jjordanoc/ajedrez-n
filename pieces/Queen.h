@@ -9,6 +9,7 @@ namespace chess {
         Queen(const Color &color);
         std::string repr() override;
         std::vector<std::pair<PosType, PosType>> possibleMoves(PosType fromRow, PosType fromCol, Board &currentBoard) override;
+        void verifyPossibleChecks(PosType fromRow, PosType fromCol, Board &currentBoard) override;
     };
 }// namespace chess
 

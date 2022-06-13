@@ -47,3 +47,30 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Pawn::possibleMove
     }
     return moves;
 }
+void chess::Pawn::verifyPossibleChecks(chess::PosType fromRow, chess::PosType fromCol, chess::Board &currentBoard) {
+    auto boardData = currentBoard.getBoardData();
+    short off;
+    if (color == BLACK) {
+        off = 1;
+    } else {
+        off = -1;
+    }
+    PosType numChecks = 0;
+    for (int i = -1; i <= 1; i += 2) {
+        // Enemy in pawn's diagonal
+        if (inBounds(fromRow + off, fromCol + i)) {
+            if (boardData.at(fromRow + off).at(fromCol + i) != nullptr) {
+                if (boardData.at(fromRow + off).at(fromCol + i)->getColor() != color) {
+                    if (!(boardData.at(fromRow + off).at(fromCol + i)->repr() != "King0" && boardData.at(fromRow + off).at(fromCol + i)->repr() != "King1")) {
+                        ++numChecks;
+                    }
+                }
+            }
+        }
+    }
+    if (numChecks != 0) {
+        isCheckingKing = true;
+    } else {
+        isCheckingKing = false;
+    }
+}

@@ -165,7 +165,7 @@ bool chess::Board::isChecked(const chess::Color &color) {
             auto piece = mainBoard.at(i).at(j);
             if (piece != nullptr && piece->getColor() == other) {
                 // update the piece
-                piece->possibleMoves(i, j, *this);
+                piece->verifyPossibleChecks(i, j, *this);
                 // check if this piece is checking the king
                 if (piece->getIsCheckingKing()) {
                     chess::Board::putKingChecked(color);

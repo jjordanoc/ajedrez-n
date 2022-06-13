@@ -25,6 +25,7 @@ namespace chess {
         void setHasMoved(bool h);
         bool getIsCheckingKing();
         virtual std::string repr() = 0;
+        virtual void verifyPossibleChecks(PosType fromRow, PosType fromCol, Board &currentBoard) = 0;
         virtual std::vector<std::pair<PosType, PosType>> possibleMoves(PosType fromRow, PosType fromCol, Board &currentBoard) = 0;
     };
 }

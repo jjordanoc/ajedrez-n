@@ -67,10 +67,10 @@ void chess::Engine::initGame() {
             if (board->getPiece(row, col) == nullptr) {
                 continue;
             }
-            if (board->isChecked(chess::WHITE)) {
+            if (turn == WHITE && board->isChecked(chess::WHITE)) {
                 std::cout << "WHITE IS CHECKED!" << std::endl;
             }
-            if (board->isChecked(chess::BLACK)) {
+            if (turn == BLACK && board->isChecked(chess::BLACK)) {
                 std::cout << "BLACK IS CHECKED!" << std::endl;
             }
             if (turn == board->getPiece(row, col)->getColor()) {

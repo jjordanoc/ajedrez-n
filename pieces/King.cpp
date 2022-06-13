@@ -138,4 +138,5 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
 
     return moves;
 }
-
+void chess::King::verifyPossibleChecks(chess::PosType fromRow, chess::PosType fromCol, chess::Board &currentBoard) {
+}

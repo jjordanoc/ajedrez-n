@@ -6,13 +6,13 @@
 namespace chess {
     class King : public Piece {
         bool isChecked = false;
-
     public:
         King(const Color &color);
 
         std::string repr() override;
 
         std::vector<std::pair<PosType, PosType>> possibleMoves(PosType fromRow, PosType fromCol, Board &boardData) override;
+        void verifyPossibleChecks(PosType fromRow, PosType fromCol, Board &currentBoard) override;
 
         void setIsInCheck(bool i);
         bool getIsInCheck() const;
