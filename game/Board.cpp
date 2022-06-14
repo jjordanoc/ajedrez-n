@@ -59,13 +59,16 @@ void chess::Board::checkCastling(PosType oldRow, PosType oldCol, PosType newRow,
 }
 
 void chess::Board::checkEnPassant(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol){
-    short off = mainBoard.at(oldRow).at(oldCol)->getColor() == BLACK ? 1 : -1;
-    for (int i = 0; i < BOARD_SIZE; ++i) {
-        for (int j = 0; j < BOARD_SIZE; ++j) {
-            auto piece = std::dynamic_pointer_cast<Pawn>(mainBoard.at(i).at(j));
-            if (piece != nullptr && piece->getIsEnPassant()) {
-                if(newRow == i + off && newCol == j){
-                    isMakingEnPassant = true;
+    auto pawn = std::dynamic_pointer_cast<Pawn>(mainBoard.at(oldRow).at(oldCol));
+    if (pawn != nullptr){
+        short off = mainBoard.at(oldRow).at(oldCol)->getColor() == BLACK ? 1 : -1;
+        for (int i = 0; i < BOARD_SIZE; ++i) {
+            for (int j = 0; j < BOARD_SIZE; ++j) {
+                auto piece = std::dynamic_pointer_cast<Pawn>(mainBoard.at(i).at(j));
+                if (piece != nullptr && piece->getIsEnPassant()) {
+                    if(newRow == i + off && newCol == j){
+                        isMakingEnPassant = true;
+                    }
                 }
             }
         }
@@ -220,7 +223,6 @@ bool chess::Board::isCheckMate(const Color &color) {
             }
         }
     }
-
     return true;
 }
 
