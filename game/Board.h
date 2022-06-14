@@ -20,11 +20,13 @@ namespace chess {
         bool isMakingShortCastling = false;
         bool isMakingLongCastling = false;
         int fiftyMoveCount = 0;
+        bool isMakingEnPassant = false;
     public:
         Board();
         Board(const Board &another);
         void checkPawnPromotion(PosType newRow, PosType newCol);
         void checkCastling(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol);
+        void checkEnPassant(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol);
         bool movePiece(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol);
         std::shared_ptr<Piece> getPiece(PosType row, PosType col);
         void putPiece(const std::string &pieceType, const Color &color, PosType row, PosType col);
@@ -36,6 +38,7 @@ namespace chess {
         Color getOtherColor(const Color &color);
         BoardType &getBoardData();
         bool fiftyMoveDraw();
+        void deleteEnPassant();
     };
 
 }// namespace chess

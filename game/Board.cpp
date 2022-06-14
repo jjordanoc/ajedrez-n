@@ -58,11 +58,24 @@ void chess::Board::checkCastling(PosType oldRow, PosType oldCol, PosType newRow,
     }
 }
 
+void chess::Board::checkEnPassant(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol){
+    short off = mainBoard.at(oldRow).at(oldCol)->getColor() == BLACK ? 1 : -1;
+    for (int i = 0; i < BOARD_SIZE; ++i) {
+        for (int j = 0; j < BOARD_SIZE; ++j) {
+            auto piece = std::dynamic_pointer_cast<Pawn>(mainBoard.at(i).at(j));
+            if (piece != nullptr && piece->getIsEnPassant()) {
+                if(newRow == i + off && newCol == j){
+                    isMakingEnPassant = true;
+                }
+            }
+        }
+    }
+}
+
 bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol) {
     if (std::dynamic_pointer_cast<Pawn>(mainBoard.at(oldRow).at(oldCol)) != nullptr && abs(newRow - oldRow) == 2) {
         // create tmp piece
-
-//        std::dynamic_pointer_cast<Pawn>(mainBoard.at(oldRow).at(oldCol))->setIsEnPassant(true);
+        std::dynamic_pointer_cast<Pawn>(mainBoard.at(oldRow).at(oldCol))->setIsEnPassant(true);
     }
 
     if (std::dynamic_pointer_cast<Pawn>(mainBoard.at(oldRow).at(oldCol)) == nullptr && mainBoard.at(newRow).at(newCol) == nullptr) {
@@ -71,17 +84,7 @@ bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, Pos
         fiftyMoveCount = 0;
     }
 
-    if (!isMakingCastling) {
-        if (mainBoard.at(newRow).at(newCol) == nullptr) {
-            mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
-            return true;
-        } else if (mainBoard.at(newRow).at(newCol)->repr() != "King0" &&
-                   mainBoard.at(newRow).at(newCol)->repr() != "King1") {
-            mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
-            // This statement it's not necessary because we can validate the possible moves and this isn't a possible move
-            return true;
-        }
-    } else {
+    if(isMakingCastling){
         // We move 2 pieces, the king and the rook
         auto king = mainBoard.at(oldRow).at(oldCol);
 
@@ -89,27 +92,45 @@ bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, Pos
             if (king->getColor() == BLACK) {
                 mainBoard.at(0).at(5) = std::move(mainBoard.at(0).at(7));
                 mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
-                return true;
             } else {
                 mainBoard.at(7).at(5) = std::move(mainBoard.at(7).at(7));
                 mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
-                return true;
             }
         } else if (isMakingLongCastling) {
             if (king->getColor() == BLACK) {
                 mainBoard.at(0).at(3) = std::move(mainBoard.at(0).at(0));
                 mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
-                return true;
             } else {
                 mainBoard.at(7).at(3) = std::move(mainBoard.at(7).at(0));
                 mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
-                return true;
             }
         }
         isMakingCastling = false;
         isMakingLongCastling = false;
         isMakingShortCastling = false;
+        return true;
     }
+
+    if(isMakingEnPassant){
+        short off = mainBoard.at(oldRow).at(oldCol)->getColor() == BLACK ? 1 : -1;
+        mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
+        mainBoard.at(newRow - off).at(newCol) = nullptr;
+        std::cout << "HELOOO" << std::endl;
+        isMakingEnPassant = false;
+        return true;
+    }
+
+    if (mainBoard.at(newRow).at(newCol) == nullptr) {
+        mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
+        return true;
+    } else if (mainBoard.at(newRow).at(newCol)->repr() != "King0" &&
+               mainBoard.at(newRow).at(newCol)->repr() != "King1") {
+        mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
+        // This statement it's not necessary because we can validate the possible moves and this isn't a possible move
+        return true;
+    }
+
+
 
     return false;
 }
@@ -244,4 +265,15 @@ bool chess::Board::fiftyMoveDraw() {
         return true;
     }
     return false;
+}
+
+void chess::Board::deleteEnPassant(){
+    for (int i = 0; i < BOARD_SIZE; ++i) {
+        for (int j = 0; j < BOARD_SIZE; ++j) {
+            auto piece = std::dynamic_pointer_cast<Pawn>(mainBoard.at(i).at(j));
+            if (piece != nullptr && piece->getIsEnPassant()) {
+                piece->setIsEnPassant(false);
+            }
+        }
+    }
 }

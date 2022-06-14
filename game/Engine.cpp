@@ -90,6 +90,8 @@ void chess::Engine::initGame() {
                     } while ( std::find(begin(vec), end(vec), std::pair<PosType, PosType>(newRow, newCol)) == end(vec) );
                     board->checkCastling(row, col, newRow, newCol);
                     board->getPiece(row, col)->incrementMoveCount();
+                    board->checkEnPassant(row, col, newRow, newCol);
+                    board->deleteEnPassant();
                     board->movePiece(row, col, newRow, newCol);
                     board->checkPawnPromotion(newRow, newCol);
                     nextTurn();
