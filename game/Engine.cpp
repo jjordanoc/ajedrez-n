@@ -46,6 +46,12 @@ void chess::Engine::initGame() {
     // Probamos si podemos seleccionar alguna pieza
     board->print();
     while (true) {
+        if (turn == WHITE && board->isChecked(chess::WHITE)) {
+            std::cout << "WHITE IS CHECKED!" << std::endl;
+        }
+        if (turn == BLACK && board->isChecked(chess::BLACK)) {
+            std::cout << "BLACK IS CHECKED!" << std::endl;
+        }
         if (board->isStaleMate(chess::WHITE) || board->isStaleMate(chess::BLACK) || board->fiftyMoveDraw()) {
             std::cout << "IT'S A DRAW :D" << std::endl;
             return;
@@ -56,22 +62,20 @@ void chess::Engine::initGame() {
         } else if(board->isCheckMate(chess::BLACK)) {
             std::cout << "BLACK WON :D" << std::endl;
             return;
+
         } else {
             std::cout << "IT IS " << turn << "'S TURN" << std::endl;
             int row = 0, col = 0, newRow = 0, newCol = 0;
-            std::cout << "SELECT A PIECE (EX: 0 1): " << std::endl;
-            std::cin >> row >> col;
-            if (row == -1 || col == -1) {
-                return;
-            }
+            do{
+                std::cout << "SELECT A PIECE (EX: 0 1): " << std::endl;
+                std::cin >> row >> col;
+                if (row == -1 || col == -1) {
+                    return;
+                }
+            } while(!(row >= 0 && row < 8 && col >= 0 && col < 8));
+
             if (board->getPiece(row, col) == nullptr) {
                 continue;
-            }
-            if (turn == WHITE && board->isChecked(chess::WHITE)) {
-                std::cout << "WHITE IS CHECKED!" << std::endl;
-            }
-            if (turn == BLACK && board->isChecked(chess::BLACK)) {
-                std::cout << "BLACK IS CHECKED!" << std::endl;
             }
             if (turn == board->getPiece(row, col)->getColor()) {
                 std::vector<std::pair<PosType, PosType>> vec = board->getPiece(row, col)->possibleMoves(row, col, *board);

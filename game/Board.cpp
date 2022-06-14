@@ -118,7 +118,6 @@ bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, Pos
         short off = mainBoard.at(oldRow).at(oldCol)->getColor() == BLACK ? 1 : -1;
         mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
         mainBoard.at(newRow - off).at(newCol) = nullptr;
-        std::cout << "HELOOO" << std::endl;
         isMakingEnPassant = false;
         return true;
     }
@@ -215,7 +214,7 @@ bool chess::Board::isCheckMate(const Color &color) {
     for (int i = 0; i < BOARD_SIZE; ++i) {
         for (int j = 0; j < BOARD_SIZE; ++j) {
             auto piece = mainBoard.at(i).at(j);
-            if (piece != nullptr && piece->getColor() == color) {
+            if (piece != nullptr && piece->getColor() == getOtherColor(color)) {
                 // check if another piece can help him
                 if (!(piece->possibleMoves(i, j, *this).empty())) {
                     return false;
@@ -259,7 +258,7 @@ chess::Color chess::Board::getOtherColor(const chess::Color &color) {
     } else {
         other = WHITE;
     }
-    return color;
+    return other;
 }
 
 bool chess::Board::fiftyMoveDraw() {
