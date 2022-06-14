@@ -59,6 +59,18 @@ void chess::Board::checkCastling(PosType oldRow, PosType oldCol, PosType newRow,
 }
 
 bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol) {
+    if (std::dynamic_pointer_cast<Pawn>(mainBoard.at(oldRow).at(oldCol)) != nullptr && abs(newRow - oldRow) == 2) {
+        // create tmp piece
+
+//        std::dynamic_pointer_cast<Pawn>(mainBoard.at(oldRow).at(oldCol))->setIsEnPassant(true);
+    }
+
+    if (std::dynamic_pointer_cast<Pawn>(mainBoard.at(oldRow).at(oldCol)) == nullptr && mainBoard.at(newRow).at(newCol) == nullptr) {
+        fiftyMoveCount++;
+    } else {
+        fiftyMoveCount = 0;
+    }
+
     if (!isMakingCastling) {
         if (mainBoard.at(newRow).at(newCol) == nullptr) {
             mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
@@ -227,3 +239,9 @@ chess::Color chess::Board::getOtherColor(const chess::Color &color) {
     return color;
 }
 
+bool chess::Board::fiftyMoveDraw() {
+    if (fiftyMoveCount == 50) {
+        return true;
+    }
+    return false;
+}

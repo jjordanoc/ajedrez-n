@@ -13,6 +13,7 @@ chess::Color chess::Piece::getColor() {
 bool chess::Piece::getIsCheckingKing() {
     return isCheckingKing;
 }
+
 void chess::Piece::addPlausibleMoves(chess::PosType fromRow, chess::PosType fromCol, chess::PosType toRow, chess::PosType toCol, std::vector<std::pair<PosType, PosType>> &moves, Board &currentBoard) {
     // if our king is checked, the only plausible thing to do is to block the check or eat the piece checking
     Board tmp(currentBoard);

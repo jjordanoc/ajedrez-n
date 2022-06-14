@@ -29,6 +29,15 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Pawn::possibleMove
                         ++numChecks;
                     }
                 }
+            } else {
+                for (int j = 0; j < BOARD_SIZE; j++) {
+                    for (int k = 0; k < BOARD_SIZE; k++) {
+                        auto piece = std::dynamic_pointer_cast<Pawn>(boardData.at(j).at(k));
+                        if (piece != nullptr && piece->getColor() != color && piece->getIsEnPassant() && j - off == fromRow + off && k == fromCol + i) {
+                            addPlausibleMoves(fromRow, fromCol, fromRow + off, fromCol + i, moves, currentBoard);
+                        }
+                    }
+                }
             }
         }
     }

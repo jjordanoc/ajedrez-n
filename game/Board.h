@@ -19,7 +19,7 @@ namespace chess {
         bool isMakingCastling = false;
         bool isMakingShortCastling = false;
         bool isMakingLongCastling = false;
-
+        int fiftyMoveCount = 0;
     public:
         Board();
         Board(const Board &another);
@@ -35,6 +35,7 @@ namespace chess {
         bool isStaleMate(const chess::Color &color);
         Color getOtherColor(const Color &color);
         BoardType &getBoardData();
+        bool fiftyMoveDraw();
     };
 
 }// namespace chess

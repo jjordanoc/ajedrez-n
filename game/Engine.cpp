@@ -46,7 +46,7 @@ void chess::Engine::initGame() {
     // Probamos si podemos seleccionar alguna pieza
     board->print();
     while (true) {
-        if (board->isStaleMate(chess::WHITE)) {
+        if (board->isStaleMate(chess::WHITE) || board->isStaleMate(chess::BLACK) || board->fiftyMoveDraw()) {
             std::cout << "IT'S A DRAW :D" << std::endl;
             return;
         }
@@ -75,16 +75,19 @@ void chess::Engine::initGame() {
             }
             if (turn == board->getPiece(row, col)->getColor()) {
                 std::vector<std::pair<PosType, PosType>> vec = board->getPiece(row, col)->possibleMoves(row, col, *board);
+
                 for (const auto &e: vec) {
-                    std::cout << "POSSIBLE MOVES: " << std::endl;
+                    std::cout << "POSSIBLE MOVE: " << std::endl;
                     std::cout << e.first << " " << e.second << std::endl;
                 }
                 if (!vec.empty()) {
-                    std::cout << "SELECT A MOVE (EX: 0 1): " << std::endl;
-                    std::cin >> newRow >> newCol;
-                    if (newRow == -1 || newCol == -1) {
-                        return;
-                    }
+                    do{
+                        std::cout << "SELECT A MOVE (EX: 0 1): " << std::endl;
+                        std::cin >> newRow >> newCol;
+                        if (newRow == -1 || newCol == -1) {
+                            return;
+                        }
+                    } while ( std::find(begin(vec), end(vec), std::pair<PosType, PosType>(newRow, newCol)) == end(vec) );
                     board->checkCastling(row, col, newRow, newCol);
                     board->getPiece(row, col)->incrementMoveCount();
                     board->movePiece(row, col, newRow, newCol);

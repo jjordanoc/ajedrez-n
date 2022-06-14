@@ -41,6 +41,9 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Bishop::possibleMo
 
         }
     }
+
+
+
     if (numChecks != 0) {
         isCheckingKing = true;
     } else {
