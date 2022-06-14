@@ -26,20 +26,11 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
                     if(boardData.at(fromRow + i).at(fromCol + j)->getColor() != color){
                         if(boardData.at(fromRow + i).at(fromCol + j)->repr() != "King0" &&
                             boardData.at(fromRow + i).at(fromCol + j)->repr() != "King1"){
-                            // check if potential move actually puts king in a check state
-                            Board tmp(currentBoard);
-                            if (tmp.movePiece(fromRow, fromCol, fromRow+i, fromCol+j) && !tmp.isChecked(color)) {
-                                moves.emplace_back(fromRow + i, fromCol + j);
-                            }
+                            addPlausibleMoves(fromRow, fromCol, fromRow+i, fromCol+j, moves, currentBoard);
                         }
                     }
                 } else {
-                    // check if potential move actually puts king in a check state
-                    Board tmp(currentBoard);
-                    if (tmp.movePiece(fromRow, fromCol, fromRow+i, fromCol+j) && !tmp.isChecked(color)) {
-                        moves.emplace_back(fromRow + i, fromCol + j);
-                    }
-                    moves.emplace_back(fromRow + i, fromCol + j);
+                    addPlausibleMoves(fromRow, fromCol, fromRow+i, fromCol+j, moves, currentBoard);
                 }
             }
         }
@@ -47,7 +38,7 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
 
     // Castling's logic
     // Check if king has moved
-    if (!hasMoved && !isChecked) {
+    if (moveCount == 0 && !isChecked) {
         if (color == BLACK) {
             // Check long Castling
             // Check if the nearest rook has moved
@@ -57,8 +48,8 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
                 boardData.at(0).at(3) == nullptr) {
                 auto farthest_rook = boardData.at(0).at(0);
                 if (farthest_rook->getColor() == BLACK) {
-                    if (!farthest_rook->getHasMoved()) {
-                        moves.emplace_back(0, 2);
+                    if (farthest_rook->getMoveCount() == 0) {
+                        addPlausibleMoves(fromRow, fromCol, 0, 2, moves, currentBoard);
                     }
                 }
             }
@@ -70,8 +61,8 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
                 boardData.at(0).at(5) == nullptr) {
                 auto nearest_rook = boardData.at(0).at(7);
                 if (nearest_rook->getColor() == BLACK) {
-                    if (!nearest_rook->getHasMoved()) {
-                        moves.emplace_back(0, 6);
+                    if (nearest_rook->getMoveCount() == 0) {
+                        addPlausibleMoves(fromRow, fromCol, 0, 6, moves, currentBoard);
                     }
                 }
             }
@@ -84,8 +75,8 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
                 boardData.at(7).at(3) == nullptr) {
                 auto farthest_rook = boardData.at(7).at(0);
                 if (farthest_rook->getColor() == WHITE) {
-                    if (!farthest_rook->getHasMoved()) {
-                        moves.emplace_back(7, 2);
+                    if (farthest_rook->getMoveCount() == 0) {
+                        addPlausibleMoves(fromRow, fromCol, 7, 2, moves, currentBoard);
                     }
                 }
             }
@@ -97,45 +88,13 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
                 boardData.at(7).at(5) == nullptr) {
                 auto nearest_rook = boardData.at(7).at(7);
                 if (nearest_rook->getColor() == WHITE) {
-                    if (!nearest_rook->getHasMoved()) {
-                        moves.emplace_back(7, 6);
+                    if (nearest_rook->getMoveCount() == 0) {
+                        addPlausibleMoves(fromRow, fromCol, 7, 6, moves, currentBoard);
                     }
                 }
             }
         }
     }
-
-    // Checkmate's logic
-    if (color == BLACK) {
-        // Check Short Castling
-        // Check if the nearest rook has moved
-        if (boardData.at(0).at(0) != nullptr &&
-            boardData.at(0).at(1) == nullptr &&
-            boardData.at(0).at(2) == nullptr) {
-            auto nearest_rook = boardData.at(0).at(0);
-            if (nearest_rook->getColor() == BLACK) {
-                if (!nearest_rook->getHasMoved()) {
-                    moves.emplace_back(0, 1);
-                }
-            }
-        }
-
-        // Check Long Castling
-        // Check if the farthest rook has moved
-        if (boardData.at(0).at(7) != nullptr &&
-            boardData.at(0).at(6) == nullptr &&
-            boardData.at(0).at(5) == nullptr &&
-            boardData.at(0).at(4) == nullptr) {
-            auto farthest_rook = boardData.at(0).at(7);
-            if (farthest_rook->getColor() == BLACK) {
-                if (!farthest_rook->getHasMoved()) {
-                    moves.emplace_back(0, 5);
-                }
-            }
-        }
-    }
-
-
     return moves;
 }
 void chess::King::verifyPossibleChecks(chess::PosType fromRow, chess::PosType fromCol, chess::Board &currentBoard) {

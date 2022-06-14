@@ -33,6 +33,7 @@ namespace chess {
         bool isChecked(const Color &color);
         bool isCheckMate(const chess::Color &color);
         bool isStaleMate(const chess::Color &color);
+        Color getOtherColor(const Color &color);
         BoardType &getBoardData();
     };
 

@@ -1,5 +1,6 @@
 #include "Bishop.h"
 #include "../game/Board.h"
+#include "Pawn.h"
 
 chess::Bishop::Bishop(const Color &color) : Piece(color) {}
 
@@ -37,6 +38,7 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Bishop::possibleMo
                     addPlausibleMoves(fromRow, fromCol, pos.first, pos.second, moves, currentBoard);
                 }
             }
+
         }
     }
     if (numChecks != 0) {

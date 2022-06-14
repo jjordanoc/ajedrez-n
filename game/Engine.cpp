@@ -86,7 +86,7 @@ void chess::Engine::initGame() {
                         return;
                     }
                     board->checkCastling(row, col, newRow, newCol);
-                    board->getPiece(row, col)->setHasMoved(true);
+                    board->getPiece(row, col)->incrementMoveCount();
                     board->movePiece(row, col, newRow, newCol);
                     board->checkPawnPromotion(newRow, newCol);
                     nextTurn();

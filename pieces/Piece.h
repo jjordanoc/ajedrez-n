@@ -12,17 +12,17 @@ namespace chess {
     class Board;
     class Piece {
     protected:
-        bool hasMoved = false;
+        PosType moveCount = 0;
         Color color;
         PosType value = 0;
         bool isCheckingKing = false;
         bool inBounds(int row, int col);
-        virtual void addPlausibleMoves(PosType fromRow, PosType fromCol, PosType toRow, PosType toCol, std::vector<std::pair<PosType, PosType>> &moves, Board &currentBoard);
+        void addPlausibleMoves(PosType fromRow, PosType fromCol, PosType toRow, PosType toCol, std::vector<std::pair<PosType, PosType>> &moves, Board &currentBoard);
     public:
         Piece(const Color &color);
         Color getColor();
-        bool getHasMoved();
-        void setHasMoved(bool h);
+        PosType getMoveCount();
+        virtual void incrementMoveCount();
         bool getIsCheckingKing();
         virtual std::string repr() = 0;
         virtual void verifyPossibleChecks(PosType fromRow, PosType fromCol, Board &currentBoard) = 0;

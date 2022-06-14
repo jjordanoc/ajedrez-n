@@ -34,13 +34,13 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Queen::possibleMov
                     flags.at(key) = true;
                     if (boardData.at(pos.first).at(pos.second)->getColor() != color) {
                         if (boardData.at(pos.first).at(pos.second)->repr() != "King0" && boardData.at(pos.first).at(pos.second)->repr() != "King1") {
-                            moves.emplace_back(pos.first, pos.second);
+                            addPlausibleMoves(fromRow, fromCol, pos.first, pos.second, moves, currentBoard);
                         } else {
                             ++numChecks;
                         }
                     }
                 } else {
-                    moves.emplace_back(pos.first, pos.second);
+                    addPlausibleMoves(fromRow, fromCol, pos.first, pos.second, moves, currentBoard);
                 }
             }
         }

@@ -1,5 +1,6 @@
 #include "Board.h"
 
+
 chess::Board::Board() : pieceFactory(std::make_shared<PieceFactory>()) {
     for (auto &row: mainBoard) {
         for (auto &col: row) {
@@ -154,21 +155,15 @@ void chess::Board::putKingChecked(const chess::Color &color) {
 }
 
 bool chess::Board::isChecked(const chess::Color &color) {
-    Color other;
-    if (color == WHITE) {
-        other = BLACK;
-    } else {
-        other = WHITE;
-    }
     for (int i = 0; i < BOARD_SIZE; ++i) {
         for (int j = 0; j < BOARD_SIZE; ++j) {
             auto piece = mainBoard.at(i).at(j);
-            if (piece != nullptr && piece->getColor() == other) {
+            if (piece != nullptr && piece->getColor() == getOtherColor(color)) {
                 // update the piece
                 piece->verifyPossibleChecks(i, j, *this);
                 // check if this piece is checking the king
                 if (piece->getIsCheckingKing()) {
-                    chess::Board::putKingChecked(color);
+                    putKingChecked(color);
                     return true;
                 }
             }
@@ -178,52 +173,16 @@ bool chess::Board::isChecked(const chess::Color &color) {
 }
 
 bool chess::Board::isCheckMate(const Color &color) {
-    Color other;
-    if (color == WHITE) {
-        other = BLACK;
-    } else {
-        other = WHITE;
-    }
-    if (!isChecked(other)) {
+    if (!isChecked(getOtherColor(color))) {
         return false;
     }
     for (int i = 0; i < BOARD_SIZE; ++i) {
         for (int j = 0; j < BOARD_SIZE; ++j) {
             auto piece = mainBoard.at(i).at(j);
-            if (piece != nullptr && piece->getColor() == other && (piece->repr() == "King0" || piece->repr() == "King1")) {
-                if (std::dynamic_pointer_cast<King>(piece)->getIsInCheck()) {
-                    // check if king can escape a checked state by moving
-                    auto moves = piece->possibleMoves(i, j, *this);
-                    for (const auto &mv: moves) {
-                        // perform move
-                        Board tmp{};
-                        tmp.mainBoard = mainBoard;
-                        // if performing the move lets the king escape the check, then it can perform that move
-                        if (tmp.movePiece(i, j, mv.first, mv.second) && !tmp.isChecked(other)) {
-                            return false;
-                        }
-                    }
-                    // otherwise, the king can't escape the check by his own
-                }
-            }
-        }
-    }
-
-    for (int i = 0; i < BOARD_SIZE; ++i) {
-        for (int j = 0; j < BOARD_SIZE; ++j) {
-            if (mainBoard.at(i).at(j) != nullptr && mainBoard.at(i).at(j)->getColor() == other) {
+            if (piece != nullptr && piece->getColor() == color) {
                 // check if another piece can help him
-                auto piece = mainBoard.at(i).at(j);
-                auto moves = piece->possibleMoves(i, j, *this);
-                for (const auto &mv: moves) {
-                    // perform move
-                    Board tmp{};
-                    tmp.mainBoard = mainBoard;
-                    // if performing the move lets the king escape the check, then it can perform that move
-                    if (tmp.movePiece(i, j, mv.first, mv.second) && !tmp.isChecked(other)) {
-                        return false;
-                    }
-                    // add positions of the pieces who can safe the king
+                if (!(piece->possibleMoves(i, j, *this).empty())) {
+                    return false;
                 }
             }
         }
@@ -233,18 +192,13 @@ bool chess::Board::isCheckMate(const Color &color) {
 }
 
 bool chess::Board::isStaleMate(const chess::Color &color) {
-    Color other;
-    if (color == WHITE) {
-        other = BLACK;
-    } else {
-        other = WHITE;
-    }
-    if (!isChecked(other)) {
+    if (!isChecked(getOtherColor(color))) {
         int countPieces = 0;
         int countPiecesCantMove = 0;
         for (int i = 0; i < BOARD_SIZE; ++i) {
             for (int j = 0; j < BOARD_SIZE; ++j) {
-                if (mainBoard.at(i).at(j) != nullptr && mainBoard.at(i).at(j)->getColor() == other) {
+                if (mainBoard.at(i).at(j) != nullptr && mainBoard.at(i).at(j)->getColor() == getOtherColor(color)) {
+                    ++countPieces;
                     auto piece = mainBoard.at(i).at(j);
                     auto moves = piece->possibleMoves(i, j, *this);
                     if (moves.empty()) {
@@ -262,5 +216,14 @@ bool chess::Board::isStaleMate(const chess::Color &color) {
 
 chess::BoardType &chess::Board::getBoardData() {
     return mainBoard;
+}
+chess::Color chess::Board::getOtherColor(const chess::Color &color) {
+    Color other;
+    if (color == WHITE) {
+        other = BLACK;
+    } else {
+        other = WHITE;
+    }
+    return color;
 }
 
