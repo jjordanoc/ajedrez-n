@@ -31,7 +31,7 @@ namespace chess {
         std::shared_ptr<Piece> getPiece(PosType row, PosType col);
         void putPiece(const std::string &pieceType, const Color &color, PosType row, PosType col);
         void print() const;
-        void putKingChecked(const Color &color);
+        void putKingChecked(const Color &color, bool checked);
         bool isChecked(const Color &color);
         bool isCheckMate(const chess::Color &color);
         bool isStaleMate(const chess::Color &color);

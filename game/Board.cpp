@@ -170,18 +170,18 @@ void chess::Board::print() const {
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 }
 
-void chess::Board::putKingChecked(const chess::Color &color) {
+void chess::Board::putKingChecked(const chess::Color &color, bool checked) {
     for (int i = 0; i < BOARD_SIZE; ++i) {
         for (int j = 0; j < BOARD_SIZE; ++j) {
             auto piece = mainBoard.at(i).at(j);
             if (piece != nullptr) {
                 if (color == BLACK) {
                     if (piece->repr() == "King0") {
-                        std::dynamic_pointer_cast<King>(piece)->setIsInCheck(true);
+                        std::dynamic_pointer_cast<King>(piece)->setIsInCheck(checked);
                     }
                 } else if (color == WHITE) {
                     if (piece->repr() == "King1") {
-                        std::dynamic_pointer_cast<King>(piece)->setIsInCheck(true);
+                        std::dynamic_pointer_cast<King>(piece)->setIsInCheck(checked);
                     }
                 }
             }
@@ -198,12 +198,13 @@ bool chess::Board::isChecked(const chess::Color &color) {
                 piece->verifyPossibleChecks(i, j, *this);
                 // check if this piece is checking the king
                 if (piece->getIsCheckingKing()) {
-                    putKingChecked(color);
+                    putKingChecked(color, true);
                     return true;
                 }
             }
         }
     }
+    putKingChecked(color, false);
     return false;
 }
 

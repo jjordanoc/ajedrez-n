@@ -16,6 +16,7 @@ namespace chess {
 
         void setIsInCheck(bool i);
         bool getIsInCheck() const;
+        bool checkIsCheck(PosType fromRow, PosType fromCol, PosType toRow, PosType toCol, Board &currentBoard);
     };
 }// namespace chess
 
