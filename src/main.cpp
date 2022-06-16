@@ -1,8 +1,7 @@
 #include "frontend/Game.h"
 
 
-int main()
-{
+int main() {
     auto game = Game::getInstance();
     game->run();
 }

@@ -1,7 +1,7 @@
 #include "MainMenu.h"
 
 MainMenu::MainMenu() {
-    string font_path = "../assets/fonts/Montserrat-Thin.ttf";
+    string font_path = "../src/frontend/assets/fonts/Montserrat-Thin.ttf";
 
     // Titulo
     mainMenuTitle = new Label(font_path, sf::Color::White, "AJEDREZ^n", 100, 200, 50);
@@ -19,7 +19,7 @@ MainMenu::MainMenu() {
     optionMenu = 0;
 
     // Cargar el fondo
-    backgroundTexture.loadFromFile("../assets/textures/backgroundMenu2.jpg");
+    backgroundTexture.loadFromFile("../src/frontend/assets/textures/backgroundMenu2.jpg");
     background.setSize(sf::Vector2f(960, 720));
     background.setTexture(&backgroundTexture);
 }

@@ -13,28 +13,29 @@
 
 using namespace std;
 
-class MainMenu: public State{
+class MainMenu : public State {
 private:
     int optionMenu;
     sf::Font font;
-    Label* mainMenuTitle;
-    Label* mainMenuLabel[Max_main_menu]{};
+    Label *mainMenuTitle;
+    Label *mainMenuLabel[Max_main_menu]{};
 
     // Declarar el fondo
     sf::Texture backgroundTexture;
     sf::RectangleShape background;
 
     bool inMenu = true;
+
 public:
     MainMenu();
 
-    void draw(sf::RenderWindow& window) override;
+    void draw(sf::RenderWindow &window) override;
 
-    void handleEvents(sf::RenderWindow& window) override;
+    void handleEvents(sf::RenderWindow &window) override;
 
-    void render(sf::RenderWindow& window) override;
+    void render(sf::RenderWindow &window) override;
 
-    void update(sf::RenderWindow& window, int& currentState) override;
+    void update(sf::RenderWindow &window, int &currentState) override;
 
     void moveUp();
     void moveDown();
@@ -47,4 +48,4 @@ public:
 };
 
 
-#endif //PROYECTOPROGRA2_MAINMENU_H
+#endif//PROYECTOPROGRA2_MAINMENU_H

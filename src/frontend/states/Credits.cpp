@@ -1,7 +1,7 @@
 #include "Credits.h"
 
 Credits::Credits() {
-    string font_path = "../assets/fonts/Montserrat-Thin.ttf";
+    string font_path = "../src/frontend/assets/fonts/Montserrat-Thin.ttf";
 
     // Titulo
     title = new Label(font_path, sf::Color::White, "AJEDREZ^n", 100, 200, 50);
@@ -16,7 +16,7 @@ Credits::Credits() {
     membersLabel[4] = new Label(font_path, sf::Color::White, "Nicolas Arroyo", 70, 200, 700);
 
     // Cargar el fondo
-    backgroundTexture.loadFromFile("../assets/textures/backgroundMenu2.jpg");
+    backgroundTexture.loadFromFile("../src/frontend/assets/textures/backgroundMenu2.jpg");
     background.setSize(sf::Vector2f(960, 720));
     background.setTexture(&backgroundTexture);
 }

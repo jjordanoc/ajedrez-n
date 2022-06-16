@@ -2,12 +2,12 @@
 
 Game::Game() {
     // States
-    states[0] = new MainMenu();
-//    states[1] = new Play();
-//    states[2] = new Options();
-    states[3] = new Credits();
+    states[0] = (State *)(new MainMenu());
+    //    states[1] = new Play();
+    //    states[2] = new Options();
+    states[3] = (State *)(new Credits());
 
-    currentState = 0;  // empezamos en el menu principal
+    currentState = 0;// empezamos en el menu principal
 }
 
 void Game::run() {
