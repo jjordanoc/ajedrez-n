@@ -7,6 +7,7 @@ set(SFML_STATIC_LIBRARIES TRUE)
 find_package(SFML COMPONENTS graphics audio REQUIRED)
 
 file(GLOB_RECURSE SOURCES LIST_DIRECTORIES true backend/*.h backend/*.cpp frontend/*.h frontend/*.cpp main.cpp)
+file(GLOB_RECURSE SOURCES_BACKEND LIST_DIRECTORIES true backend/*.h backend/*.cpp)
 
 set(SOURCES ${SOURCES})
 
@@ -14,5 +15,5 @@ add_executable(${BINARY} ${SOURCES})
 
 target_link_libraries(${BINARY} sfml-graphics sfml-audio sfml-window sfml-system)
 
-add_library(${BINARY}_lib STATIC ${SOURCES})
+add_library(${BINARY}_lib STATIC ${SOURCES_BACKEND})
 
