@@ -9,6 +9,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../global/Paths.h"
+
 #define Max_main_menu 4
 
 using namespace std;

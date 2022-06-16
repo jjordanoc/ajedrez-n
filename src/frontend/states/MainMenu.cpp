@@ -1,25 +1,23 @@
 #include "MainMenu.h"
 
 MainMenu::MainMenu() {
-    string font_path = "../src/frontend/assets/fonts/Montserrat-Thin.ttf";
-
     // Titulo
-    mainMenuTitle = new Label(font_path, sf::Color::White, "AJEDREZ^n", 100, 200, 50);
+    mainMenuTitle = new Label(FONT_PATH, sf::Color::White, "AJEDREZ^n", 100, 200, 50);
 
     //Opcion play
-    mainMenuLabel[0] = new Label(font_path, sf::Color::White, "Jugar", 70, 400, 200);
+    mainMenuLabel[0] = new Label(FONT_PATH, sf::Color::White, "Jugar", 70, 400, 200);
     //Opcion opciones
-    mainMenuLabel[1] = new Label(font_path, sf::Color::White, "Opciones", 70, 400, 300);
+    mainMenuLabel[1] = new Label(FONT_PATH, sf::Color::White, "Opciones", 70, 400, 300);
     //Opcion créditos
-    mainMenuLabel[2] = new Label(font_path, sf::Color::White, "Credits", 70, 400, 400);
+    mainMenuLabel[2] = new Label(FONT_PATH, sf::Color::White, "Credits", 70, 400, 400);
     //Opcion salir
-    mainMenuLabel[3] = new Label(font_path, sf::Color::White, "Salir", 70, 400, 500);
+    mainMenuLabel[3] = new Label(FONT_PATH, sf::Color::White, "Salir", 70, 400, 500);
 
     mainMenuLabel[0]->setFillColor(sf::Color::Black);  // comienza en negro ya que es la opcion por defecto
     optionMenu = 0;
 
     // Cargar el fondo
-    backgroundTexture.loadFromFile("../src/frontend/assets/textures/backgroundMenu2.jpg");
+    backgroundTexture.loadFromFile(BACKGROUND_PATH);
     background.setSize(sf::Vector2f(960, 720));
     background.setTexture(&backgroundTexture);
 }

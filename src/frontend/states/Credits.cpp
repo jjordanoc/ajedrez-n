@@ -1,22 +1,20 @@
 #include "Credits.h"
 
 Credits::Credits() {
-    string font_path = "../src/frontend/assets/fonts/Montserrat-Thin.ttf";
-
     // Titulo
-    title = new Label(font_path, sf::Color::White, "AJEDREZ^n", 100, 200, 50);
+    title = new Label(FONT_PATH, sf::Color::White, "AJEDREZ^n", 100, 200, 50);
 
     // Credits
-    creditosLabel = new Label(font_path, sf::Color::White, "Credits:", 80, 200, 200);
+    creditosLabel = new Label(FONT_PATH, sf::Color::White, "Credits:", 80, 200, 200);
     // Integrantes
-    membersLabel[0] = new Label(font_path, sf::Color::White, "Josue Arriaga", 70, 200, 300);
-    membersLabel[1] = new Label(font_path, sf::Color::White, "Jose Chachi", 70, 200, 400);
-    membersLabel[2] = new Label(font_path, sf::Color::White, "Joaquin O'connor", 70, 200, 500);
-    membersLabel[3] = new Label(font_path, sf::Color::White, "Nicolas Arroyo", 70, 200, 600);
-    membersLabel[4] = new Label(font_path, sf::Color::White, "Nicolas Arroyo", 70, 200, 700);
+    membersLabel[0] = new Label(FONT_PATH, sf::Color::White, "Josue Arriaga", 70, 200, 300);
+    membersLabel[1] = new Label(FONT_PATH, sf::Color::White, "Jose Chachi", 70, 200, 400);
+    membersLabel[2] = new Label(FONT_PATH, sf::Color::White, "Joaquin O'connor", 70, 200, 500);
+    membersLabel[3] = new Label(FONT_PATH, sf::Color::White, "Nicolas Arroyo", 70, 200, 600);
+    membersLabel[4] = new Label(FONT_PATH, sf::Color::White, "Nicolas Arroyo", 70, 200, 700);
 
     // Cargar el fondo
-    backgroundTexture.loadFromFile("../src/frontend/assets/textures/backgroundMenu2.jpg");
+    backgroundTexture.loadFromFile(BACKGROUND_PATH);
     background.setSize(sf::Vector2f(960, 720));
     background.setTexture(&backgroundTexture);
 }

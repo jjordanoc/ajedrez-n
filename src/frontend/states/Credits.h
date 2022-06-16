@@ -8,8 +8,11 @@
 
 #include "../states/State.h"
 #include "../graphics/Label.h"
+#include "../global/Paths.h"
 
 #include <SFML/Graphics.hpp>
+
+
 
 #define members 5
 
