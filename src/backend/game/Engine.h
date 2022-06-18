@@ -18,6 +18,7 @@ namespace chess {
         void initBoard();
         void initGame();
         void nextTurn();
+        unsigned long long Perft(int depth);
         ~Engine();
     };
 

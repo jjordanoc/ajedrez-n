@@ -2,10 +2,11 @@
 // Created by renato on 6/16/2022.
 //
 
-#include "gtest/gtest.h"
 #include "iostream"
+#include "gtest/gtest.h"
 
-class IATest : public ::testing::Test{
+
+class IATest : public ::testing::Test {
 protected:
     void SetUp() override {
         std::cout << "Set up" << std::endl;
@@ -17,10 +18,10 @@ protected:
 };
 
 // TEST_F allows you to access
-TEST_F(IATest, CanMovePiece){
-    ASSERT_EQ(1, 1);
-}
-
-TEST_F(IATest, FailTest){
-    ASSERT_EQ(1, 0);
-}
+//TEST_F(IATest, CanMovePiece) {
+//    ASSERT_EQ(1, 1);
+//}
+//
+//TEST_F(IATest, FailTest) {
+//    ASSERT_EQ(1, 0);
+//}

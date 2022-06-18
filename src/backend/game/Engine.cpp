@@ -56,23 +56,23 @@ void chess::Engine::initGame() {
             std::cout << "IT'S A DRAW :D" << std::endl;
             return;
         }
-        if (board->isCheckMate(chess::WHITE)){
+        if (board->isCheckMate(chess::WHITE)) {
             std::cout << "WHITE WON :D" << std::endl;
             return;
-        } else if(board->isCheckMate(chess::BLACK)) {
+        } else if (board->isCheckMate(chess::BLACK)) {
             std::cout << "BLACK WON :D" << std::endl;
             return;
 
         } else {
             std::cout << "IT IS " << turn << "'S TURN" << std::endl;
             int row = 0, col = 0, newRow = 0, newCol = 0;
-            do{
+            do {
                 std::cout << "SELECT A PIECE (EX: 0 1): " << std::endl;
                 std::cin >> row >> col;
                 if (row == -1 || col == -1) {
                     return;
                 }
-            } while(!(row >= 0 && row < 8 && col >= 0 && col < 8));
+            } while (!(row >= 0 && row < 8 && col >= 0 && col < 8));
 
             if (board->getPiece(row, col) == nullptr) {
                 continue;
@@ -85,13 +85,13 @@ void chess::Engine::initGame() {
                     std::cout << e.first << " " << e.second << std::endl;
                 }
                 if (!vec.empty()) {
-                    do{
+                    do {
                         std::cout << "SELECT A MOVE (EX: 0 1): " << std::endl;
                         std::cin >> newRow >> newCol;
                         if (newRow == -1 || newCol == -1) {
                             return;
                         }
-                    } while ( std::find(begin(vec), end(vec), std::pair<PosType, PosType>(newRow, newCol)) == end(vec) );
+                    } while (std::find(begin(vec), end(vec), std::pair<PosType, PosType>(newRow, newCol)) == end(vec));
                     board->checkCastling(row, col, newRow, newCol);
                     board->getPiece(row, col)->incrementMoveCount();
                     board->checkEnPassant(row, col, newRow, newCol);
@@ -125,4 +125,25 @@ void chess::Engine::nextTurn() {
     } else {
         turn = BLACK;
     }
+}
+
+unsigned long long chess::Engine::Perft(int depth) {
+    unsigned long long nodes = 0;
+    if (depth == 0) {
+        return 1ULL;
+    }
+    for (unsigned long long i = 0; i < BOARD_SIZE; ++i) {
+        for (unsigned long long j = 0; j < BOARD_SIZE; ++j) {
+            auto moves = board->getPiece(i, j)->possibleMoves(i, j, *board);
+            if (!moves.empty()) {
+                for (const auto &m : moves) {
+                    Board tmp;
+                    tmp.movePiece(i, j, m.first, m.second);
+                    nodes += Perft(depth - 1);
+                }
+
+            }
+        }
+    }
+    return nodes;
 }
