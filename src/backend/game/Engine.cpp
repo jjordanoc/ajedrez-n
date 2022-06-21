@@ -78,7 +78,8 @@ void chess::Engine::initGame() {
                 continue;
             }
             if (turn == board->getPiece(row, col)->getColor()) {
-                std::vector<std::pair<PosType, PosType>> vec = board->getPiece(row, col)->possibleMoves(row, col, *board);
+                std::vector<std::pair<PosType, PosType>> vec = board->getPiece(row, col)->possibleMoves(row, col,
+                                                                                                        *board);
 
                 for (const auto &e: vec) {
                     std::cout << "POSSIBLE MOVE: " << std::endl;
@@ -140,7 +141,7 @@ unsigned long long chess::Engine::Perft(int depth) {
             }
             auto moves = piece->possibleMoves(i, j, *board);
             if (!moves.empty()) {
-                for (const auto &m : moves) {
+                for (const auto &m: moves) {
                     Board tmp;
                     tmp.movePiece(i, j, m.first, m.second);
                     nodes += Perft(depth - 1);
@@ -150,4 +151,8 @@ unsigned long long chess::Engine::Perft(int depth) {
         }
     }
     return nodes;
+}
+
+chess::Board &chess::Engine::getBoard() {
+    return *board;
 }

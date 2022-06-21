@@ -14,7 +14,7 @@ namespace chess {
     protected:
         PosType moveCount = 0;
         Color color;
-        PosType value = 0;
+        int value = 0;
         bool isCheckingKing = false;
         bool inBounds(int row, int col);
         void addPlausibleMoves(PosType fromRow, PosType fromCol, PosType toRow, PosType toCol, std::vector<std::pair<PosType, PosType>> &moves, Board &currentBoard);
@@ -27,6 +27,7 @@ namespace chess {
         virtual std::string repr() = 0;
         virtual void verifyPossibleChecks(PosType fromRow, PosType fromCol, Board &currentBoard) = 0;
         virtual std::vector<std::pair<PosType, PosType>> possibleMoves(PosType fromRow, PosType fromCol, Board &currentBoard) = 0;
+        int getValue() const;
     };
 }
 

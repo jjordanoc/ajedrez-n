@@ -58,15 +58,15 @@ void chess::Board::checkCastling(PosType oldRow, PosType oldCol, PosType newRow,
     }
 }
 
-void chess::Board::checkEnPassant(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol){
+void chess::Board::checkEnPassant(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol) {
     auto pawn = std::dynamic_pointer_cast<Pawn>(mainBoard.at(oldRow).at(oldCol));
-    if (pawn != nullptr){
+    if (pawn != nullptr) {
         short off = mainBoard.at(oldRow).at(oldCol)->getColor() == BLACK ? 1 : -1;
         for (int i = 0; i < BOARD_SIZE; ++i) {
             for (int j = 0; j < BOARD_SIZE; ++j) {
                 auto piece = std::dynamic_pointer_cast<Pawn>(mainBoard.at(i).at(j));
                 if (piece != nullptr && piece->getIsEnPassant()) {
-                    if(newRow == i + off && newCol == j){
+                    if (newRow == i + off && newCol == j) {
                         isMakingEnPassant = true;
                     }
                 }
@@ -81,13 +81,14 @@ bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, Pos
         std::dynamic_pointer_cast<Pawn>(mainBoard.at(oldRow).at(oldCol))->setIsEnPassant(true);
     }
 
-    if (std::dynamic_pointer_cast<Pawn>(mainBoard.at(oldRow).at(oldCol)) == nullptr && mainBoard.at(newRow).at(newCol) == nullptr) {
+    if (std::dynamic_pointer_cast<Pawn>(mainBoard.at(oldRow).at(oldCol)) == nullptr &&
+        mainBoard.at(newRow).at(newCol) == nullptr) {
         fiftyMoveCount++;
     } else {
         fiftyMoveCount = 0;
     }
 
-    if(isMakingCastling){
+    if (isMakingCastling) {
         // We move 2 pieces, the king and the rook
         auto king = mainBoard.at(oldRow).at(oldCol);
 
@@ -114,7 +115,7 @@ bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, Pos
         return true;
     }
 
-    if(isMakingEnPassant){
+    if (isMakingEnPassant) {
         short off = mainBoard.at(oldRow).at(oldCol)->getColor() == BLACK ? 1 : -1;
         mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
         mainBoard.at(newRow - off).at(newCol) = nullptr;
@@ -131,7 +132,6 @@ bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, Pos
         // This statement it's not necessary because we can validate the possible moves and this isn't a possible move
         return true;
     }
-
 
 
     return false;
@@ -189,6 +189,7 @@ void chess::Board::putKingChecked(const chess::Color &color, bool checked) {
     }
 }
 
+// Check if "color" is checked
 bool chess::Board::isChecked(const chess::Color &color) {
     for (int i = 0; i < BOARD_SIZE; ++i) {
         for (int j = 0; j < BOARD_SIZE; ++j) {
@@ -208,6 +209,7 @@ bool chess::Board::isChecked(const chess::Color &color) {
     return false;
 }
 
+// Return if "color" has won
 bool chess::Board::isCheckMate(const Color &color) {
     if (!isChecked(getOtherColor(color))) {
         return false;
@@ -252,6 +254,7 @@ bool chess::Board::isStaleMate(const chess::Color &color) {
 chess::BoardType &chess::Board::getBoardData() {
     return mainBoard;
 }
+
 chess::Color chess::Board::getOtherColor(const chess::Color &color) {
     Color other;
     if (color == WHITE) {
@@ -269,7 +272,7 @@ bool chess::Board::fiftyMoveDraw() {
     return false;
 }
 
-void chess::Board::deleteEnPassant(){
+void chess::Board::deleteEnPassant() {
     for (int i = 0; i < BOARD_SIZE; ++i) {
         for (int j = 0; j < BOARD_SIZE; ++j) {
             auto piece = std::dynamic_pointer_cast<Pawn>(mainBoard.at(i).at(j));
@@ -278,4 +281,33 @@ void chess::Board::deleteEnPassant(){
             }
         }
     }
+}
+
+double chess::Board::evaluation() {
+    // Evaluation of the pieces
+    double blackPoints = 0;
+    double whitePoints = 0;
+    for (int i = 0; i < BOARD_SIZE; ++i) {
+        for (int j = 0; j < BOARD_SIZE; ++j) {
+            auto piece = mainBoard.at(i).at(j);
+            if (piece != nullptr) {
+                if (piece->getColor() == BLACK) {
+                    blackPoints += piece->getValue();
+                } else {
+                    whitePoints += piece->getValue();
+                }
+            }
+        }
+    }
+
+    // Evaluation of checkmate
+    if(isCheckMate(BLACK)){
+        blackPoints = std::numeric_limits<double>::infinity();
+    } else if(isCheckMate(WHITE)){
+        whitePoints = std::numeric_limits<double>::infinity();
+    }
+
+
+    // If the score is positive, white are winning
+    return whitePoints - blackPoints;
 }

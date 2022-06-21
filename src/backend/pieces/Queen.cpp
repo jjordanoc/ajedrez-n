@@ -1,7 +1,7 @@
 #include "Queen.h"
 #include "../game/Board.h"
 
-chess::Queen::Queen(const chess::Color &color) : Piece(color) {}
+chess::Queen::Queen(const chess::Color &color) : Piece(color) {value = 900;}
 
 std::string chess::Queen::repr() {
     return "Queen" + std::to_string(color);

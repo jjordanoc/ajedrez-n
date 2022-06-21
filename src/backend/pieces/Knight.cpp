@@ -2,6 +2,7 @@
 #include "../game/Board.h"
 
 chess::Knight::Knight(const Color &color) : Piece(color) {
+    value = 300;
 }
 
 std::string chess::Knight::repr() {

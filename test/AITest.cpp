@@ -4,18 +4,30 @@
 
 #include "iostream"
 #include "gtest/gtest.h"
+#include "../src/backend/game/AI.h"
+#include "../src/backend/game/Engine.h"
 
 
-class IATest : public ::testing::Test {
+class AITest : public ::testing::Test {
 protected:
+    chess::Board board;
     void SetUp() override {
         std::cout << "Set up" << std::endl;
+        auto engine = chess::Engine::get_instance();
+        engine->initBoard();
+        board = engine->getBoard();
     }
 
     void TearDown() override {
         std::cout << "TearDown" << std::endl;
     }
 };
+
+
+TEST_F(AITest, minimax){
+    std::cout << chess::minimax(board, true, 2) << std::endl;
+}
+
 
 // TEST_F allows you to access
 //TEST_F(IATest, CanMovePiece) {

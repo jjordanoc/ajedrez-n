@@ -28,3 +28,7 @@ chess::PosType chess::Piece::getMoveCount() {
 void chess::Piece::incrementMoveCount() {
     ++moveCount;
 }
+
+int chess::Piece::getValue() const {
+    return value;
+}

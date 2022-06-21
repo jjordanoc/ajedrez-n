@@ -2,6 +2,7 @@
 #include "../game/Board.h"
 
 chess::Pawn::Pawn(const Color &color) : Piece(color) {
+    value = 100;
 }
 
 std::string chess::Pawn::repr() {

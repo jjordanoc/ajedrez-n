@@ -46,7 +46,9 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Rook::possibleMove
     return moves;
 }
 chess::Rook::Rook(const chess::Color &color) : Piece(color) {
+    value = 500;
 }
+
 void chess::Rook::verifyPossibleChecks(chess::PosType fromRow, chess::PosType fromCol, chess::Board &currentBoard) {
     auto boardData = currentBoard.getBoardData();
     std::vector<bool> flags(4, false);

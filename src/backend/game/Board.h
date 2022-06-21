@@ -5,6 +5,7 @@
 #include "iomanip"
 #include <array>
 #include <memory>
+#include <limits>
 // Liberias locales
 #include "../global/Global.h"
 #include "../pieces/Piece.h"
@@ -39,6 +40,7 @@ namespace chess {
         BoardType &getBoardData();
         bool fiftyMoveDraw();
         void deleteEnPassant();
+        double evaluation();
     };
 
 }// namespace chess

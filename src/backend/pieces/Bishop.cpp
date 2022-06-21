@@ -2,7 +2,7 @@
 #include "../game/Board.h"
 #include "Pawn.h"
 
-chess::Bishop::Bishop(const Color &color) : Piece(color) {}
+chess::Bishop::Bishop(const Color &color) : Piece(color) {value = 300;}
 
 std::string chess::Bishop::repr() {
     return "Bishop" + std::to_string(color);
