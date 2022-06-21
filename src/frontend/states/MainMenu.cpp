@@ -2,7 +2,7 @@
 
 MainMenu::MainMenu() {
     // Titulo
-    mainMenuTitle = new Label(FONT_PATH, sf::Color::White, "AJEDREZ^n", 100, 200, 50);
+    mainMenuTitle = make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ^n", 100, 200, 50);
 
     //Opcion play
     mainMenuLabel[0] = new Label(FONT_PATH, sf::Color::White, "Jugar", 70, 400, 200);
@@ -30,7 +30,7 @@ void MainMenu::draw(sf::RenderWindow &window) {
 }
 
 void MainMenu::handleEvents(sf::RenderWindow &window) {
-    inMenu = true;
+    inCurrentState = true;
     sf::Event event{};
 
     while (window.pollEvent(event)) {
@@ -46,10 +46,11 @@ void MainMenu::handleEvents(sf::RenderWindow &window) {
                         moveDown();
                         break;
                     case sf::Keyboard::Return:
-                        inMenu = false;
+                        inCurrentState = false;
                         break;
                 }
         }
+
     }
 }
 
@@ -61,7 +62,7 @@ void MainMenu::render(sf::RenderWindow &window) {
 }
 
 void MainMenu::update(sf::RenderWindow &window, int& currentState) {
-    if (!inMenu) {
+    if (!inCurrentState) {
         if (mainMenuPressed() == 3)
             window.close();
         else {
@@ -97,7 +98,6 @@ void MainMenu::moveDown() {
 }
 
 MainMenu::~MainMenu() {
-    delete mainMenuTitle;
     for (auto& label : mainMenuLabel){
         delete label;
     }

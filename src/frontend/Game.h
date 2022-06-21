@@ -1,8 +1,9 @@
 #ifndef PROYECTOPROGRA2_GAME_H
 #define PROYECTOPROGRA2_GAME_H
 
-#include <cmath>
 #include <iostream>
+#include <cmath>
+#include <memory>
 
 #include "states/Credits.h"
 #include "states/MainMenu.h"
@@ -15,16 +16,15 @@
 
 class Game {
 private:
-    inline static Game *instance = nullptr;
-    Game();
-
     // Instanciamos la pantalla principal del juego
-    sf::RenderWindow gameWindow{sf::VideoMode(960, 720), "Main Menu", sf::Style::Default};
+    sf::RenderWindow gameWindow{sf::VideoMode(960, 720), "Ajedrez", sf::Style::Default};
 
     // States
     State *states[numberOfStates]{};
     int currentState;
 
+    inline static Game *instance = nullptr;
+    Game();
 public:
     inline static Game *getInstance() {
         if (instance == nullptr) {

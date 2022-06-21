@@ -5,6 +5,7 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
 
 #include "../states/State.h"
 #include "../graphics/Label.h"
@@ -13,21 +14,21 @@
 #include <SFML/Graphics.hpp>
 
 
-
 #define members 5
 
 using namespace std;
 
 class Credits: public State {
 private:
-    sf::Font font;
-    Label* title;
-    Label* creditosLabel;
-    Label* membersLabel[members]{};
-
     // Declarar el fondo
     sf::Texture backgroundTexture;
     sf::RectangleShape background;
+
+    sf::Font font;
+    unique_ptr<Label> titleLabel;
+    unique_ptr<Label> creditosLabel;
+    Label* membersLabel[members]{};
+    unique_ptr<Label> backLabel;
 public:
     Credits();
 
@@ -39,7 +40,7 @@ public:
 
     void update(sf::RenderWindow& window, int& currentState) override;
 
-    ~Credits();
+    ~Credits() override;
 };
 
 

@@ -4,5 +4,4 @@
 int main() {
     auto game = Game::getInstance();
     game->run();
-//    cout << "res";
 }

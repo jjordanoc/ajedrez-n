@@ -4,8 +4,8 @@
 #include <SFML/Graphics.hpp>
 
 class State {
-private:
-
+protected:
+    bool inCurrentState;
 public:
     State() = default;
 

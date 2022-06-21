@@ -19,15 +19,12 @@ class MainMenu : public State {
 private:
     int optionMenu;
     sf::Font font;
-    Label *mainMenuTitle;
+    unique_ptr<Label> mainMenuTitle;
     Label *mainMenuLabel[Max_main_menu]{};
 
     // Declarar el fondo
     sf::Texture backgroundTexture;
     sf::RectangleShape background;
-
-    bool inMenu = true;
-
 public:
     MainMenu();
 
