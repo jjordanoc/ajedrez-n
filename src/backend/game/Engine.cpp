@@ -134,7 +134,11 @@ unsigned long long chess::Engine::Perft(int depth) {
     }
     for (unsigned long long i = 0; i < BOARD_SIZE; ++i) {
         for (unsigned long long j = 0; j < BOARD_SIZE; ++j) {
-            auto moves = board->getPiece(i, j)->possibleMoves(i, j, *board);
+            auto piece = board->getPiece(i, j);
+            if (piece == nullptr) {
+                continue;
+            }
+            auto moves = piece->possibleMoves(i, j, *board);
             if (!moves.empty()) {
                 for (const auto &m : moves) {
                     Board tmp;
