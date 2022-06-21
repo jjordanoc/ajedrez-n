@@ -26,6 +26,7 @@ private:
 
     sf::Font font;
     unique_ptr<Label> titleLabel;
+    unique_ptr<Label> mainMenuTitleN;
     unique_ptr<Label> creditosLabel;
     Label* membersLabel[members]{};
     unique_ptr<Label> backLabel;

@@ -1,9 +1,15 @@
 #include "MainMenu.h"
 
 MainMenu::MainMenu() {
-    // Titulo
-    mainMenuTitle = make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ^n", 100, 200, 50);
+    // Cargar el fondo
+    backgroundTexture.loadFromFile(BACKGROUND_PATH);
+    background.setSize(sf::Vector2f(960, 720));
+    background.setTexture(&backgroundTexture);
 
+    // Titulo
+    mainMenuTitle = make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ", 100, 245, 50);
+    // ^n
+    mainMenuTitleN = make_unique<Label>(FONT_PATH, sf::Color::White, "n", 50, 715, 50);
     //Opcion play
     mainMenuLabel[0] = new Label(FONT_PATH, sf::Color::White, "Jugar", 70, 400, 200);
     //Opcion opciones
@@ -15,15 +21,11 @@ MainMenu::MainMenu() {
 
     mainMenuLabel[0]->setFillColor(sf::Color::Black);  // comienza en negro ya que es la opcion por defecto
     optionMenu = 0;
-
-    // Cargar el fondo
-    backgroundTexture.loadFromFile(BACKGROUND_PATH);
-    background.setSize(sf::Vector2f(960, 720));
-    background.setTexture(&backgroundTexture);
 }
 
 void MainMenu::draw(sf::RenderWindow &window) {
     mainMenuTitle->draw(window);
+    mainMenuTitleN->draw(window);
     for (auto& label : mainMenuLabel){
         label->draw(window);
     }

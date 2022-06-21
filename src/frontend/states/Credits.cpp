@@ -7,7 +7,9 @@ Credits::Credits() {
     background.setTexture(&backgroundTexture);
 
     // Titulo
-    titleLabel = make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ^n", 100, 200, 20);
+    titleLabel = make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ", 100, 250, 20);
+    // ^n
+    mainMenuTitleN = make_unique<Label>(FONT_PATH, sf::Color::White, "n", 50, 715, 20);
     // Credits
     creditosLabel = make_unique<Label>(FONT_PATH, sf::Color::White, "Credits:", 70, 60, 150);
     // Integrantes
@@ -58,6 +60,7 @@ void Credits::render(sf::RenderWindow &window) {
 
 void Credits::draw(sf::RenderWindow &window) {
     titleLabel->draw(window);
+    mainMenuTitleN->draw(window);
     creditosLabel->draw(window);
     for (auto& label : membersLabel){
         label->draw(window);

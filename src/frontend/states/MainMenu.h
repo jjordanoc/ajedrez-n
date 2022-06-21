@@ -20,6 +20,7 @@ private:
     int optionMenu;
     sf::Font font;
     unique_ptr<Label> mainMenuTitle;
+    unique_ptr<Label> mainMenuTitleN;
     Label *mainMenuLabel[Max_main_menu]{};
 
     // Declarar el fondo
