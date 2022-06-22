@@ -1,5 +1,6 @@
-#ifndef PROYECTOPROGRA2_MAINMENU_H
-#define PROYECTOPROGRA2_MAINMENU_H
+#ifndef PROYECTO_SELECTN_H
+#define PROYECTO_SELECTN_H
+
 #pragma once
 
 #include <iostream>
@@ -11,23 +12,23 @@
 
 #include "../global/Paths.h"
 
-#define Max_main_menu 4
-
 using namespace std;
 
-class MainMenu : public State {
+class SelectN : public State {
 private:
     // Declarar el fondo
     sf::Texture backgroundTexture;
     sf::RectangleShape background;
 
-    int optionMenu;
     sf::Font font;
-    unique_ptr<Label> mainMenuTitle;
-    unique_ptr<Label> mainMenuTitleN;
-    Label *mainMenuLabel[Max_main_menu]{};
+    unique_ptr<Label> titleLabel;
+    unique_ptr<Label> titleNlabel;
+    unique_ptr<Label> backLabel;
+    unique_ptr<Label> playLabel;
+
+    int optionSelectN;
 public:
-    MainMenu();
+    SelectN();
 
     void handleEvents(sf::RenderWindow &window) override;
 
@@ -37,15 +38,8 @@ public:
 
     void update(sf::RenderWindow &window, int &currentState) override;
 
-    void moveUp();
-    void moveDown();
-
-    int mainMenuPressed() {
-        return optionMenu;
-    }
-
-    ~MainMenu();
+    ~SelectN();
 };
 
 
-#endif//PROYECTOPROGRA2_MAINMENU_H
+#endif//PROYECTO_SELECTN_H

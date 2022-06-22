@@ -9,9 +9,12 @@
 #include "states/MainMenu.h"
 #include "states/State.h"
 
+#include "states/SelectN.h"
+#include "states/Play.h"
+
 #include <SFML/Graphics.hpp>
 
-#define numberOfStates 4
+#define numberOfStates 5
 
 
 class Game {

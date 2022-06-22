@@ -3,9 +3,11 @@
 Game::Game() {
     // States
     states[0] = (State *)(new MainMenu());  // MainMenu
-    states[1] = (State *)new Credits();  // Play
+    states[1] = (State *)new SelectN();  // SelectN
     states[2] = (State *)new Credits();  // Options
     states[3] = (State *)(new Credits());  // Credits
+
+    states[4] = (State *)(new Play());  // Play
 
     currentState = 0;  // empezamos en el menu principal
 }

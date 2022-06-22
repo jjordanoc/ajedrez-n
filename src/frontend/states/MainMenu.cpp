@@ -15,20 +15,12 @@ MainMenu::MainMenu() {
     //Opcion opciones
     mainMenuLabel[1] = new Label(FONT_PATH, sf::Color::White, "Opciones", 70, 400, 300);
     //Opcion créditos
-    mainMenuLabel[2] = new Label(FONT_PATH, sf::Color::White, "Credits", 70, 400, 400);
+    mainMenuLabel[2] = new Label(FONT_PATH, sf::Color::White, "Creditos", 70, 400, 400);
     //Opcion salir
     mainMenuLabel[3] = new Label(FONT_PATH, sf::Color::White, "Salir", 70, 400, 500);
 
     mainMenuLabel[0]->setFillColor(sf::Color::Black);  // comienza en negro ya que es la opcion por defecto
     optionMenu = 0;
-}
-
-void MainMenu::draw(sf::RenderWindow &window) {
-    mainMenuTitle->draw(window);
-    mainMenuTitleN->draw(window);
-    for (auto& label : mainMenuLabel){
-        label->draw(window);
-    }
 }
 
 void MainMenu::handleEvents(sf::RenderWindow &window) {
@@ -52,7 +44,6 @@ void MainMenu::handleEvents(sf::RenderWindow &window) {
                         break;
                 }
         }
-
     }
 }
 
@@ -61,6 +52,14 @@ void MainMenu::render(sf::RenderWindow &window) {
     window.draw(background);
     draw(window);
     window.display();
+}
+
+void MainMenu::draw(sf::RenderWindow &window) {
+    mainMenuTitle->draw(window);
+    mainMenuTitleN->draw(window);
+    for (auto& label : mainMenuLabel){
+        label->draw(window);
+    }
 }
 
 void MainMenu::update(sf::RenderWindow &window, int& currentState) {
