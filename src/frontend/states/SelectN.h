@@ -4,6 +4,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 
 #include "../graphics/Label.h"
 #include "State.h"
@@ -26,7 +27,11 @@ private:
     unique_ptr<Label> backLabel;
     unique_ptr<Label> playLabel;
 
-    int optionSelectN;
+    // Input N
+    string nValue;
+    unique_ptr<Label> inputNlabel;
+
+    int option;  // 0: back y 1: play
 public:
     SelectN();
 

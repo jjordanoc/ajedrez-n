@@ -20,5 +20,9 @@ void Label::setFillColor(sf::Color newColor) {
 void Label::draw(sf::RenderWindow &window) {
     window.draw(text);
 }
+void Label::setNewText(const string &newText) {
+    text.setString(newText);
+}
+
 
 Label::~Label() = default;

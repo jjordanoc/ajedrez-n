@@ -7,7 +7,7 @@
 using namespace std;
 
 class Label {
-public:
+private:
     sf::Color color;
     sf::Font font;
     string information;
@@ -22,6 +22,7 @@ public:
 
     void draw(sf::RenderWindow &window);
     void setFillColor(sf::Color newColor);
+    void setNewText(const string& newText);
 
     virtual ~Label();
 };

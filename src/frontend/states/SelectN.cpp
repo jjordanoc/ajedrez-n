@@ -13,6 +13,9 @@ SelectN::SelectN() {
     backLabel = make_unique<Label>(FONT_PATH, sf::Color::White, "Back", 50, 10, 640);
     // Play button
     playLabel = make_unique<Label>(FONT_PATH, sf::Color::White, "Play", 50, 837, 640);
+
+    // Input N
+    inputNlabel = make_unique<Label>(FONT_PATH, sf::Color::White, nValue, 60, 480 - 30, 360);
 }
 
 void SelectN::handleEvents(sf::RenderWindow &window) {
@@ -45,15 +48,27 @@ void SelectN::handleEvents(sf::RenderWindow &window) {
                 if (event.mouseButton.button == 0) {
                     // Back button
                     if ((event.mouseButton.x >= 10 && event.mouseButton.x <= 160) && (event.mouseButton.y >= 640 && event.mouseButton.y <= 690)) {
-                        optionSelectN = 0;
+                        option = 0;
                         inCurrentState = false;
                     }
                     // Play button
-                    if ((event.mouseButton.x >= 837 && event.mouseButton.x <= 943) && (event.mouseButton.y >= 640 && event.mouseButton.y <= 690)) {
-                        optionSelectN = 1;
-                        inCurrentState = false;
+                    if (!nValue.empty()) {
+                        if ((event.mouseButton.x >= 837 && event.mouseButton.x <= 943) && (event.mouseButton.y >= 640 && event.mouseButton.y <= 690)) {
+                            option = 1;
+                            inCurrentState = false;
+                        }
                     }
                 }
+                break;
+            case sf::Event::TextEntered:
+                // Unicode = 8 is the unicode of backslash
+                if (event.text.unicode == 8 && !nValue.empty()) {
+                    nValue.pop_back();
+                }
+                else if (48 <= event.text.unicode && event.text.unicode <= 57) {
+                    nValue.push_back((char)event.text.unicode);
+                }
+                inputNlabel->setNewText(nValue);
                 break;
         }
 
@@ -72,12 +87,14 @@ void SelectN::draw(sf::RenderWindow &window) {
     titleNlabel->draw(window);
     backLabel->draw(window);
     playLabel->draw(window);
+
+    inputNlabel->draw(window);
 }
 
 void SelectN::update(sf::RenderWindow &window, int &currentState) {
     if (!inCurrentState) {
-        if (optionSelectN == 0) currentState = 0;
-        if (optionSelectN == 1) currentState = 4;
+        if (option == 0) currentState = 0;
+        if (option == 1) currentState = 4;
     }
 }
 

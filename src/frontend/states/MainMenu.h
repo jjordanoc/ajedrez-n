@@ -3,17 +3,20 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
 
 #include "../graphics/Label.h"
 #include "State.h"
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include "../global/Paths.h"
 
 #define Max_main_menu 4
 
 using namespace std;
+
 
 class MainMenu : public State {
 private:
