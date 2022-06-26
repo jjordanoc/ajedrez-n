@@ -5,6 +5,8 @@
 #include <iostream>
 #include <memory>
 
+#include "../global/Window.h"
+
 #include "../graphics/Label.h"
 #include "State.h"
 

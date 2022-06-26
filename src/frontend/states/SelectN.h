@@ -12,6 +12,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "../global/Paths.h"
+#include "../global/Window.h"
 
 using namespace std;
 

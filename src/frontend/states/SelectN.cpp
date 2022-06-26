@@ -2,7 +2,7 @@
 SelectN::SelectN() {
     // Cargar el fondo
     backgroundTexture.loadFromFile(BACKGROUND_PATH);
-    background.setSize(sf::Vector2f(960, 720));
+    background.setSize(sf::Vector2f(windowWidth, windowHeight));
     background.setTexture(&backgroundTexture);
 
     // Titulo

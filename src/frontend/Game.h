@@ -5,6 +5,8 @@
 #include <cmath>
 #include <memory>
 
+#include "global/Window.h"
+
 #include "states/Credits.h"
 #include "states/MainMenu.h"
 #include "states/State.h"
@@ -20,7 +22,7 @@
 class Game {
 private:
     // Instanciamos la pantalla principal del juego
-    sf::RenderWindow gameWindow{sf::VideoMode(960, 720), "Ajedrez", sf::Style::Default};
+    sf::RenderWindow gameWindow{sf::VideoMode(windowWidth, windowHeight), "Ajedrez"};
 
     // States
     State *states[numberOfStates]{};

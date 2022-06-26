@@ -9,7 +9,9 @@
 
 #include "../states/State.h"
 #include "../graphics/Label.h"
+
 #include "../global/Paths.h"
+#include "../global/Window.h"
 
 #include <SFML/Graphics.hpp>
 

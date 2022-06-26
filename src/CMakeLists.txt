@@ -9,7 +9,7 @@ find_package(SFML COMPONENTS graphics audio REQUIRED)
 file(GLOB_RECURSE SOURCES LIST_DIRECTORIES true backend/*.h backend/*.cpp frontend/*.h frontend/*.cpp main.cpp)
 file(GLOB_RECURSE SOURCES_BACKEND LIST_DIRECTORIES true backend/*.h backend/*.cpp)
 
-set(SOURCES ${SOURCES} backend/game/AI.cpp backend/game/AI.h frontend/states/SelectN.cpp frontend/states/SelectN.h frontend/states/Play.cpp frontend/states/Play.h)
+set(SOURCES ${SOURCES} backend/game/AI.cpp backend/game/AI.h frontend/states/SelectN.cpp frontend/states/SelectN.h frontend/states/Play.cpp frontend/states/Play.h frontend/global/Window.h)
 
 add_executable(${BINARY} ${SOURCES})
 
