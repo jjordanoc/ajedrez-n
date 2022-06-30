@@ -13,9 +13,9 @@ protected:
     chess::Board board;
     void SetUp() override {
         std::cout << "Set up" << std::endl;
-        auto engine = chess::Engine::get_instance();
-        engine->initBoard();
-        board = engine->getBoard();
+        auto &engine = chess::Engine::getInstance();
+        engine.initBoard();
+        board = engine.getBoard();
     }
 
     void TearDown() override {
