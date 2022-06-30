@@ -1,4 +1,7 @@
 #include "frontend/Game.h"
+#include "../src/backend/game/AI.h"
+#include "../src/backend/game/Engine.h"
+
 
 void test() {
     chess::Engine &engine = chess::Engine::getInstance();
@@ -70,8 +73,9 @@ void test() {
 }
 
 int main() {
-    auto game = Game::getInstance();
-    game->run();
+//    auto game = Game::getInstance();
+//    game->run();
+    test();
 
     return 0;
 }

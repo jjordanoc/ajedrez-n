@@ -5,11 +5,16 @@ chess::Engine::Engine() : board(std::make_unique<Board>()), player1(std::make_un
 }
 
 void chess::Engine::initBoard() {
-    // generar reglas del juego en base al n
+    // Initialize an empty board
+    for (unsigned long long i = 0; i < BOARD_SIZE; ++i) {
+        for (unsigned long long j = 0; j < BOARD_SIZE; ++j) {
+            board->getBoardData().at(i).at(j) = nullptr;
+        }
+    }
 
-    // si n es 0, se crea el juego base
+    // Initialize the board base on the parameter n
 
-    // se crea el tablero
+    // Initialize the base board
 
     board->putPiece("King", Color::WHITE, 7, 4);
     board->putPiece("King", Color::BLACK, 0, 4);

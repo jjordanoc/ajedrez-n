@@ -54,6 +54,10 @@ TEST_F(AITest, trivialCheckMateMaxPlayer) {
     std::cout << AI.minimax(engine.getBoard(), true, 5) << std::endl;
 }
 
+TEST_F(AITest, TestGame) {
+
+}
+
 
 // TEST_F allows you to access
 //TEST_F(IATest, CanMovePiece) {

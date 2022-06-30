@@ -123,6 +123,7 @@ bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, Pos
 
     if (mainBoard.at(newRow).at(newCol) == nullptr) {
         mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
+
         return true;
     } else if (mainBoard.at(newRow).at(newCol)->repr() != "King0" &&
                mainBoard.at(newRow).at(newCol)->repr() != "King1") {

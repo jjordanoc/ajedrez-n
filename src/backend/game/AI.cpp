@@ -15,7 +15,7 @@ chess::ScoreType chess::AI::minimax(chess::Board &table, bool playMax, int depth
         return score;
     }
     if (playMax) {
-        double best_value = -std::numeric_limits<double>::infinity();
+        ScoreType best_value = MIN_SCORE;
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
 
@@ -32,7 +32,7 @@ chess::ScoreType chess::AI::minimax(chess::Board &table, bool playMax, int depth
         }
         return best_value;
     } else {
-        double best_value = std::numeric_limits<double>::infinity();
+        ScoreType best_value = MAX_SCORE;
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 if (table.getPiece(i, j) != nullptr && table.getPiece(i, j)->getColor() == chess::BLACK) {
