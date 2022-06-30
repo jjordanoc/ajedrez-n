@@ -2,6 +2,12 @@
 #include "../game/Board.h"
 
 chess::King::King(const Color &color) : Piece(color) {
+    if (color == BLACK)
+        pieceTexture.loadFromFile(spriteD);
+    else if (color == WHITE)
+        pieceTexture.loadFromFile(spriteW);
+
+    pieceSprite.setTexture(pieceTexture);
 }
 
 std::string chess::King::repr() {
@@ -110,8 +116,4 @@ bool chess::King::checkIsCheck(PosType fromRow, PosType fromCol, PosType toRow, 
         return true;
     }
     return false;
-}
-
-void chess::King::drawPiece(sf::RenderWindow &window, PosType row, PosType col) {
-
 }

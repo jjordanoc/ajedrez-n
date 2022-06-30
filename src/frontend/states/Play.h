@@ -5,13 +5,13 @@
 
 #include <iostream>
 
-#include "../global/Window.h"
 
 #include "../graphics/Label.h"
 #include "State.h"
 
 #include <SFML/Graphics.hpp>
 
+#include "../global/Window.h"
 #include "../global/Paths.h"
 
 #include "../../backend/game/Engine.h"
@@ -21,13 +21,13 @@ using namespace std;
 
 class Play: public State {
 private:
-
     sf::Texture boardTexture;
     sf::RectangleShape boardSprite;
 
     chess::Engine &engine = chess::Engine::getInstance();
 
-    void cargarTablero();
+    void drawBoard();
+    void piecePressed(double x, double y);
 public:
     Play();
 

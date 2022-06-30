@@ -32,3 +32,12 @@ void chess::Piece::incrementMoveCount() {
 int chess::Piece::getValue() const {
     return value;
 }
+
+void chess::Piece::drawPiece(sf::RenderWindow &window, PosType row, PosType col) {
+    float windowX = col * 75.0 + boardX;
+    float windowY = row * 75.0 + boardY;
+
+    pieceSprite.setPosition(windowX, windowY);
+
+    window.draw(pieceSprite);
+}

@@ -3,6 +3,8 @@
 #include "Board.h"
 #include "Player.h"
 
+class Play;
+
 namespace chess {
 
     class Engine {

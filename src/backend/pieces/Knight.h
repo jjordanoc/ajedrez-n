@@ -11,7 +11,6 @@ namespace chess {
         std::string repr();
         std::vector<std::pair<PosType, PosType>> possibleMoves(PosType fromRow, PosType fromCol, Board &currentBoard);
         void verifyPossibleChecks(PosType fromRow, PosType fromCol, Board &currentBoard) override;
-        void drawPiece(sf::RenderWindow &window, PosType row, PosType col) override;
     };
 }// namespace chess
 

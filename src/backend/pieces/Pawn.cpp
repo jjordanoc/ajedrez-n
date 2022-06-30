@@ -3,6 +3,12 @@
 
 chess::Pawn::Pawn(const Color &color) : Piece(color) {
     value = 100;
+    if (color == BLACK)
+        pieceTexture.loadFromFile(spriteD);
+    else if (color == WHITE)
+        pieceTexture.loadFromFile(spriteW);
+
+    pieceSprite.setTexture(pieceTexture);
 }
 
 std::string chess::Pawn::repr() {
@@ -97,8 +103,4 @@ void chess::Pawn::setIsEnPassant(bool value) {
 }
 bool chess::Pawn::getIsEnPassant() {
     return isEnPassant;
-}
-
-void chess::Pawn::drawPiece(sf::RenderWindow &window, PosType row, PosType col) {
-
 }

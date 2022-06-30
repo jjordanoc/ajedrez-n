@@ -4,4 +4,6 @@
 int main() {
     auto game = Game::getInstance();
     game->run();
+
+    return 0;
 }
