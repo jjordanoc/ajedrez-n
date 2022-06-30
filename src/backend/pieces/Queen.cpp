@@ -91,3 +91,7 @@ void chess::Queen::verifyPossibleChecks(chess::PosType fromRow, chess::PosType f
         isCheckingKing = false;
     }
 }
+
+void chess::Queen::drawPiece(sf::RenderWindow &window, PosType row, PosType col) {
+
+}

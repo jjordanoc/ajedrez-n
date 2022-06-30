@@ -3,11 +3,7 @@
 Play::Play() {
     boardTexture.loadFromFile("../../src/frontend/assets/textures/board.png");
     boardSprite.setTexture(&boardTexture);
-
-    for (int i = 0; i < 32; ++i)
-        f[i].setTexture(piecesTexture);
-
-    cargarPosicion();
+    cargarTablero();
 }
 
 void Play::cargarTablero() {
@@ -16,20 +12,17 @@ void Play::cargarTablero() {
     float boardY = windowHeight/2.0 - 600/2.0;
     boardSprite.setPosition(boardX, boardY);
 
-    int k = 0;
-    for (int i = 0; i < 8; ++i){
-        for (int j = 0 ; j < 8; ++j){
-            int n = board[i][j];
-            if(!n)
-                continue;
-            int x = abs(n) - 1;
-            int y = n > 0 ? 1 : 0;
-            f[k].setTextureRect( sf::IntRect(sz*x, sz*y , sz, sz));
-            f[k].setScale(1.2, 1.2);
-            f[k].setPosition(sz*1.25*j + boardX, sz*1.25*i + boardY);
-            ++k;
-        }
-    }
+
+    /*
+     0      75,   150,   225,   300,   375,   450,   525
+     75
+     150
+     225
+     300
+     375
+     450
+     525
+     * */
 }
 
 void Play::handleEvents(sf::RenderWindow &window) {
@@ -71,8 +64,6 @@ void Play::render(sf::RenderWindow &window) {
 
 void Play::draw(sf::RenderWindow &window) {
     window.draw(boardSprite);
-    for (int i = 0; i < 32; ++i)
-        window.draw(f[i]);
 }
 
 void Play::update(sf::RenderWindow &window, int &currentState) {

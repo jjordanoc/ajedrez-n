@@ -80,3 +80,7 @@ void chess::Knight::verifyPossibleChecks(chess::PosType fromRow, chess::PosType 
         isCheckingKing = false;
     }
 }
+
+void chess::Knight::drawPiece(sf::RenderWindow &window, PosType row, PosType col) {
+
+}
