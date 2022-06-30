@@ -6,11 +6,21 @@
 #define PROYECTO_AI_H
 
 #include "Board.h"
+#include "../global/Global.h"
 
 namespace chess {
 
     // Minimax algorithm
-    double minimax(chess::Board &table, bool playMax, int depthLimit, int depth = 0);
+    class AI {
+        Color color = BLACK;
+        int depthLimit = 5;
+    public:
+        AI();
+        AI(Color color, int depthLimit);
+        ScoreType minimax(chess::Board &table, bool playMax, int depth);
+        void move(chess::Board &table);
+        Color getColor();
+    };
 }// namespace chess
 
 

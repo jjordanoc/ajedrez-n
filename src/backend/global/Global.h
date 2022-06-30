@@ -4,12 +4,14 @@
 #include <string>
 
 #define BOARD_SIZE 8
-#define PIECES {"King", "Queen", "Knight", "Pawn", "Rook", "Bishop"}
-
+#define MAX_SCORE 99999999
+#define MIN_SCORE -MAX_SCORE
+#define CHECK_VALUE 200
 
 
 namespace chess {
     typedef unsigned short PosType;
+    typedef long long ScoreType;
     enum Color {
         BLACK,
         WHITE

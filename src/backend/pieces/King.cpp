@@ -106,7 +106,8 @@ void chess::King::verifyPossibleChecks(chess::PosType fromRow, chess::PosType fr
 
 bool chess::King::checkIsCheck(PosType fromRow, PosType fromCol, PosType toRow, PosType toCol, Board &currentBoard){
     Board tmp(currentBoard);
-    if (tmp.movePiece(fromRow, fromCol, toRow, toCol) && tmp.isChecked(color)) {
+    tmp.movePiece(fromRow, fromCol, toRow, toCol);
+    if (tmp.isChecked(color)) {
         return true;
     }
     return false;
