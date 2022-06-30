@@ -7,6 +7,8 @@ namespace chess {
     //    bool hasMoved = false;
     //    bool onJaque = false;
     class Rook : public Piece {
+        std::string spriteD = "../../src/frontend/assets/textures/dark_rook.png";
+        std::string spriteW = "../../src/frontend/assets/textures/white_rook.png";
     public:
         Rook(const Color &color);
         std::string repr();

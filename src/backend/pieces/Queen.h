@@ -5,6 +5,8 @@
 
 namespace chess {
     class Queen : public Piece {
+        std::string spriteD = "../../src/frontend/assets/textures/dark_queen.png";
+        std::string spriteW = "../../src/frontend/assets/textures/white_queen.png";
     public:
         Queen(const Color &color);
         std::string repr() override;

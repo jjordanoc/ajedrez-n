@@ -4,6 +4,8 @@
 #include "Piece.h"
 namespace chess {
     class Knight : public Piece {
+        std::string spriteD = "../../src/frontend/assets/textures/dark_knight.png";
+        std::string spriteW = "../../src/frontend/assets/textures/white_knight.png";
     public:
         Knight(const Color &color);
         std::string repr();

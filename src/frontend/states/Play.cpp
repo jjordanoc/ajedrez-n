@@ -1,8 +1,6 @@
 #include "Play.h"
 
 Play::Play() {
-    piecesTexture.loadFromFile("../../src/frontend/assets/textures/pieces.png");
-
     boardTexture.loadFromFile("../../src/frontend/assets/textures/board.png");
     boardSprite.setTexture(&boardTexture);
 
@@ -12,7 +10,7 @@ Play::Play() {
     cargarPosicion();
 }
 
-void Play::cargarPosicion() {
+void Play::cargarTablero() {
     boardSprite.setSize(sf::Vector2f(600, 600));
     float boardX = windowWidth/2.0 - 600/2.0;
     float boardY = windowHeight/2.0 - 600/2.0;

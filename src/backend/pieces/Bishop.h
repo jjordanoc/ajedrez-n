@@ -5,6 +5,8 @@
 #include "Piece.h"
 namespace chess {
     class Bishop : public Piece {
+        std::string spriteD = "../../src/frontend/assets/textures/dark_bishop.png";
+        std::string spriteW = "../../src/frontend/assets/textures/white_bishop.png";
     public:
         Bishop(const Color &color);
         std::string repr() override;
