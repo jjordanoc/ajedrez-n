@@ -2,6 +2,7 @@
 #define PROYECTO_PLAY_H
 #pragma once
 
+
 #include <iostream>
 
 #include "../global/Window.h"
@@ -12,6 +13,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "../global/Paths.h"
+
+#include "../../backend/game/Engine.h"
 
 using namespace std;
 
@@ -34,7 +37,9 @@ private:
     sf::RectangleShape boardSprite;
     sf::Sprite f[32];
 
-    void cargarPosicion();
+    chess::Engine &engine = chess::Engine::getInstance();
+
+    void cargarTablero();
 public:
     Play();
 

@@ -82,3 +82,7 @@ void chess::Rook::verifyPossibleChecks(chess::PosType fromRow, chess::PosType fr
         isCheckingKing = false;
     }
 }
+
+void chess::Rook::drawPiece(sf::RenderWindow &window, PosType row, PosType col) {
+
+}

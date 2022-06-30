@@ -52,10 +52,23 @@ void Play::handleEvents(sf::RenderWindow &window) {
     }
 }
 
+
+
 void Play::render(sf::RenderWindow &window) {
     window.clear(sf::Color::Black);
     draw(window);
     window.display();
+
+    //
+    auto currentBoard = engine.getBoard().getBoardData();
+    for (int i = 0; i < BOARD_SIZE; ++i) {
+        for (int j = 0; j < BOARD_SIZE; ++j) {
+            auto piece = currentBoard.at(i).at(j);
+            if (piece != nullptr) {
+                piece->drawPiece(window, i, j);
+            }
+        }
+    }
 }
 
 void Play::draw(sf::RenderWindow &window) {

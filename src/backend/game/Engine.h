@@ -14,9 +14,9 @@ namespace chess {
         inline static Engine *instance = nullptr;
         Engine();
     public:
-        static Engine *get_instance();
+        static Engine &getInstance();
         void initBoard();
-        void initGame();
+        void testGame();
         void nextTurn();
         Board& getBoard();
         unsigned long long Perft(int depth);

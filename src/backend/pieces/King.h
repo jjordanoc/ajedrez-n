@@ -6,6 +6,8 @@
 namespace chess {
     class King : public Piece {
         bool isChecked = false;
+        std::string spriteD = "../../src/frontend/assets/textures/dark_king.png";
+        std::string spriteW = "../../src/frontend/assets/textures/white_king.png";
     public:
         King(const Color &color);
 
@@ -17,6 +19,7 @@ namespace chess {
         void setIsInCheck(bool i);
         bool getIsInCheck() const;
         bool checkIsCheck(PosType fromRow, PosType fromCol, PosType toRow, PosType toCol, Board &currentBoard);
+        void drawPiece(sf::RenderWindow &window, PosType row, PosType col) override;
     };
 }// namespace chess
 

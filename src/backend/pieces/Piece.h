@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "../global/Global.h"
-
+#include "SFML/Graphics.hpp"
 
 
 
@@ -12,6 +12,7 @@ namespace chess {
     class Board;
     class Piece {
     protected:
+        std::string sprite = "";
         PosType moveCount = 0;
         Color color;
         int value = 0;
@@ -28,6 +29,7 @@ namespace chess {
         virtual void verifyPossibleChecks(PosType fromRow, PosType fromCol, Board &currentBoard) = 0;
         virtual std::vector<std::pair<PosType, PosType>> possibleMoves(PosType fromRow, PosType fromCol, Board &currentBoard) = 0;
         int getValue() const;
+        virtual void drawPiece(sf::RenderWindow &window, PosType row, PosType col) = 0;
     };
 }
 

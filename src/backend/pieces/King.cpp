@@ -111,3 +111,7 @@ bool chess::King::checkIsCheck(PosType fromRow, PosType fromCol, PosType toRow, 
     }
     return false;
 }
+
+void chess::King::drawPiece(sf::RenderWindow &window, PosType row, PosType col) {
+
+}

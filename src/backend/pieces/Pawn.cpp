@@ -98,3 +98,7 @@ void chess::Pawn::setIsEnPassant(bool value) {
 bool chess::Pawn::getIsEnPassant() {
     return isEnPassant;
 }
+
+void chess::Pawn::drawPiece(sf::RenderWindow &window, PosType row, PosType col) {
+
+}

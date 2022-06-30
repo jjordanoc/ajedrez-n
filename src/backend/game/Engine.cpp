@@ -42,7 +42,7 @@ void chess::Engine::initBoard() {
     }
 }
 
-void chess::Engine::initGame() {
+void chess::Engine::testGame() {
     // Probamos si podemos seleccionar alguna pieza
     board->print();
     while (true) {
@@ -109,10 +109,8 @@ void chess::Engine::initGame() {
     }
 }
 
-chess::Engine *chess::Engine::get_instance() {
-    if (instance == nullptr) {
-        instance = new Engine();
-    }
+chess::Engine &chess::Engine::getInstance() {
+    static Engine instance;
     return instance;
 }
 
