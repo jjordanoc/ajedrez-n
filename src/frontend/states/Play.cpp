@@ -31,21 +31,33 @@ void Play::piecePressed(double windowX, double windowY) {
     if (boardX <= windowX <= boardX+600) {
         col = (windowX - boardX) / 75.0;
         row = (windowY - boardY) / 75.0;
+
+        auto currentBoard = engine.getBoard().getBoardData();
+        auto currentPiece = currentBoard.at(row).at(col);
+
+        if (currentPiece != nullptr) {
+            for (auto c: currentPiece->possibleMoves(row, col, engine.getBoard())) {
+                possibleMoves.push_back({c.second * 75.0 + boardX, c.first * 75.0 + boardY});
+                cout << c.first << " " << c.second << endl;
+            }
+        }
     }
 
-    auto currentBoard = engine.getBoard().getBoardData();
-    currentBoard.at(row).at(col);
+
+
+//    currentBoard.movePiece(row, col);
+//    currentBoard->movePiece(row, col, newRow, newCol);
 
 
 
-//    for (int i = 0; i < BOARD_SIZE; ++i) {
-//        for (int j = 0; j < BOARD_SIZE; ++j) {
-//            auto piece = currentBoard.at(i).at(j);
-//            if (piece != nullptr) {
-//
-//            }
-//        }
-//    }
+/*    for (int i = 0; i < BOARD_SIZE; ++i) {
+        for (int j = 0; j < BOARD_SIZE; ++j) {
+            auto piece = currentBoard.at(i).at(j);
+            if (piece != nullptr) {
+
+            }
+        }
+    }*/
 }
 
 void Play::handleEvents(sf::RenderWindow &window) {
@@ -78,8 +90,8 @@ void Play::render(sf::RenderWindow &window) {
 }
 
 void Play::draw(sf::RenderWindow &window) {
-    window.draw(boardSprite);
     auto currentBoard = engine.getBoard().getBoardData();
+    window.draw(boardSprite);
     for (int i = 0; i < BOARD_SIZE; ++i) {
         for (int j = 0; j < BOARD_SIZE; ++j) {
             auto piece = currentBoard.at(i).at(j);

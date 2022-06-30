@@ -4,7 +4,7 @@
 
 
 #include <iostream>
-
+#include <memory>
 
 #include "../graphics/Label.h"
 #include "State.h"
@@ -14,7 +14,9 @@
 #include "../global/Window.h"
 #include "../global/Paths.h"
 
+#include "../../backend/global/Global.h"
 #include "../../backend/game/Engine.h"
+#include "../../backend/pieces/Piece.h"
 
 using namespace std;
 
@@ -23,6 +25,8 @@ class Play: public State {
 private:
     sf::Texture boardTexture;
     sf::RectangleShape boardSprite;
+
+    std::vector<std::pair<float, float>> possibleMoves;
 
     chess::Engine &engine = chess::Engine::getInstance();
 
