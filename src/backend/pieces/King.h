@@ -19,7 +19,6 @@ namespace chess {
         void setIsInCheck(bool i);
         bool getIsInCheck() const;
         bool checkIsCheck(PosType fromRow, PosType fromCol, PosType toRow, PosType toCol, Board &currentBoard);
-        void drawPiece(sf::RenderWindow &window, PosType row, PosType col) override;
     };
 }// namespace chess
 

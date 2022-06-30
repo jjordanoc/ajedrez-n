@@ -2,7 +2,15 @@
 #include "../game/Board.h"
 #include "Pawn.h"
 
-chess::Bishop::Bishop(const Color &color) : Piece(color) {value = 300;}
+chess::Bishop::Bishop(const Color &color) : Piece(color) {
+    value = 300;
+    if (color == BLACK)
+        pieceTexture.loadFromFile(spriteD);
+    else if (color == WHITE)
+        pieceTexture.loadFromFile(spriteW);
+
+    pieceSprite.setTexture(pieceTexture);
+}
 
 std::string chess::Bishop::repr() {
     return "Bishop" + std::to_string(color);
@@ -83,8 +91,4 @@ void chess::Bishop::verifyPossibleChecks(chess::PosType fromRow, chess::PosType 
     } else {
         isCheckingKing = false;
     }
-}
-
-void chess::Bishop::drawPiece(sf::RenderWindow &window, PosType row, PosType col) {
-
 }

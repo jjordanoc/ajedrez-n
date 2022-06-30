@@ -1,7 +1,16 @@
 #include "Queen.h"
 #include "../game/Board.h"
 
-chess::Queen::Queen(const chess::Color &color) : Piece(color) {value = 3000;}
+
+chess::Queen::Queen(const chess::Color &color) : Piece(color) {
+    value = 900;
+    if (color == BLACK)
+        pieceTexture.loadFromFile(spriteD);
+    else if (color == WHITE)
+        pieceTexture.loadFromFile(spriteW);
+
+    pieceSprite.setTexture(pieceTexture);
+}
 
 std::string chess::Queen::repr() {
     return "Queen" + std::to_string(color);
@@ -90,8 +99,4 @@ void chess::Queen::verifyPossibleChecks(chess::PosType fromRow, chess::PosType f
     } else {
         isCheckingKing = false;
     }
-}
-
-void chess::Queen::drawPiece(sf::RenderWindow &window, PosType row, PosType col) {
-
 }

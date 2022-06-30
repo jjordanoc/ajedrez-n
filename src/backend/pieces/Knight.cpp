@@ -3,6 +3,12 @@
 
 chess::Knight::Knight(const Color &color) : Piece(color) {
     value = 300;
+    if (color == BLACK)
+        pieceTexture.loadFromFile(spriteD);
+    else if (color == WHITE)
+        pieceTexture.loadFromFile(spriteW);
+
+    pieceSprite.setTexture(pieceTexture);
 }
 
 std::string chess::Knight::repr() {
@@ -79,8 +85,4 @@ void chess::Knight::verifyPossibleChecks(chess::PosType fromRow, chess::PosType 
     } else {
         isCheckingKing = false;
     }
-}
-
-void chess::Knight::drawPiece(sf::RenderWindow &window, PosType row, PosType col) {
-
 }

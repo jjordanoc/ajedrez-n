@@ -9,7 +9,7 @@ Game::Game() {
 
     states[4] = (State *)(new Play());  // Play
 
-    currentState = 0;  // empezamos en el menu principal
+    currentState = 4;  // empezamos en el menu principal
 }
 
 void Game::run() {

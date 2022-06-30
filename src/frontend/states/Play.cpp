@@ -3,26 +3,49 @@
 Play::Play() {
     boardTexture.loadFromFile("../../src/frontend/assets/textures/board.png");
     boardSprite.setTexture(&boardTexture);
-    cargarTablero();
+    engine.initBoard();
+    drawBoard();
 }
 
-void Play::cargarTablero() {
+void Play::drawBoard() {
     boardSprite.setSize(sf::Vector2f(600, 600));
     float boardX = windowWidth/2.0 - 600/2.0;
     float boardY = windowHeight/2.0 - 600/2.0;
     boardSprite.setPosition(boardX, boardY);
 
+    /*
+     * Posiciones de las piezas respecto dentro del tablero
+
+     (0, 0)      (75, 75),   (150, 150),   (225, 225),   (300, 300),   (375, 375),   (450, 450),   (525, 525)
+     * */
 
     /*
-     0      75,   150,   225,   300,   375,   450,   525
-     75
-     150
-     225
-     300
-     375
-     450
-     525
-     * */
+     * Posiciones de las piezas en la pantalla:
+     * A la x de la pieza le sumamos boardX
+     * A la y de la pieza le sumamos boardY
+     */
+}
+
+void Play::piecePressed(double windowX, double windowY) {
+    int col, row;
+    if (boardX <= windowX <= boardX+600) {
+        col = (windowX - boardX) / 75.0;
+        row = (windowY - boardY) / 75.0;
+    }
+
+    auto currentBoard = engine.getBoard().getBoardData();
+    currentBoard.at(row).at(col);
+
+
+
+//    for (int i = 0; i < BOARD_SIZE; ++i) {
+//        for (int j = 0; j < BOARD_SIZE; ++j) {
+//            auto piece = currentBoard.at(i).at(j);
+//            if (piece != nullptr) {
+//
+//            }
+//        }
+//    }
 }
 
 void Play::handleEvents(sf::RenderWindow &window) {
@@ -33,24 +56,29 @@ void Play::handleEvents(sf::RenderWindow &window) {
         switch (event.type) {
             case sf::Event::Closed:
                 window.close();
+                break;
             case sf::Event::KeyReleased:
                 switch (event.key.code) {
                     case sf::Keyboard::Escape:
                         inCurrentState = false;
                         break;
                 }
+                break;
+            case sf::Event::MouseButtonPressed:
+                piecePressed(event.mouseButton.x, event.mouseButton.y);
+                break;
         }
     }
 }
-
-
 
 void Play::render(sf::RenderWindow &window) {
     window.clear(sf::Color::Black);
     draw(window);
     window.display();
+}
 
-    //
+void Play::draw(sf::RenderWindow &window) {
+    window.draw(boardSprite);
     auto currentBoard = engine.getBoard().getBoardData();
     for (int i = 0; i < BOARD_SIZE; ++i) {
         for (int j = 0; j < BOARD_SIZE; ++j) {
@@ -60,10 +88,6 @@ void Play::render(sf::RenderWindow &window) {
             }
         }
     }
-}
-
-void Play::draw(sf::RenderWindow &window) {
-    window.draw(boardSprite);
 }
 
 void Play::update(sf::RenderWindow &window, int &currentState) {

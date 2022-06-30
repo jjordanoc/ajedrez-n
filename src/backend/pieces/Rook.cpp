@@ -47,6 +47,12 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Rook::possibleMove
 }
 chess::Rook::Rook(const chess::Color &color) : Piece(color) {
     value = 500;
+    if (color == BLACK)
+        pieceTexture.loadFromFile(spriteD);
+    else if (color == WHITE)
+        pieceTexture.loadFromFile(spriteW);
+
+    pieceSprite.setTexture(pieceTexture);
 }
 
 void chess::Rook::verifyPossibleChecks(chess::PosType fromRow, chess::PosType fromCol, chess::Board &currentBoard) {
@@ -81,8 +87,4 @@ void chess::Rook::verifyPossibleChecks(chess::PosType fromRow, chess::PosType fr
     } else {
         isCheckingKing = false;
     }
-}
-
-void chess::Rook::drawPiece(sf::RenderWindow &window, PosType row, PosType col) {
-
 }
