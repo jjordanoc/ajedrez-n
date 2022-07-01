@@ -54,7 +54,7 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Pawn::possibleMove
         addPlausibleMoves(fromRow, fromCol, fromRow + off, fromCol, moves, currentBoard);
     }
     // if pawn hasn`t moved, it can move 2 steps
-    if (moveCount == 0 && boardData.at(fromRow + off + off).at(fromCol) == nullptr) {
+    if (inBounds(fromRow + off + off, fromCol) && moveCount == 0 && boardData.at(fromRow + off + off).at(fromCol) == nullptr) {
         addPlausibleMoves(fromRow, fromCol, fromRow + off + off, fromCol, moves, currentBoard);
     }
     if (numChecks != 0) {

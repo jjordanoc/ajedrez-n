@@ -1,6 +1,7 @@
 #include "Queen.h"
 #include "../game/Board.h"
 
+
 chess::Queen::Queen(const chess::Color &color) : Piece(color) {
     value = 900;
     if (color == BLACK)

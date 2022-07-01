@@ -40,7 +40,8 @@ namespace chess {
         BoardType &getBoardData();
         bool fiftyMoveDraw();
         void deleteEnPassant();
-        double evaluation();
+        ScoreType evaluation();
+        void move(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol);
     };
 
 }// namespace chess

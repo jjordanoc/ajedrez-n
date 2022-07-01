@@ -22,6 +22,8 @@ namespace chess {
         void nextTurn();
         Board& getBoard();
         unsigned long long Perft(int depth);
+        Color getTurn();
+        void playerMove(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol);
         ~Engine();
     };
 

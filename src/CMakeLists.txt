@@ -15,5 +15,6 @@ add_executable(${BINARY} ${SOURCES})
 
 target_link_libraries(${BINARY} sfml-graphics sfml-audio sfml-window sfml-system)
 
-add_library(${BINARY}_lib STATIC ${SOURCES_BACKEND})
+add_library(${BINARY}_lib STATIC ${SOURCES_BACKEND} )
 
+target_link_libraries(${BINARY}_lib sfml-graphics sfml-audio sfml-window sfml-system)

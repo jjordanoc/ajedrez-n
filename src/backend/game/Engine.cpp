@@ -5,11 +5,16 @@ chess::Engine::Engine() : board(std::make_unique<Board>()), player1(std::make_un
 }
 
 void chess::Engine::initBoard() {
-    // generar reglas del juego en base al n
+    // Initialize an empty board
+    for (unsigned long long i = 0; i < BOARD_SIZE; ++i) {
+        for (unsigned long long j = 0; j < BOARD_SIZE; ++j) {
+            board->getBoardData().at(i).at(j) = nullptr;
+        }
+    }
 
-    // si n es 0, se crea el juego base
+    // Initialize the board base on the parameter n
 
-    // se crea el tablero
+    // Initialize the base board
 
     board->putPiece("King", Color::WHITE, 7, 4);
     board->putPiece("King", Color::BLACK, 0, 4);
@@ -43,70 +48,6 @@ void chess::Engine::initBoard() {
 }
 
 void chess::Engine::testGame() {
-    // Probamos si podemos seleccionar alguna pieza
-    board->print();
-    while (true) {
-        if (turn == WHITE && board->isChecked(chess::WHITE)) {
-            std::cout << "WHITE IS CHECKED!" << std::endl;
-        }
-        if (turn == BLACK && board->isChecked(chess::BLACK)) {
-            std::cout << "BLACK IS CHECKED!" << std::endl;
-        }
-        if (board->isStaleMate(chess::WHITE) || board->isStaleMate(chess::BLACK) || board->fiftyMoveDraw()) {
-            std::cout << "IT'S A DRAW :D" << std::endl;
-            return;
-        }
-        if (board->isCheckMate(chess::WHITE)) {
-            std::cout << "WHITE WON :D" << std::endl;
-            return;
-        } else if (board->isCheckMate(chess::BLACK)) {
-            std::cout << "BLACK WON :D" << std::endl;
-            return;
-
-        } else {
-            std::cout << "IT IS " << turn << "'S TURN" << std::endl;
-            int row = 0, col = 0, newRow = 0, newCol = 0;
-            do {
-                std::cout << "SELECT A PIECE (EX: 0 1): " << std::endl;
-                std::cin >> row >> col;
-                if (row == -1 || col == -1) {
-                    return;
-                }
-            } while (!(row >= 0 && row < 8 && col >= 0 && col < 8));
-
-            if (board->getPiece(row, col) == nullptr) {
-                continue;
-            }
-            if (turn == board->getPiece(row, col)->getColor()) {
-                std::vector<std::pair<PosType, PosType>> vec = board->getPiece(row, col)->possibleMoves(row, col,
-                                                                                                        *board);
-
-                for (const auto &e: vec) {
-                    std::cout << "POSSIBLE MOVE: " << std::endl;
-                    std::cout << e.first << " " << e.second << std::endl;
-                }
-                if (!vec.empty()) {
-                    do {
-                        std::cout << "SELECT A MOVE (EX: 0 1): " << std::endl;
-                        std::cin >> newRow >> newCol;
-                        if (newRow == -1 || newCol == -1) {
-                            return;
-                        }
-                    } while (std::find(begin(vec), end(vec), std::pair<PosType, PosType>(newRow, newCol)) == end(vec));
-                    board->checkCastling(row, col, newRow, newCol);
-                    board->getPiece(row, col)->incrementMoveCount();
-                    board->checkEnPassant(row, col, newRow, newCol);
-                    board->deleteEnPassant();
-                    board->movePiece(row, col, newRow, newCol);
-                    board->checkPawnPromotion(newRow, newCol);
-                    nextTurn();
-                }
-            } else {
-                std::cout << "YOU CAN'T MOVE THIS PIECE" << std::endl;
-            }
-            board->print();
-        }
-    }
 }
 
 chess::Engine &chess::Engine::getInstance() {
@@ -144,7 +85,6 @@ unsigned long long chess::Engine::Perft(int depth) {
                     tmp.movePiece(i, j, m.first, m.second);
                     nodes += Perft(depth - 1);
                 }
-
             }
         }
     }
@@ -153,4 +93,7 @@ unsigned long long chess::Engine::Perft(int depth) {
 
 chess::Board &chess::Engine::getBoard() {
     return *board;
+}
+chess::Color chess::Engine::getTurn() {
+    return turn;
 }
