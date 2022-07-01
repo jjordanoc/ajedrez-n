@@ -133,7 +133,6 @@ bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, Pos
         return true;
     }
 
-
     return false;
 }
 

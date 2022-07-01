@@ -6,7 +6,6 @@
 #include <iostream>
 #include <memory>
 
-#include "../graphics/Label.h"
 #include "State.h"
 
 #include <SFML/Graphics.hpp>
@@ -27,11 +26,13 @@ private:
     sf::RectangleShape boardSprite;
 
     std::vector<std::pair<float, float>> possibleMoves;
+    std::vector<sf::RectangleShape*> piecesPressedSquare;
 
     chess::Engine &engine = chess::Engine::getInstance();
 
     void drawBoard();
-    void piecePressed(double x, double y);
+    void piecePressed(sf::RenderWindow &window, double windowX, double windowY);
+    void piecePossibleMoveSquarePressed(sf::RenderWindow &window, double windowX, double windowY, double pieceRow, double pieceCol);
 public:
     Play();
 
