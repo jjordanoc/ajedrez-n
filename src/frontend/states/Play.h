@@ -28,11 +28,13 @@ private:
     std::vector<std::pair<float, float>> possibleMoves;
     std::vector<sf::RectangleShape*> piecesPressedSquare;
 
+    pair<chess::PosType, chess::PosType> posPieceSelected;
+
     chess::Engine &engine = chess::Engine::getInstance();
 
     void drawBoard();
     void piecePressed(sf::RenderWindow &window, double windowX, double windowY);
-    void piecePossibleMoveSquarePressed(sf::RenderWindow &window, double windowX, double windowY, double pieceRow, double pieceCol);
+    void piecePossibleMoveSquarePressed(sf::RenderWindow &window, double windowX, double windowY);
 public:
     Play();
 
