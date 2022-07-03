@@ -45,13 +45,24 @@ void chess::Board::checkCastling(PosType oldRow, PosType oldCol, PosType newRow,
     if (!isMakingCastling) {
         auto king = mainBoard.at(oldRow).at(oldCol);
         if (std::dynamic_pointer_cast<King>(king) != nullptr) {
-            if (newCol == 2) {
-                isMakingLongCastling = true;
-                isMakingCastling = true;
-            } else if (newCol == 6) {
-                isMakingShortCastling = true;
-                isMakingCastling = true;
+            if(king->getColor() == chess::WHITE){
+                if (newCol == 2 && newRow == 7) {
+                    isMakingLongCastling = true;
+                    isMakingCastling = true;
+                } else if (newCol == 6 && newRow == 7) {
+                    isMakingShortCastling = true;
+                    isMakingCastling = true;
+                }
+            } else if(king->getColor() == chess::WHITE) {
+                if (newCol == 2 && newRow == 0) {
+                    isMakingLongCastling = true;
+                    isMakingCastling = true;
+                } else if (newCol == 6 && newRow == 0) {
+                    isMakingShortCastling = true;
+                    isMakingCastling = true;
+                }
             }
+
         }
     }
 }
