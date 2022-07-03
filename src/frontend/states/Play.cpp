@@ -83,12 +83,8 @@ void Play::handleEvents(sf::RenderWindow &window) {
     sf::Event event{};
 
     while (window.pollEvent(event)) {
-        // IA turn
-        if(engine.getTurn() == ai.getColor()){
-            ai.move(engine.getBoard());
-            checkState();
-            engine.nextTurn();
-        }
+        // Ai turn
+        AiTurn();
         switch (event.type) {
             case sf::Event::Closed:
                 window.close();
@@ -109,18 +105,19 @@ void Play::handleEvents(sf::RenderWindow &window) {
 }
 
 void Play::render(sf::RenderWindow &window) {
-    if(!isEndGame){
-        window.clear(sf::Color::Black);
-        draw(window);
-        window.display();
-    } else {
-        window.clear(sf::Color::Black);
-        draw(window);
-        auto label = Label(FONT_PATH, sf::Color::Black, to_string(winner) + "PLAYER WINS!!", 100, 150, 50);
-        label.draw(window);
-        window.display();
+    while(window.isOpen()){
+        if(!isEndGame){
+            window.clear(sf::Color::Black);
+            draw(window);
+            window.display();
+        } else {
+            window.clear(sf::Color::Black);
+            draw(window);
+            auto label = Label(FONT_PATH, sf::Color::Black, to_string(winner) + "PLAYER WINS!!", 100, 150, 50);
+            label.draw(window);
+            window.display();
+        }
     }
-
 }
 
 void Play::draw(sf::RenderWindow &window) {
@@ -163,6 +160,15 @@ void Play::checkState() {
     if (engine.getBoard().isStaleMate(chess::WHITE) || engine.getBoard().isStaleMate(chess::BLACK) || engine.getBoard().fiftyMoveDraw()) {
         std::cout << "IT'S A DRAW" << std::endl;
         isEndGame = true;
+    }
+}
+
+void Play::AiTurn() {
+    // IA turn
+    if(engine.getTurn() == ai.getColor()){
+        ai.move(engine.getBoard());
+        checkState();
+        engine.nextTurn();
     }
 }
 

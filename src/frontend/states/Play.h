@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <memory>
+#include <thread>
 
 #include "State.h"
 #include "../graphics/Label.h"
@@ -35,6 +36,7 @@ private:
 
     chess::Engine &engine = chess::Engine::getInstance();
 
+    bool AiIsThinking = false;
     bool isEndGame = false;
     chess::Color winner;
 
@@ -55,6 +57,8 @@ public:
     void update(sf::RenderWindow &window, int &currentState) override;
 
     void checkState();
+
+    void AiTurn();
 
     ~Play();
 };

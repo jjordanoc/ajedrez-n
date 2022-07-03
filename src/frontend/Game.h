@@ -22,7 +22,7 @@
 class Game {
 private:
     // Instanciamos la pantalla principal del juego
-    sf::RenderWindow gameWindow{sf::VideoMode(windowWidth, windowHeight), "Ajedrez"};
+    sf::RenderWindow gameWindow;
 
     // States
     State *states[numberOfStates]{};

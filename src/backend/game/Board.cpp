@@ -308,8 +308,24 @@ chess::ScoreType chess::Board::evaluation() {
             if (piece != nullptr) {
                 if (piece->getColor() == BLACK) {
                     blackPoints += piece->getValue();
+                    if(std::dynamic_pointer_cast<Pawn>(piece) != nullptr){
+                        if((i >= BOARD_SIZE/2 && i <=  BOARD_SIZE/2 + 1) || (j >= BOARD_SIZE/2 && j <=  BOARD_SIZE/2 + 1)){
+                            blackPoints += 50;
+                        }
+                    }
+                    if(std::dynamic_pointer_cast<King>(piece) != nullptr){
+                        whitePoints += (std::pow(j - BOARD_SIZE/2, 2) - std::pow(j, 2))*4;
+                    }
                 } else {
                     whitePoints += piece->getValue();
+                    if(std::dynamic_pointer_cast<Pawn>(piece) != nullptr){
+                        if((i >= BOARD_SIZE/2 && i <=  BOARD_SIZE/2 + 1) || (j >= BOARD_SIZE/2 && j <=  BOARD_SIZE/2 + 1)){
+                            whitePoints += 50;
+                        }
+                    }
+                    if(std::dynamic_pointer_cast<King>(piece) != nullptr){
+                        blackPoints += (std::pow(j - BOARD_SIZE/2, 2) - std::pow(j, 2))*4;
+                    }
                 }
             }
         }
@@ -321,6 +337,10 @@ chess::ScoreType chess::Board::evaluation() {
     else if (isChecked(WHITE)) {
         blackPoints += CHECK_VALUE;
     }
+
+
+
+
     // If the score is positive, white are winning
     return whitePoints - blackPoints;
 }
