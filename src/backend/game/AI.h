@@ -18,6 +18,7 @@ namespace chess {
         AI();
         AI(Color color, int depthLimit);
         ScoreType minimax(chess::Board &table, bool playMax, int depth);
+        ScoreType alphaBetaPrunedMinimax(chess::Board &table, bool playMax, ScoreType alpha, ScoreType beta, int depth);
         void move(chess::Board &table);
         Color getColor();
     };

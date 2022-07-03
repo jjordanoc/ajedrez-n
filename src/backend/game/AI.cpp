@@ -50,6 +50,54 @@ chess::ScoreType chess::AI::minimax(chess::Board &table, bool playMax, int depth
     }
 }
 
+chess::ScoreType chess::AI::alphaBetaPrunedMinimax(chess::Board &table, bool playMax, ScoreType alpha = MIN_SCORE, ScoreType beta = MAX_SCORE, int depth = 0) {
+    ScoreType score = table.evaluation();
+    if (score >= MAX_SCORE || score <= MIN_SCORE || depthLimit <= depth) {
+        return score;
+    }
+    if (playMax) {
+        ScoreType value = MIN_SCORE;
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                if (table.getPiece(i, j) != nullptr && table.getPiece(i, j)->getColor() == chess::WHITE) {
+                    auto piece = table.getPiece(i, j);
+                    auto possibleMoves = piece->possibleMoves(i, j, table);
+                    for (auto &move: possibleMoves) {
+                        chess::Board tmp = chess::Board(table);
+                        tmp.movePiece(i, j, move.first, move.second);
+                        value = std::max(value, alphaBetaPrunedMinimax(tmp, false, alpha, beta, depth += 1));
+                        if (value >= beta) {
+                            break;
+                        }
+                        alpha = std::max(alpha, value);
+                    }
+                }
+            }
+        }
+        return value;
+    } else {
+        ScoreType value = MAX_SCORE;
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                if (table.getPiece(i, j) != nullptr && table.getPiece(i, j)->getColor() == chess::BLACK) {
+                    auto piece = table.getPiece(i, j);
+                    auto possibleMoves = piece->possibleMoves(i, j, table);
+                    for (auto &move: possibleMoves) {
+                        chess::Board tmp = chess::Board(table);
+                        tmp.movePiece(i, j, move.first, move.second);
+                        value = std::min(value, alphaBetaPrunedMinimax(tmp, true, alpha, beta,depth += 1));
+                        if (value <= alpha) {
+                            break;
+                        }
+                        beta = std::min(beta, value);
+                    }
+                }
+            }
+        }
+        return value;
+    }
+}
+
 void chess::AI::move(chess::Board &table) {
     bool playMax = color == WHITE;
     ScoreType bestScore = playMax  ? MIN_SCORE : MAX_SCORE;
@@ -64,7 +112,7 @@ void chess::AI::move(chess::Board &table) {
                     chess::Board tmp = chess::Board(table);
                     // Try move
                     tmp.move(i, j, e.first, e.second);
-                    auto score = minimax(tmp, playMax);
+                    auto score = alphaBetaPrunedMinimax(tmp, playMax);
                     if (playMax) {
                         if (score > bestScore) {
                             bestScore = score;
