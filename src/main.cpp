@@ -73,9 +73,9 @@ void test() {
 }
 
 int main() {
-//    auto game = Game::getInstance();
-//    game->run();
-    test();
+    auto game = Game::getInstance();
+    game->run();
+//    test();
 
     return 0;
 }

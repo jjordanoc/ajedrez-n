@@ -4,17 +4,22 @@
 
 
 #include <iostream>
+#include <memory>
+#include <thread>
 
-
-#include "../graphics/Label.h"
 #include "State.h"
+#include "../graphics/Label.h"
 
 #include <SFML/Graphics.hpp>
 
 #include "../global/Window.h"
 #include "../global/Paths.h"
 
+#include "../../backend/global/Global.h"
 #include "../../backend/game/Engine.h"
+#include "../../backend/game/AI.h"
+#include "../../backend/pieces/Piece.h"
+
 
 using namespace std;
 
@@ -24,10 +29,22 @@ private:
     sf::Texture boardTexture;
     sf::RectangleShape boardSprite;
 
+    std::vector<std::pair<float, float>> possibleMoves;
+    std::vector<sf::RectangleShape*> piecesPressedSquare;
+
+    pair<chess::PosType, chess::PosType> posPieceSelected;
+
     chess::Engine &engine = chess::Engine::getInstance();
 
+    bool AiIsThinking = false;
+    bool isEndGame = false;
+    chess::Color winner;
+
+    chess::AI ai = chess::AI(chess::BLACK, 5);
+
     void drawBoard();
-    void piecePressed(double x, double y);
+    void piecePressed(sf::RenderWindow &window, double windowX, double windowY);
+    void piecePossibleMoveSquarePressed(sf::RenderWindow &window, double windowX, double windowY);
 public:
     Play();
 
@@ -38,6 +55,10 @@ public:
     void render(sf::RenderWindow &window) override;
 
     void update(sf::RenderWindow &window, int &currentState) override;
+
+    void checkState();
+
+    void AiTurn();
 
     ~Play();
 };

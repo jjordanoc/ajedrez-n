@@ -6,6 +6,7 @@
 #include <array>
 #include <memory>
 #include <limits>
+#include <cmath>
 // Liberias locales
 #include "../global/Global.h"
 #include "../pieces/Piece.h"

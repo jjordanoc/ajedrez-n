@@ -45,13 +45,24 @@ void chess::Board::checkCastling(PosType oldRow, PosType oldCol, PosType newRow,
     if (!isMakingCastling) {
         auto king = mainBoard.at(oldRow).at(oldCol);
         if (std::dynamic_pointer_cast<King>(king) != nullptr) {
-            if (newCol == 2) {
-                isMakingLongCastling = true;
-                isMakingCastling = true;
-            } else if (newCol == 6) {
-                isMakingShortCastling = true;
-                isMakingCastling = true;
+            if(king->getColor() == chess::WHITE){
+                if (newCol == 2 && newRow == 7) {
+                    isMakingLongCastling = true;
+                    isMakingCastling = true;
+                } else if (newCol == 6 && newRow == 7) {
+                    isMakingShortCastling = true;
+                    isMakingCastling = true;
+                }
+            } else if(king->getColor() == chess::WHITE) {
+                if (newCol == 2 && newRow == 0) {
+                    isMakingLongCastling = true;
+                    isMakingCastling = true;
+                } else if (newCol == 6 && newRow == 0) {
+                    isMakingShortCastling = true;
+                    isMakingCastling = true;
+                }
             }
+
         }
     }
 }
@@ -131,7 +142,6 @@ bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, Pos
         // This statement it's not necessary because we can validate the possible moves and this isn't a possible move
         return true;
     }
-
 
     return false;
 }
@@ -298,8 +308,24 @@ chess::ScoreType chess::Board::evaluation() {
             if (piece != nullptr) {
                 if (piece->getColor() == BLACK) {
                     blackPoints += piece->getValue();
+                    if(std::dynamic_pointer_cast<Pawn>(piece) != nullptr){
+                        if((i >= BOARD_SIZE/2 && i <=  BOARD_SIZE/2 + 1) || (j >= BOARD_SIZE/2 && j <=  BOARD_SIZE/2 + 1)){
+                            blackPoints += 50;
+                        }
+                    }
+                    if(std::dynamic_pointer_cast<King>(piece) != nullptr){
+                        whitePoints += (std::pow(j - BOARD_SIZE/2, 2) - std::pow(j, 2))*4;
+                    }
                 } else {
                     whitePoints += piece->getValue();
+                    if(std::dynamic_pointer_cast<Pawn>(piece) != nullptr){
+                        if((i >= BOARD_SIZE/2 && i <=  BOARD_SIZE/2 + 1) || (j >= BOARD_SIZE/2 && j <=  BOARD_SIZE/2 + 1)){
+                            whitePoints += 50;
+                        }
+                    }
+                    if(std::dynamic_pointer_cast<King>(piece) != nullptr){
+                        blackPoints += (std::pow(j - BOARD_SIZE/2, 2) - std::pow(j, 2))*4;
+                    }
                 }
             }
         }
@@ -311,6 +337,10 @@ chess::ScoreType chess::Board::evaluation() {
     else if (isChecked(WHITE)) {
         blackPoints += CHECK_VALUE;
     }
+
+
+
+
     // If the score is positive, white are winning
     return whitePoints - blackPoints;
 }
