@@ -50,7 +50,8 @@ chess::ScoreType chess::AI::minimax(chess::Board &table, bool playMax, int depth
     }
 }
 
-chess::ScoreType chess::AI::alphaBetaPrunedMinimax(chess::Board &table, bool playMax, ScoreType alpha = MIN_SCORE, ScoreType beta = MAX_SCORE, int depth = 0) {
+
+chess::ScoreType chess::AI::alphaBetaPrunedMinimax(chess::Board &table, bool playMax, ScoreType alpha, ScoreType beta, int depth) {
     ScoreType score = table.evaluation();
     if (score >= MAX_SCORE || score <= MIN_SCORE || depthLimit <= depth) {
         return score;
