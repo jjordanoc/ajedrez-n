@@ -38,7 +38,7 @@ private:
     bool isEndGame = false;
     chess::Color winner;
 
-    chess::AI ai = chess::AI(chess::BLACK, 5);
+    chess::AI ai = chess::AI(chess::BLACK, 6);
 
     void drawBoard();
     void piecePressed(sf::RenderWindow &window, double windowX, double windowY);
