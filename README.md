@@ -38,15 +38,15 @@ Proyecto realizado bajo la licencia [Apache 2.0](https://www.apache.org/licenses
 
 ## Test de aplicación
 
-- Board Test: Permite comprobar que el tablero se ha podido iniciar correctamente con todas las piezas necesarias.
-- Checkmate Test: Evalua si funciona el jaque mate al realizar una serie de movimientos con las piezas ya testeadas con anterioridad.
+- **Board Test:** Permite comprobar que el tablero se ha podido iniciar correctamente con todas las piezas necesarias.
+- **Checkmate Test:** Evalua si funciona el jaque mate al realizar una serie de movimientos con las piezas ya testeadas con anterioridad.
 
 ### Patrones de diseño
 
 - **Singleton:** Se asegura que solo existe una única instancia. En este caso nos aseguramos que exista una ventana del juego y un solo motor del juego.
-- **Iterator:** Recorridos variados para cada movimiento de piezas.
-- **Observer:** Las actualizaciones realizadas por el _Engine_ son registradas por la clase _Play_.
-- **Factory:** Las piezas del ajedrez son creadas a partir de una superclase llamada _Piece_.
+- **Iterator:** Con el uso de iteradores de la librería estándar en C++, el uso de iteradores pueden hacer recorridos variados para los movimientos de cada pieza.
+- **Observer:** Las actualizaciones realizadas por el _Engine_ son observadas por la clase _Play_ que posteriormente reacciona en la vista de la ventana.
+- **Factory:** Las piezas del ajedrez son creadas a partir de una superclase llamada _Piece_. Estas piezas comparten ciertos métodos, mientras que los movimientos realizados por estos son distintos.
 - **Facade:** Se composiciona en la acción de mover una pieza diversos métodos.
 
 ## Autores
@@ -58,7 +58,8 @@ Proyecto realizado bajo la licencia [Apache 2.0](https://www.apache.org/licenses
 
 ## Bibliografía
 
-- [1] Standford, "Strategies and tactics for intelligent search", 2003. [Online]. Available: https://cs.stanford.edu/people/eroberts/courses/soco/projects/2003-04/intelligent-search/intro.html .[Accessed: May 3, 2022]
+- [1] Stanford, "Strategies and tactics for intelligent search", 2003. [Online]. Available: https://cs.stanford.edu/people/eroberts/courses/soco/projects/2003-04/intelligent-search/intro.html .[Accessed: May 3, 2022]
 - [2] Cornell, "AI Chess Algorithms", 2004. [Online]. Available: https://www.cs.cornell.edu/boom/2004sp/ProjectArch/Chess/algorithms.html .[Accessed: May 8, 2022]
 - [3] E. Gamma, R. Helm, R. Johnson and J. Vlissides, "Design Patterns: Elements of Reusable Object-Oriented Software". Westford, Massachusetts, USA: Addison-Wesley, 1994 [Online]. Available: http://www.javier8a.com/itc/bd1/articulo.pdf .[Accessed: May 25, 2022]
 - [4] Geek Projects, "Main Menu in C++ using SFML library", Jul 5, 2021. [Video]. https://www.youtube.com/watch?v=bOG8667yePY .[Accessed: Jun 5, 2022] 
+- [5] J. Voris, "CS W4701 Artificial Intelligence", in _Adversial Search_, Upper Sadle River, New Jersey 07458, USA: Pearson Education, Inc., 2009, pp. 161-201 [Online]. Available: https://zoo.cs.yale.edu/classes/cs470/materials/aima2010.pdf .[Accessed: Jun 16, 2022]
