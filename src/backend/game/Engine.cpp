@@ -1,7 +1,12 @@
 #include "Engine.h"
 
-chess::Engine::Engine() : board(std::make_unique<Board>()), player1(std::make_unique<Player>(BLACK)),
-                          player2(std::make_unique<Player>(WHITE)), turn(chess::WHITE) {
+chess::Engine::Engine() : board(std::make_unique<Board>()), turn(chess::WHITE) {
+    initBoard();
+}
+
+chess::Engine &chess::Engine::getInstance() {
+    static Engine instance;
+    return instance;
 }
 
 void chess::Engine::initBoard() {
@@ -47,18 +52,6 @@ void chess::Engine::initBoard() {
     }
 }
 
-void chess::Engine::testGame() {
-}
-
-chess::Engine &chess::Engine::getInstance() {
-    static Engine instance;
-    return instance;
-}
-
-chess::Engine::~Engine() {
-    delete instance;
-}
-
 void chess::Engine::nextTurn() {
     if (turn == BLACK) {
         turn = WHITE;
@@ -67,28 +60,23 @@ void chess::Engine::nextTurn() {
     }
 }
 
-unsigned long long chess::Engine::Perft(int depth) {
-    unsigned long long nodes = 0;
-    if (depth == 0) {
-        return 1ULL;
+chess::GameState chess::Engine::getWinner() const {return winner;}
+
+bool chess::Engine::isGameOver() const {
+    return winner != chess::IN_GAME;
+}
+
+void chess::Engine::checkState(){
+
+    if (board->isCheckMate(chess::WHITE)) {
+        winner = chess::WHITE_WINS;
+    } else if (board->isCheckMate(chess::BLACK)) {
+        winner = chess::BLACK_WINS;
     }
-    for (unsigned long long i = 0; i < BOARD_SIZE; ++i) {
-        for (unsigned long long j = 0; j < BOARD_SIZE; ++j) {
-            auto piece = board->getPiece(i, j);
-            if (piece == nullptr) {
-                continue;
-            }
-            auto moves = piece->possibleMoves(i, j, *board);
-            if (!moves.empty()) {
-                for (const auto &m: moves) {
-                    Board tmp;
-                    tmp.movePiece(i, j, m.first, m.second);
-                    nodes += Perft(depth - 1);
-                }
-            }
-        }
+
+    if (board->isStaleMate(chess::WHITE) || board->isStaleMate(chess::BLACK) || board->fiftyMoveDraw()) {
+        winner = chess::DRAW;
     }
-    return nodes;
 }
 
 chess::Board &chess::Engine::getBoard() {
@@ -96,4 +84,7 @@ chess::Board &chess::Engine::getBoard() {
 }
 chess::Color chess::Engine::getTurn() {
     return turn;
+}
+void chess::Engine::forceGameOver() {
+    winner = chess::DRAW;
 }

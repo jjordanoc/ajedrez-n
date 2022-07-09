@@ -7,7 +7,7 @@
 #include <memory>
 #include <limits>
 // Liberias locales
-#include "../global/Global.h"
+#include "global/Global.h"
 #include "../pieces/Piece.h"
 #include "../pieces/PieceFactory.h"
 

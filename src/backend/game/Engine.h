@@ -1,27 +1,20 @@
 #ifndef PROYECTO_ENGINE_H
 #define PROYECTO_ENGINE_H
 #include "Board.h"
-#include "Player.h"
-
-class Play;
 
 namespace chess {
 
     class Engine {
-        std::unique_ptr<Player> player1;
-        std::unique_ptr<Player> player2;
         std::unique_ptr<Board> board;
         Color turn;
         unsigned long long n = 0;
-        inline static Engine *instance = nullptr;
-        Engine();
+
     public:
+        Engine();
         static Engine &getInstance();
         void initBoard();
-        void testGame();
         void nextTurn();
         Board& getBoard();
-        unsigned long long Perft(int depth);
         Color getTurn();
         void playerMove(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol);
         ~Engine();

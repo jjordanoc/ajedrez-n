@@ -80,7 +80,6 @@ void MainMenu::moveUp() {
         if (optionMenu == -1) {
             optionMenu = 4;
         }
-        cout << "Opcion del menu: " << optionMenu << endl;
         mainMenuLabel[optionMenu]->setFillColor(sf::Color::Black);
     }
 }
@@ -93,7 +92,6 @@ void MainMenu::moveDown() {
         if (optionMenu == 4) {
             optionMenu = 0;
         }
-        cout << "Opcion del menu: " <<  optionMenu << endl;
         mainMenuLabel[optionMenu]->setFillColor(sf::Color::Black);
     }
 }

@@ -13,6 +13,7 @@
 
 #include "states/SelectN.h"
 #include "states/Play.h"
+#include <thread>
 
 #include <SFML/Graphics.hpp>
 
@@ -23,24 +24,18 @@ class Game {
 private:
     // Instanciamos la pantalla principal del juego
     sf::RenderWindow gameWindow{sf::VideoMode(windowWidth, windowHeight), "Ajedrez"};
-
+    chess::AI ai = chess::AI(chess::BLACK, 5);
+    chess::Engine &engine = chess::Engine::getInstance();
     // States
     State *states[numberOfStates]{};
     int currentState;
-
-    inline static Game *instance = nullptr;
+    std::thread aithread;
+    void AIMove();
     Game();
 public:
-    inline static Game *getInstance() {
-        if (instance == nullptr) {
-            instance = new Game();
-        }
-        return instance;
-    }
-
+    static Game &getInstance();
     void run();
-
-    virtual ~Game();
+    ~Game();
 };
 
 #endif//PROYECTOPROGRA2_GAME_H

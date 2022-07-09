@@ -6,7 +6,7 @@ set(SFML_DIR "${SFML_ROOT}/lib/cmake/SFML")
 set(SFML_STATIC_LIBRARIES TRUE)
 find_package(SFML COMPONENTS graphics audio REQUIRED)
 
-file(GLOB_RECURSE SOURCES LIST_DIRECTORIES true backend/*.h backend/*.cpp frontend/*.h frontend/*.cpp main.cpp)
+file(GLOB_RECURSE SOURCES LIST_DIRECTORIES true backend/*.h backend/*.cpp frontend/*.h frontend/*.cpp global/*.h main.cpp)
 file(GLOB_RECURSE SOURCES_BACKEND LIST_DIRECTORIES true backend/*.h backend/*.cpp)
 
 set(SOURCES ${SOURCES} ${SOURCES_BACKEND})

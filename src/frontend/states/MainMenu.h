@@ -5,7 +5,7 @@
 #include <iostream>
 #include <memory>
 
-#include "../global/Window.h"
+#include "global/Window.h"
 
 #include "../graphics/Label.h"
 #include "State.h"
@@ -13,7 +13,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "../global/Paths.h"
+#include "global/Paths.h"
 
 #define Max_main_menu 4
 

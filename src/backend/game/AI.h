@@ -6,7 +6,7 @@
 #define PROYECTO_AI_H
 
 #include "Board.h"
-#include "../global/Global.h"
+#include "global/Global.h"
 
 namespace chess {
 

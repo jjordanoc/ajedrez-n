@@ -25,19 +25,11 @@ void chess::Board::checkPawnPromotion(PosType newRow, PosType newCol) {
         Color PawnColor = piece->getColor();
         // If black pawn is in the row 7 or white pawn is in the row 0, that pawn is promoted
         if (PawnColor == BLACK && newRow == 7) {
-            std::string name;
-            std::cout << "Black Pawn Promoted" << std::endl;
-            std::cout << "Write the name of the piece you wanna change it to (except the King) e.i Queen: ";
-            std::cin >> name;
             mainBoard.at(newRow).at(newCol) = nullptr;
-            putPiece(name, PawnColor, newRow, newCol);
+            putPiece("Queen", PawnColor, newRow, newCol);
         } else if (PawnColor == WHITE && newRow == 0) {
-            std::string name;
-            std::cout << "White Pawn Promoted" << std::endl;
-            std::cout << "Write the name of the piece you wanna change it to (except the King) e.i Queen: ";
-            std::cin >> name;
             mainBoard.at(newRow).at(newCol) = nullptr;
-            putPiece(name, PawnColor, newRow, newCol);
+            putPiece("Queen", PawnColor, newRow, newCol);
         }
     }
 }
@@ -221,6 +213,9 @@ bool chess::Board::isChecked(const chess::Color &color) {
 
 // Return if "color" has won
 bool chess::Board::isCheckMate(const Color &color) {
+    // ejemplo: blanco
+
+    // si el negro no esta en jaque, retorna falso
     if (!isChecked(getOtherColor(color))) {
         return false;
     }
@@ -228,13 +223,15 @@ bool chess::Board::isCheckMate(const Color &color) {
         for (int j = 0; j < BOARD_SIZE; ++j) {
             auto piece = mainBoard.at(i).at(j);
             if (piece != nullptr && piece->getColor() == getOtherColor(color)) {
-                // check if another piece can help him
+                // si alguna pieza del negro tiene movimientos posibles, es falso
                 if (!(piece->possibleMoves(i, j, *this).empty())) {
                     return false;
                 }
             }
         }
     }
+
+    // el blanco hace checkmate
     return true;
 }
 

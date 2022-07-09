@@ -12,15 +12,46 @@ Game::Game() {
     currentState = 4;  // empezamos en el menu principal
 }
 
+Game &Game::getInstance() {
+    static Game instance;
+    return instance;
+}
+
+
 void Game::run() {
     // Game loop
+
+    // creamos thread de la ia para que corra separado del resto del juego
+    thread AIThread;
+
+    AIThread = thread([&](){
+        AIMove();
+    });
+
+    // loop principal del juego, maneja input del jugador y dibujar el tablero
     while (gameWindow.isOpen()) {
         states[currentState]->handleEvents(gameWindow);
         states[currentState]->render(gameWindow);
         states[currentState]->update(gameWindow, currentState);
     }
+    AIThread.join();
 }
 
+void Game::AIMove() {
+    while(!engine.isGameOver()) {
+        // si es turno de la AI
+        if (engine.getTurn() == ai.getColor()) {
+            // realizar movimiento
+            ai.move(engine.getBoard());
+            engine.checkState();
+            engine.nextTurn();
+        }
+        // sino, dormir
+        this_thread::sleep_for(chrono::milliseconds(500));
+    }
+}
 Game::~Game() {
-    delete instance;
+    for (auto &st : states) {
+        delete st;
+    }
 }

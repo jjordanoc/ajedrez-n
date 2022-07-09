@@ -23,36 +23,39 @@ protected:
 };
 
 
-TEST_F(AITest, minimaxMaxPlayer) {
-    std::cout << AI.minimax(engine.getBoard(), true, 5) << std::endl;
-}
-
-TEST_F(AITest, minimaxMinPlayer) {
-    std::cout << AI.minimax(engine.getBoard(), false, 5) << std::endl;
-}
-
-TEST_F(AITest, trivialCheckMateMaxPlayer) {
-    engine.getBoard().putPiece("King", chess::WHITE, 7, 4);
-    engine.getBoard().putPiece("King", chess::BLACK, 0, 4);
-
-    engine.getBoard().putPiece("Queen", chess::WHITE, 7, 3);
-
-    engine.getBoard().putPiece("Rook", chess::WHITE, 7, 0);
-    engine.getBoard().putPiece("Rook", chess::WHITE, 7, 7);
-
-    engine.getBoard().putPiece("Knight", chess::WHITE, 7, 1);
-    engine.getBoard().putPiece("Knight", chess::WHITE, 7, 6);
-
-    engine.getBoard().putPiece("Bishop", chess::WHITE, 7, 2);
-    engine.getBoard().putPiece("Bishop", chess::WHITE, 7, 5);
-
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        engine.getBoard().putPiece("Pawn", chess::WHITE, 6, i);
-    }
-
-    engine.getBoard().print();
-    std::cout << AI.minimax(engine.getBoard(), true, 5) << std::endl;
-}
+//TEST_F(AITest, minimaxMaxPlayer) {
+//    chess::AI AI = chess::AI();
+//    std::cout << AI.minimax(engine.getBoard(), true, 5) << std::endl;
+//}
+//
+//TEST_F(AITest, minimaxMinPlayer) {
+//    chess::AI AI = chess::AI();
+//    std::cout << AI.minimax(engine.getBoard(), false, 5) << std::endl;
+//}
+//
+//TEST_F(AITest, trivialCheckMateMaxPlayer) {
+//    chess::AI AI = chess::AI();
+//    engine.getBoard().putPiece("King", chess::WHITE, 7, 4);
+//    engine.getBoard().putPiece("King", chess::BLACK, 0, 4);
+//
+//    engine.getBoard().putPiece("Queen", chess::WHITE, 7, 3);
+//
+//    engine.getBoard().putPiece("Rook", chess::WHITE, 7, 0);
+//    engine.getBoard().putPiece("Rook", chess::WHITE, 7, 7);
+//
+//    engine.getBoard().putPiece("Knight", chess::WHITE, 7, 1);
+//    engine.getBoard().putPiece("Knight", chess::WHITE, 7, 6);
+//
+//    engine.getBoard().putPiece("Bishop", chess::WHITE, 7, 2);
+//    engine.getBoard().putPiece("Bishop", chess::WHITE, 7, 5);
+//
+//    for (int i = 0; i < BOARD_SIZE; i++) {
+//        engine.getBoard().putPiece("Pawn", chess::WHITE, 6, i);
+//    }
+//
+//    engine.getBoard().print();
+//    std::cout << AI.minimax(engine.getBoard(), true, 5) << std::endl;
+//}
 
 TEST_F(AITest, TestGame) {
 
