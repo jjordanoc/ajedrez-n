@@ -81,7 +81,7 @@ void MainMenu::handleEvents(sf::RenderWindow &window) {
                         optionMenu = 3;
                         inCurrentState = false;
                     }
-                }c
+                }
                 break;
         }
     }
