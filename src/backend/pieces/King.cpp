@@ -22,6 +22,7 @@ bool chess::King::getIsInCheck() const {
 std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMoves(chess::PosType fromRow, chess::PosType fromCol, Board& currentBoard) {
     auto boardData = currentBoard.getBoardData();
     std::vector<std::pair<PosType, PosType>> moves;
+    int numChecks = 0;
     for (int i = -1; i <= 1; i += 1) {
         for (int j = -1; j <= 1; j += 1) {
             if (i == 0 && j == 0) {
@@ -33,6 +34,9 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
                         if(boardData.at(fromRow + i).at(fromCol + j)->repr() != "King0" &&
                             boardData.at(fromRow + i).at(fromCol + j)->repr() != "King1"){
                             addPlausibleMoves(fromRow, fromCol, fromRow+i, fromCol+j, moves, currentBoard);
+                        }
+                        else {
+                            ++numChecks;
                         }
                     }
                 } else {
@@ -104,6 +108,12 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
                 }
             }
         }
+    }
+    if (numChecks != 0) {
+        isCheckingKing = true;
+    }
+    else {
+        isCheckingKing = false;
     }
     return moves;
 }

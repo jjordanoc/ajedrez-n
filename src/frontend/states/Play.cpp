@@ -4,7 +4,6 @@
 Play::Play() {
     boardTexture.loadFromFile("../../src/frontend/assets/textures/board.png");
     boardSprite.setTexture(&boardTexture);
-    engine.initBoard();
     drawBoard();
     winnerText = std::make_unique<Label>(FONT_PATH, sf::Color::Black, "", 100, (windowWidth / 2) - 50, (windowHeight / 2) + 50);
 }
