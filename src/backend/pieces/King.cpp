@@ -19,7 +19,7 @@ void chess::King::setIsInCheck(bool i) {
 bool chess::King::getIsInCheck() const {
     return isChecked;
 }
-std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMoves(chess::PosType fromRow, chess::PosType fromCol, Board& currentBoard) {
+std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMoves(chess::PosType fromRow, chess::PosType fromCol, Board &currentBoard) {
     auto boardData = currentBoard.getBoardData();
     std::vector<std::pair<PosType, PosType>> moves;
     int numChecks = 0;
@@ -28,19 +28,18 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
             if (i == 0 && j == 0) {
                 continue;
             }
-            if(inBounds(fromRow + i, fromCol + j)){
-                if(boardData.at(fromRow + i).at(fromCol + j) != nullptr){
-                    if(boardData.at(fromRow + i).at(fromCol + j)->getColor() != color){
-                        if(boardData.at(fromRow + i).at(fromCol + j)->repr() != "King0" &&
-                            boardData.at(fromRow + i).at(fromCol + j)->repr() != "King1"){
-                            addPlausibleMoves(fromRow, fromCol, fromRow+i, fromCol+j, moves, currentBoard);
-                        }
-                        else {
+            if (inBounds(fromRow + i, fromCol + j)) {
+                if (boardData.at(fromRow + i).at(fromCol + j) != nullptr) {
+                    if (boardData.at(fromRow + i).at(fromCol + j)->getColor() != color) {
+                        if (boardData.at(fromRow + i).at(fromCol + j)->repr() != "King0" &&
+                            boardData.at(fromRow + i).at(fromCol + j)->repr() != "King1") {
+                            addPlausibleMoves(fromRow, fromCol, fromRow + i, fromCol + j, moves, currentBoard);
+                        } else {
                             ++numChecks;
                         }
                     }
                 } else {
-                    addPlausibleMoves(fromRow, fromCol, fromRow+i, fromCol+j, moves, currentBoard);
+                    addPlausibleMoves(fromRow, fromCol, fromRow + i, fromCol + j, moves, currentBoard);
                 }
             }
         }
@@ -53,10 +52,10 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
             // Check long Castling
             // Check if the farthest rook has moved
             if (std::dynamic_pointer_cast<Rook>(boardData.at(0).at(0)) != nullptr &&
-                std::dynamic_pointer_cast<Rook>(boardData.at(0).at(1)) == nullptr &&
-                std::dynamic_pointer_cast<Rook>(boardData.at(0).at(2)) == nullptr &&
-                std::dynamic_pointer_cast<Rook>(boardData.at(0).at(3)) == nullptr &&
-                !checkIsCheck(fromRow, fromCol, 0, 3, currentBoard)){
+                boardData.at(0).at(1) == nullptr &&
+                boardData.at(0).at(2) == nullptr &&
+                boardData.at(0).at(3) == nullptr &&
+                !checkIsCheck(fromRow, fromCol, 0, 3, currentBoard)) {
                 auto farthest_rook = boardData.at(0).at(0);
                 if (farthest_rook->getColor() == BLACK) {
                     if (farthest_rook->getMoveCount() == 0) {
@@ -68,8 +67,8 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
             // Check short Castling
             // Check if the nearest rook has moved
             if (std::dynamic_pointer_cast<Rook>(boardData.at(0).at(7)) != nullptr &&
-                std::dynamic_pointer_cast<Rook>(boardData.at(0).at(6)) == nullptr &&
-                std::dynamic_pointer_cast<Rook>(boardData.at(0).at(5)) == nullptr &&
+                boardData.at(0).at(6) == nullptr &&
+                boardData.at(0).at(5) == nullptr &&
                 !checkIsCheck(fromRow, fromCol, 0, 5, currentBoard)) {
                 auto nearest_rook = boardData.at(0).at(7);
                 if (nearest_rook->getColor() == BLACK) {
@@ -82,9 +81,9 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
             // Check long Castling
             // Check if the farthest rook has moved
             if (std::dynamic_pointer_cast<Rook>(boardData.at(7).at(0)) != nullptr &&
-                std::dynamic_pointer_cast<Rook>(boardData.at(7).at(1)) == nullptr &&
-                std::dynamic_pointer_cast<Rook>(boardData.at(7).at(2)) == nullptr &&
-                std::dynamic_pointer_cast<Rook>(boardData.at(7).at(3)) == nullptr &&
+                boardData.at(7).at(1) == nullptr &&
+                boardData.at(7).at(2) == nullptr &&
+                boardData.at(7).at(3) == nullptr &&
                 !checkIsCheck(fromRow, fromCol, 7, 3, currentBoard)) {
                 auto farthest_rook = boardData.at(7).at(0);
                 if (farthest_rook->getColor() == WHITE) {
@@ -97,8 +96,8 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
             // Check short Castling
             // Check if the nearest rook has moved
             if (std::dynamic_pointer_cast<Rook>(boardData.at(7).at(7)) != nullptr &&
-                std::dynamic_pointer_cast<Rook>(boardData.at(7).at(6)) == nullptr &&
-                std::dynamic_pointer_cast<Rook>(boardData.at(7).at(5)) == nullptr &&
+                boardData.at(7).at(6) == nullptr &&
+                boardData.at(7).at(5) == nullptr &&
                 !checkIsCheck(fromRow, fromCol, 7, 5, currentBoard)) {
                 auto nearest_rook = boardData.at(7).at(7);
                 if (nearest_rook->getColor() == WHITE) {
@@ -111,8 +110,7 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
     }
     if (numChecks != 0) {
         isCheckingKing = true;
-    }
-    else {
+    } else {
         isCheckingKing = false;
     }
     return moves;
@@ -120,7 +118,7 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
 void chess::King::verifyPossibleChecks(chess::PosType fromRow, chess::PosType fromCol, chess::Board &currentBoard) {
 }
 
-bool chess::King::checkIsCheck(PosType fromRow, PosType fromCol, PosType toRow, PosType toCol, Board &currentBoard){
+bool chess::King::checkIsCheck(PosType fromRow, PosType fromCol, PosType toRow, PosType toCol, Board &currentBoard) {
     Board tmp(currentBoard);
     tmp.movePiece(fromRow, fromCol, toRow, toCol);
     if (tmp.isChecked(color)) {
