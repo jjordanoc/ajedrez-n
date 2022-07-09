@@ -51,6 +51,6 @@ Proyecto realizado bajo la licencia [Apache 2.0](https://www.apache.org/licenses
 
 ## Bibliografía
 
-- [1] Standford, "Strategies and tactics for intelligent search", 2003. [Online]. Available: https://cs.stanford.edu/people/eroberts/courses/soco/projects/2003-04/intelligent-search/intro.html [Accessed: May. 3, 2022]
-- [2] Cornell, "AI Chess Algorithms", 2004. [Online]. Available: https://www.cs.cornell.edu/boom/2004sp/ProjectArch/Chess/algorithms.html [Accessed: May. 8, 2022]
-
+- [1] Standford, "Strategies and tactics for intelligent search", 2003. [Online]. Available: https://cs.stanford.edu/people/eroberts/courses/soco/projects/2003-04/intelligent-search/intro.html .[Accessed: May 3, 2022]
+- [2] Cornell, "AI Chess Algorithms", 2004. [Online]. Available: https://www.cs.cornell.edu/boom/2004sp/ProjectArch/Chess/algorithms.html .[Accessed: May 8, 2022]
+- [3] E. Gamma, R. Helm, R. Johnson and J. Vlissides, "Design Patterns: Elements of Reusable Object-Oriented Software". Westford, Massachusetts, USA: Addison-Wesley, 1994 [Online]. Available: http://www.javier8a.com/itc/bd1/articulo.pdf .[Accessed: May 25, 2022]
