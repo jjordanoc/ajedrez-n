@@ -10,7 +10,7 @@ chess::AI::AI() = default;
 chess::AI::AI(chess::Color color, int depthLimit) : color(color), depthLimit(depthLimit) {}
 
 chess::ScoreType chess::AI::minimax(chess::Board &table, bool playMax, int depth = 0) {
-    table.print();
+
     ScoreType score = table.evaluation();
     if (score >= MAX_SCORE || score <= MIN_SCORE || depthLimit <= depth) {
         return score;
@@ -105,10 +105,10 @@ chess::ScoreType chess::AI::alphaBetaPrunedMinimax(chess::Board &table, bool pla
     }
 }
 
+
 void chess::AI::move(chess::Board &table) {
     // ejemplo: color negro
-    bool playMax = color == WHITE;                        // false
-    ScoreType bestScore = playMax ? MIN_SCORE : MAX_SCORE;// MAX_SCORE
+    ScoreType bestScore = MAX_SCORE;
     auto bestMove = std::make_pair(0, 0);                 // 0, 0
     auto bestPos = std::make_pair(0, 0);                  // 0, 0
     for (int i = 0; i < BOARD_SIZE; ++i) {
@@ -119,20 +119,12 @@ void chess::AI::move(chess::Board &table) {
                 for (const auto &e: possibleMoves) {                   // para cada posible movimiento
                     chess::Board tmp = chess::Board(table);            // crear un tablero alternativo
                     tmp.move(i, j, e.first, e.second);                 // hacer el movimiento en un tablero a parte (subarbol)
-                    auto score = alphaBetaPrunedMinimax(tmp, playMax); // evaluar el movimiento mediante minimax con alpha-beta pruning
+                    auto score = alphaBetaPrunedMinimax(tmp, true); // evaluar el movimiento mediante minimax con alpha-beta pruning
                     perf += 1;                                         // contar los nodos del arbol para su posterior validacion
-                    if (playMax) {                                     // en este caso es falso, pues la IA es negro
-                        if (score > bestScore) {
-                            bestScore = score;
-                            bestMove = std::make_pair(e.first, e.second);
-                            bestPos = std::make_pair(i, j);
-                        }
-                    } else {                    // se ejecuta
-                        if (score < bestScore) {// busca el score minimo
-                            bestScore = score; // si el score es minimo, es el mejor
-                            bestMove = std::make_pair(e.first, e.second); // escoger el mejor movimiento
-                            bestPos = std::make_pair(i, j); // escoger la mejor posicion
-                        }
+                    if (score < bestScore) {
+                        bestScore = score;
+                        bestMove = std::make_pair(e.first, e.second);
+                        bestPos = std::make_pair(i, j);
                     }
                 }
             }
