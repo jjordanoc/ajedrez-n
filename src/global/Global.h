@@ -6,7 +6,7 @@
 #define BOARD_SIZE 8
 #define MAX_SCORE 99999999
 #define MIN_SCORE -MAX_SCORE
-#define CHECK_VALUE 200
+#define CHECK_VALUE 2000
 
 
 namespace chess {
@@ -15,6 +15,12 @@ namespace chess {
     enum Color {
         BLACK,
         WHITE
+    };
+    enum GameState {
+        BLACK_WINS,
+        WHITE_WINS,
+        DRAW,
+        IN_GAME
     };
 }
 

@@ -1,12 +1,11 @@
 #ifndef PROYECTO_PIECE_H
 #define PROYECTO_PIECE_H
 
+#include "SFML/Graphics.hpp"
+#include "global/Global.h"
+#include "global/Window.h"
 #include <iostream>
 #include <vector>
-#include "../global/Global.h"
-#include "../../frontend/global/Window.h"
-#include "SFML/Graphics.hpp"
-
 
 
 namespace chess {
@@ -19,9 +18,9 @@ namespace chess {
         bool isCheckingKing = false;
         bool inBounds(int row, int col);
         void addPlausibleMoves(PosType fromRow, PosType fromCol, PosType toRow, PosType toCol, std::vector<std::pair<PosType, PosType>> &moves, Board &currentBoard);
-
         sf::Texture pieceTexture;
         sf::Sprite pieceSprite;
+
     public:
         Piece(const Color &color);
         Color getColor();
@@ -34,7 +33,7 @@ namespace chess {
         int getValue() const;
         void drawPiece(sf::RenderWindow &window, PosType row, PosType col);
     };
-}
+}// namespace chess
 
 
 #endif

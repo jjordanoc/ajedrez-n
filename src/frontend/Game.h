@@ -7,12 +7,14 @@
 
 #include "global/Window.h"
 
-#include "states/Credits.h"
-#include "states/MainMenu.h"
 #include "states/State.h"
+#include "states/MainMenu.h"
+#include "states/Credits.h"
+#include "states/Rules.h"
 
 #include "states/SelectN.h"
 #include "states/Play.h"
+#include <thread>
 
 #include <SFML/Graphics.hpp>
 
@@ -22,25 +24,19 @@
 class Game {
 private:
     // Instanciamos la pantalla principal del juego
-    sf::RenderWindow gameWindow;
-
+    sf::RenderWindow gameWindow{sf::VideoMode(windowWidth, windowHeight), "Ajedrez", sf::Style::Titlebar | sf::Style::Close};
+    chess::AI ai = chess::AI(chess::BLACK, 3);
+    chess::Engine &engine = chess::Engine::getInstance();
+    sf::Image windowIcon;
     // States
     State *states[numberOfStates]{};
     int currentState;
-
-    inline static Game *instance = nullptr;
+    void AIMove();
     Game();
 public:
-    inline static Game *getInstance() {
-        if (instance == nullptr) {
-            instance = new Game();
-        }
-        return instance;
-    }
-
+    static Game &getInstance();
     void run();
-
-    virtual ~Game();
+    ~Game();
 };
 
 #endif//PROYECTOPROGRA2_GAME_H

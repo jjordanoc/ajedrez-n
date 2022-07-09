@@ -1,6 +1,6 @@
-#include "Credits.h"
+#include "Rules.h"
 
-Credits::Credits() {
+Rules::Rules() {
     // Cargar el fondo
     backgroundTexture.loadFromFile(BACKGROUND_PATH);
     background.setSize(sf::Vector2f(windowWidth, windowHeight));
@@ -10,19 +10,19 @@ Credits::Credits() {
     titleLabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ", 100, 250, 20);
     // ^n
     titleN = std::make_unique<Label>(FONT_PATH, sf::Color::White, "n", 50, 715, 20);
-    // Credits
-    creditsLabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "Creditos:", 70, 60, 150);
-    // Integrantes
-    membersLabel[0] = new Label(FONT_PATH, sf::Color::White, "Josue Arriaga", 50, 100, 245);
-    membersLabel[1] = new Label(FONT_PATH, sf::Color::White, "Jose Chachi", 50, 100, 315);
-    membersLabel[2] = new Label(FONT_PATH, sf::Color::White, "Joaquin O'connor", 50, 100, 385);
-    membersLabel[3] = new Label(FONT_PATH, sf::Color::White, "Renato Cernades", 50, 100, 455);
-    membersLabel[4] = new Label(FONT_PATH, sf::Color::White, "Nicolas Arroyo", 50, 100, 525);
+    // Rules
+    rulesLabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "Reglas:", 70, 25, 150);
     // Back button
-    backLabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "Back", 50, 10, 640);
+    backLabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "Volver", 50, 10, 640);
+
+    // Rules
+    rule1 = std::make_unique<Label>(FONT_PATH, sf::Color::White, "- Si n es 0, el juego es identico al ajedrez clasico.", 28, 40, 245);
+    rule2 = std::make_unique<Label>(FONT_PATH, sf::Color::White, "- Si n es multiplo de 7, los caballos se mueven doble.", 28, 40, 315);
+    rule3 = std::make_unique<Label>(FONT_PATH, sf::Color::White, "- Si n es multiplo de 9, ceil(log9(n)*|cos(n)|) peones se vuelven reinas.", 28, 40, 385);
+    rule4 = std::make_unique<Label>(FONT_PATH, sf::Color::White, "- Las torres se mueven ceil(|8 - log67(n)|) casillas.", 28, 40, 455);
 }
 
-void Credits::handleEvents(sf::RenderWindow &window) {
+void Rules::handleEvents(sf::RenderWindow &window) {
     inCurrentState = true;
     sf::Event event{};
 
@@ -51,31 +51,28 @@ void Credits::handleEvents(sf::RenderWindow &window) {
     }
 }
 
-void Credits::render(sf::RenderWindow &window) {
+void Rules::render(sf::RenderWindow &window) {
     window.clear();
     window.draw(background);
     draw(window);
     window.display();
 }
 
-void Credits::draw(sf::RenderWindow &window) {
+void Rules::draw(sf::RenderWindow &window) {
     titleLabel->draw(window);
     titleN->draw(window);
-    creditsLabel->draw(window);
-    for (auto& label : membersLabel){
-        label->draw(window);
-    }
+    rulesLabel->draw(window);
     backLabel->draw(window);
+    rule1->draw(window);
+    rule2->draw(window);
+    rule3->draw(window);
+    rule4->draw(window);
 }
 
-void Credits::update(sf::RenderWindow &window, int& currentState) {
+void Rules::update(sf::RenderWindow &window, int &currentState) {
     if (!inCurrentState) {
         currentState = 0;
     }
 }
 
-Credits::~Credits() {
-    for (auto& label : membersLabel){
-        delete label;
-    }
-}
+Rules::~Rules() = default;
