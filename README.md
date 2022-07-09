@@ -41,6 +41,13 @@ Proyecto realizado bajo la licencia [Apache 2.0](https://www.apache.org/licenses
 - Board Test: Permite comprobar que el tablero se ha podido iniciar correctamente con todas las piezas necesarias.
 - Checkmate Test: Evalua si funciona el jaque mate al realizar una serie de movimientos con las piezas ya testeadas con anterioridad.
 
+### Patrones de diseño
+
+- **Singleton:** Se asegura que solo existe una única instancia. En este caso nos aseguramos que exista una ventana del juego y un solo motor del juego.
+- **Iterator:** Recorridos variados para cada movimiento de piezas.
+- **Observer:** Las actualizaciones realizadas por el _Engine_ son registradas por la clase _Play_.
+- **Factory:** Las piezas del ajedrez son creadas a partir de una superclase llamada _Piece_.
+- **Facade:** Se composiciona en la acción de mover una pieza diversos métodos.
 
 ## Autores
 
