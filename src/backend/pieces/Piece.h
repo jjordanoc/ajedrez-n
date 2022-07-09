@@ -18,7 +18,6 @@ namespace chess {
         bool isCheckingKing = false;
         bool inBounds(int row, int col);
         void addPlausibleMoves(PosType fromRow, PosType fromCol, PosType toRow, PosType toCol, std::vector<std::pair<PosType, PosType>> &moves, Board &currentBoard);
-
         sf::Texture pieceTexture;
         sf::Sprite pieceSprite;
 

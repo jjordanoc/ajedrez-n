@@ -7,14 +7,14 @@ Game::Game() {
     }
     gameWindow.setIcon(windowIcon.getSize().x, windowIcon.getSize().y, windowIcon.getPixelsPtr());
     // States
-    states[0] = (State *)(new MainMenu());  // MainMenu
-    states[1] = (State *)new SelectN();  // SelectN
-    states[2] = (State *)new Rules();  // Rules
-    states[3] = (State *)(new Credits());  // Credits
+    states[0] = (State *) (new MainMenu());// MainMenu
+    states[1] = (State *) new SelectN();   // SelectN
+    states[2] = (State *) new Rules();     // Rules
+    states[3] = (State *) (new Credits()); // Credits
 
-    states[4] = (State *)(new Play());  // Play
+    states[4] = (State *) (new Play());// Play
 
-    currentState = 0;  // empezamos en el menu principal
+    currentState = 0;// empezamos en el menu principal
 }
 
 Game &Game::getInstance() {
@@ -29,7 +29,7 @@ void Game::run() {
     // creamos thread de la ia para que corra separado del resto del juego
     std::thread AIThread;
 
-    AIThread = std::thread([&](){
+    AIThread = std::thread([&]() {
         AIMove();
     });
 
@@ -43,7 +43,7 @@ void Game::run() {
 }
 
 void Game::AIMove() {
-    while(!engine.isGameOver()) {
+    while (!engine.isGameOver()) {
         // si es turno de la AI
         if (engine.getTurn() == ai.getColor()) {
             // realizar movimiento
@@ -56,7 +56,7 @@ void Game::AIMove() {
     }
 }
 Game::~Game() {
-    for (auto &st : states) {
+    for (auto &st: states) {
         delete st;
     }
 }

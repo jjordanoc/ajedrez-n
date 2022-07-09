@@ -52,10 +52,10 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
         if (color == BLACK) {
             // Check long Castling
             // Check if the farthest rook has moved
-            if (boardData.at(0).at(0) != nullptr &&
-                boardData.at(0).at(1) == nullptr &&
-                boardData.at(0).at(2) == nullptr &&
-                boardData.at(0).at(3) == nullptr &&
+            if (std::dynamic_pointer_cast<Rook>(boardData.at(0).at(0)) != nullptr &&
+                std::dynamic_pointer_cast<Rook>(boardData.at(0).at(1)) == nullptr &&
+                std::dynamic_pointer_cast<Rook>(boardData.at(0).at(2)) == nullptr &&
+                std::dynamic_pointer_cast<Rook>(boardData.at(0).at(3)) == nullptr &&
                 !checkIsCheck(fromRow, fromCol, 0, 3, currentBoard)){
                 auto farthest_rook = boardData.at(0).at(0);
                 if (farthest_rook->getColor() == BLACK) {
@@ -67,9 +67,9 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
 
             // Check short Castling
             // Check if the nearest rook has moved
-            if (boardData.at(0).at(7) != nullptr &&
-                boardData.at(0).at(6) == nullptr &&
-                boardData.at(0).at(5) == nullptr &&
+            if (std::dynamic_pointer_cast<Rook>(boardData.at(0).at(7)) != nullptr &&
+                std::dynamic_pointer_cast<Rook>(boardData.at(0).at(6)) == nullptr &&
+                std::dynamic_pointer_cast<Rook>(boardData.at(0).at(5)) == nullptr &&
                 !checkIsCheck(fromRow, fromCol, 0, 5, currentBoard)) {
                 auto nearest_rook = boardData.at(0).at(7);
                 if (nearest_rook->getColor() == BLACK) {
@@ -81,10 +81,10 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
         } else if (color == WHITE) {
             // Check long Castling
             // Check if the farthest rook has moved
-            if (boardData.at(7).at(0) != nullptr &&
-                boardData.at(7).at(1) == nullptr &&
-                boardData.at(7).at(2) == nullptr &&
-                boardData.at(7).at(3) == nullptr &&
+            if (std::dynamic_pointer_cast<Rook>(boardData.at(7).at(0)) != nullptr &&
+                std::dynamic_pointer_cast<Rook>(boardData.at(7).at(1)) == nullptr &&
+                std::dynamic_pointer_cast<Rook>(boardData.at(7).at(2)) == nullptr &&
+                std::dynamic_pointer_cast<Rook>(boardData.at(7).at(3)) == nullptr &&
                 !checkIsCheck(fromRow, fromCol, 7, 3, currentBoard)) {
                 auto farthest_rook = boardData.at(7).at(0);
                 if (farthest_rook->getColor() == WHITE) {
@@ -96,9 +96,9 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
 
             // Check short Castling
             // Check if the nearest rook has moved
-            if (boardData.at(7).at(7) != nullptr &&
-                boardData.at(7).at(6) == nullptr &&
-                boardData.at(7).at(5) == nullptr &&
+            if (std::dynamic_pointer_cast<Rook>(boardData.at(7).at(7)) != nullptr &&
+                std::dynamic_pointer_cast<Rook>(boardData.at(7).at(6)) == nullptr &&
+                std::dynamic_pointer_cast<Rook>(boardData.at(7).at(5)) == nullptr &&
                 !checkIsCheck(fromRow, fromCol, 7, 5, currentBoard)) {
                 auto nearest_rook = boardData.at(7).at(7);
                 if (nearest_rook->getColor() == WHITE) {
