@@ -52,6 +52,9 @@ Proyecto realizado bajo la licencia [Apache 2.0](https://www.apache.org/licenses
 - **Factory:** Las piezas del ajedrez son creadas a partir de una superclase llamada _Piece_. Estas piezas comparten ciertos métodos, mientras que los movimientos realizados por estos son distintos.
 - **Facade:** Se composiciona en la acción de mover una pieza diversos métodos.
 
+## Diagrama 
+![image info](../proyecto-final-grupo-7/src/frontend/assets/textures/final_uml_diagram.png)
+
 ## Autores
 
 |                     <a target="_blank">**Joaquín Jordán**</a>                     |                           <a target="_blank">**Renato Cernades**</a>                            |                   <a target="_blank">**Josué Arriaga**</a>                    |                       <a target="_blank">**José Chachi**</a>                        |      <a target="_blank">**Nicolás Arroyo**</a>      |
