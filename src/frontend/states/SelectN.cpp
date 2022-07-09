@@ -19,6 +19,8 @@ SelectN::SelectN() {
 
     // Input N
     inputNlabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, nValue, 60, 480 - 30, 360);
+    // N dialog
+    dialogN = std::make_unique<Label>(FONT_PATH, sf::Color::White, "N: ", 60, 480 - 30 - 60 - 20, 360);
 }
 
 void SelectN::handleEvents(sf::RenderWindow &window) {
@@ -92,6 +94,7 @@ void SelectN::draw(sf::RenderWindow &window) {
     backLabel->draw(window);
     playLabel->draw(window);
 
+    dialogN->draw(window);
     inputNlabel->draw(window);
 }
 

@@ -154,7 +154,11 @@ void Play::draw(sf::RenderWindow &window) {
 }
 
 void Play::update(sf::RenderWindow &window, int &currentState) {
-    if (!inCurrentState) currentState = 1;
+    if (!inCurrentState) {
+        possibleMoves.clear();
+        piecesPressedSquare.clear();
+        currentState = 1;
+    }
 }
 
 void Play::checkState() {

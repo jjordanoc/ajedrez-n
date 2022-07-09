@@ -29,6 +29,7 @@ private:
 
     // Input N
     std::string nValue;
+    std::unique_ptr<Label> dialogN;
     std::unique_ptr<Label> inputNlabel;
 
     int option;  // 0: back y 1: play

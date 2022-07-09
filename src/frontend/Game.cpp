@@ -9,7 +9,7 @@ Game::Game() {
     // States
     states[0] = (State *)(new MainMenu());  // MainMenu
     states[1] = (State *)new SelectN();  // SelectN
-    states[2] = (State *)new Credits();  // Options
+    states[2] = (State *)new Rules();  // Rules
     states[3] = (State *)(new Credits());  // Credits
 
     states[4] = (State *)(new Play());  // Play

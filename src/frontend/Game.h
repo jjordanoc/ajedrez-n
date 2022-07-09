@@ -7,9 +7,10 @@
 
 #include "global/Window.h"
 
-#include "states/Credits.h"
-#include "states/MainMenu.h"
 #include "states/State.h"
+#include "states/MainMenu.h"
+#include "states/Credits.h"
+#include "states/Rules.h"
 
 #include "states/SelectN.h"
 #include "states/Play.h"
@@ -23,7 +24,7 @@
 class Game {
 private:
     // Instanciamos la pantalla principal del juego
-    sf::RenderWindow gameWindow{sf::VideoMode(windowWidth, windowHeight), "Ajedrez"};
+    sf::RenderWindow gameWindow{sf::VideoMode(windowWidth, windowHeight), "Ajedrez", sf::Style::Titlebar | sf::Style::Close};
     chess::AI ai = chess::AI(chess::BLACK, 3);
     chess::Engine &engine = chess::Engine::getInstance();
     sf::Image windowIcon;

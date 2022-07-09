@@ -9,7 +9,7 @@ find_package(SFML COMPONENTS graphics audio REQUIRED)
 file(GLOB_RECURSE SOURCES LIST_DIRECTORIES true backend/*.h backend/*.cpp frontend/*.h frontend/*.cpp global/*.h main.cpp)
 file(GLOB_RECURSE SOURCES_BACKEND LIST_DIRECTORIES true backend/*.h backend/*.cpp)
 
-set(SOURCES ${SOURCES} ${SOURCES_BACKEND})
+set(SOURCES ${SOURCES} ${SOURCES_BACKEND} frontend/states/Rules.cpp frontend/states/Rules.h)
 
 add_executable(${BINARY} ${SOURCES})
 

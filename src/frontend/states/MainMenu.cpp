@@ -13,7 +13,7 @@ MainMenu::MainMenu() {
     //Opcion play
     mainMenuLabel[0] = new Label(FONT_PATH, sf::Color::White, "Jugar", 70, 400, 200);
     //Opcion opciones
-    mainMenuLabel[1] = new Label(FONT_PATH, sf::Color::White, "Opciones", 70, 400, 300);
+    mainMenuLabel[1] = new Label(FONT_PATH, sf::Color::White, "Reglas", 70, 400, 300);
     //Opcion créditos
     mainMenuLabel[2] = new Label(FONT_PATH, sf::Color::White, "Creditos", 70, 400, 400);
     //Opcion salir
