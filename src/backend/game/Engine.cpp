@@ -16,8 +16,17 @@ void chess::Engine::initBoard(int n) {
             board->getBoardData().at(i).at(j) = nullptr;
         }
     }
+    std::cout << "Este es n: " << n << std::endl;
+    board->setN(n);
 
-    // Initialize the board base on the parameter n
+    //    Initialize the board base on the parameter n
+    //    n == 0, modo de juego clásico.
+    //    n % 2 == 0, ceil(log(n)) peones pueden comer de frente.
+    //    n % 4 == 0, ceil(log4(n)) peones pueden retroceder.
+    //    n % 5 == 0, los reyes pueden moverse como alfiles.
+    //    n % 6 == 0, ceil(log7(n)) peones pueden moverse como reyes.
+    //    n % 7 == 0, Cada ceil(log7(n)) turnos, una pieza es removida.
+    //    n % 8 == 0, los caballos pueden hacer 2 movimientos seguidos.
 
     // Initialize the base board
     classicGame();
@@ -44,6 +53,7 @@ void chess::Engine::initBoard(int n) {
     }
     //    n % 9 == 0, ceil(log9(n) *|cos(n)|) peones se vuelven reinas.
 }
+
 
 void chess::Engine::nextTurn() {
     if (turn == BLACK) {
@@ -80,4 +90,36 @@ chess::Color chess::Engine::getTurn() {
 }
 void chess::Engine::forceGameOver() {
     winner = chess::DRAW;
+}
+
+void chess::Engine::classicGame() {
+    board->putPiece("King", Color::WHITE, 7, 4);
+    board->putPiece("King", Color::BLACK, 0, 4);
+
+    board->putPiece("Queen", Color::WHITE, 7, 3);
+    board->putPiece("Queen", Color::BLACK, 0, 3);
+
+    board->putPiece("Rook", Color::WHITE, 7, 0);
+    board->putPiece("Rook", Color::WHITE, 7, 7);
+    board->putPiece("Rook", Color::BLACK, 0, 0);
+    board->putPiece("Rook", Color::BLACK, 0, 7);
+
+    board->putPiece("Knight", Color::WHITE, 7, 1);
+    board->putPiece("Knight", Color::WHITE, 7, 6);
+    board->putPiece("Knight", Color::BLACK, 0, 1);
+    board->putPiece("Knight", Color::BLACK, 0, 6);
+
+    board->putPiece("Bishop", Color::WHITE, 7, 2);
+    board->putPiece("Bishop", Color::WHITE, 7, 5);
+    board->putPiece("Bishop", Color::BLACK, 0, 2);
+    board->putPiece("Bishop", Color::BLACK, 0, 5);
+
+
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        board->putPiece("Pawn", Color::WHITE, 6, i);
+    }
+
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        board->putPiece("Pawn", Color::BLACK, 1, i);
+    }
 }

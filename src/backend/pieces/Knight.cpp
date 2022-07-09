@@ -20,8 +20,15 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Knight::possibleMo
     auto boardData = currentBoard.getBoardData();
     std::vector<std::pair<PosType, PosType>> moves;
     PosType numChecks = 0;
-    for (int i = -2 + 0; i <= 2 + 0; i += 4 + 0) {
-        for (int j = -1 + 0; j <= 1 + 0; j += 2 + 0) {
+    // Esto debe estar en otro lado
+    int n = 0;
+    if (currentBoard.getN() == 0) {
+
+    } else if (currentBoard.getN() % 7 == 0) {
+        n = 1;
+    }
+    for (int i = -2 + n * -2; i <= 2 + 2 * n; i += 4) {
+        for (int j = -1 + n * -1; j <= 1 + n; j += 2) {
             //                    if (inBounds(fromRow + i, fromCol + j)) {
             //                        moves.emplace_back(fromRow + i, fromCol + j);
             //                    }
@@ -61,8 +68,15 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Knight::possibleMo
 void chess::Knight::verifyPossibleChecks(chess::PosType fromRow, chess::PosType fromCol, chess::Board &currentBoard) {
     auto boardData = currentBoard.getBoardData();
     PosType numChecks = 0;
-    for (int i = -2 + 0; i <= 2 + 0; i += 4 + 0) {
-        for (int j = -1 + 0; j <= 1 + 0; j += 2 + 0) {
+    // Esto debe estar en otro lado
+    int n = 0;
+    if (currentBoard.getN() == 0) {
+
+    } else if (currentBoard.getN() % 7 == 0) {
+        n = 1;
+    }
+    for (int i = -2 + n * -2; i <= 2 + 2 * n; i += 4) {
+        for (int j = -1 + n * -1; j <= 1 + n; j += 2) {
             const std::unordered_map<PosType, std::pair<short, short>> mappings = {
                     {0, {fromRow + i, fromCol + j}},
                     {1, {fromRow + j, fromCol + i}}};

@@ -347,3 +347,11 @@ void chess::Board::move(chess::PosType oldRow, chess::PosType oldCol, chess::Pos
     movePiece(oldRow, oldCol, newRow, newCol);
     checkPawnPromotion(newRow, newCol);
 }
+
+void chess::Board::setN(int _n){
+    n = _n;
+}
+
+int chess::Board::getN() const {
+    return n;
+}

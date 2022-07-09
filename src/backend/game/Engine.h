@@ -19,6 +19,7 @@ namespace chess {
         void forceGameOver();
         bool isGameOver() const;
         void checkState();
+        void classicGame();
     };
 
 }// namespace chess
