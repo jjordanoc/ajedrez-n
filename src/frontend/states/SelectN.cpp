@@ -1,4 +1,7 @@
 #include "SelectN.h"
+#include "global/Global.h"
+#include "backend/game/Engine.h"
+
 SelectN::SelectN() {
     // Cargar el fondo
     backgroundTexture.loadFromFile(BACKGROUND_PATH);
@@ -6,16 +9,18 @@ SelectN::SelectN() {
     background.setTexture(&backgroundTexture);
 
     // Titulo
-    titleLabel = make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ", 100, 245, 50);
+    titleLabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ", 100, 245, 50);
     // ^n
-    titleNlabel = make_unique<Label>(FONT_PATH, sf::Color::White, "n", 50, 715, 50);
+    titleNlabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "n", 50, 715, 50);
     // Back button
-    backLabel = make_unique<Label>(FONT_PATH, sf::Color::White, "Back", 50, 10, 640);
+    backLabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "Back", 50, 10, 640);
     // Play button
-    playLabel = make_unique<Label>(FONT_PATH, sf::Color::White, "Play", 50, 837, 640);
+    playLabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "Play", 50, 837, 640);
 
     // Input N
-    inputNlabel = make_unique<Label>(FONT_PATH, sf::Color::White, nValue, 60, 480 - 30, 360);
+    inputNlabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, nValue, 60, 480 - 30, 360);
+    // N dialog
+    dialogN = std::make_unique<Label>(FONT_PATH, sf::Color::White, "N: ", 60, 480 - 30 - 60 - 20, 360);
 }
 
 void SelectN::handleEvents(sf::RenderWindow &window) {
@@ -56,6 +61,7 @@ void SelectN::handleEvents(sf::RenderWindow &window) {
                         if ((event.mouseButton.x >= 837 && event.mouseButton.x <= 943) && (event.mouseButton.y >= 640 && event.mouseButton.y <= 690)) {
                             option = 1;
                             inCurrentState = false;
+                            chess::Engine::getInstance().initBoard(stoi(nValue));
                         }
                     }
                 }
@@ -88,6 +94,7 @@ void SelectN::draw(sf::RenderWindow &window) {
     backLabel->draw(window);
     playLabel->draw(window);
 
+    dialogN->draw(window);
     inputNlabel->draw(window);
 }
 

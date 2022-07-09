@@ -4,13 +4,12 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-using namespace std;
 
 class Label {
 private:
     sf::Color color;
     sf::Font font;
-    string information;
+    std::string information;
     int sz{};
     int x{};
     int y{};
@@ -18,11 +17,11 @@ private:
     sf::Text text;  // main text
 public:
     Label() = default;
-    Label(const string& font_path, sf::Color color, const string& information, int sz, int x, int y);
+    Label(const std::string& font_path, sf::Color color, const std::string& information, int sz, int x, int y);
 
     void draw(sf::RenderWindow &window);
     void setFillColor(sf::Color newColor);
-    void setNewText(const string& newText);
+    void setNewText(const std::string& newText);
 
     virtual ~Label();
 };

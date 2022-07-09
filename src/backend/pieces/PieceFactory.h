@@ -5,16 +5,14 @@
 #include <memory>
 #include <unordered_map>
 // Librerias locales
-#include "../global/Global.h"
-#include "Piece.h"
-#include "King.h"
-#include "Queen.h"
-#include "Knight.h"
-#include "Rook.h"
 #include "Bishop.h"
+#include "King.h"
+#include "Knight.h"
 #include "Pawn.h"
-
-
+#include "Piece.h"
+#include "Queen.h"
+#include "Rook.h"
+#include "global/Global.h"
 
 
 namespace chess {
@@ -23,6 +21,7 @@ namespace chess {
 
     class PieceFactory {
         std::unordered_map<std::string, Callback> callbacks;
+
     public:
         PieceFactory() {
             attach("King", [](const Color &color) { return std::make_shared<King>(color); });

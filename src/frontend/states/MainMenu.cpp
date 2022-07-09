@@ -7,20 +7,17 @@ MainMenu::MainMenu() {
     background.setTexture(&backgroundTexture);
 
     // Titulo
-    mainMenuTitle = make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ", 100, 245, 50);
+    mainMenuTitle = std::make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ", 100, 245, 50);
     // ^n
-    mainMenuTitleN = make_unique<Label>(FONT_PATH, sf::Color::White, "n", 50, 715, 50);
+    mainMenuTitleN = std::make_unique<Label>(FONT_PATH, sf::Color::White, "n", 50, 715, 50);
     //Opcion play
     mainMenuLabel[0] = new Label(FONT_PATH, sf::Color::White, "Jugar", 70, 400, 200);
     //Opcion opciones
-    mainMenuLabel[1] = new Label(FONT_PATH, sf::Color::White, "Opciones", 70, 400, 300);
+    mainMenuLabel[1] = new Label(FONT_PATH, sf::Color::White, "Reglas", 70, 400, 300);
     //Opcion créditos
     mainMenuLabel[2] = new Label(FONT_PATH, sf::Color::White, "Creditos", 70, 400, 400);
     //Opcion salir
     mainMenuLabel[3] = new Label(FONT_PATH, sf::Color::White, "Salir", 70, 400, 500);
-
-    mainMenuLabel[0]->setFillColor(sf::Color::Black);  // comienza en negro ya que es la opcion por defecto
-    optionMenu = 0;
 }
 
 void MainMenu::handleEvents(sf::RenderWindow &window) {
@@ -31,18 +28,61 @@ void MainMenu::handleEvents(sf::RenderWindow &window) {
         switch (event.type) {
             case sf::Event::Closed:
                 window.close();
-            case sf::Event::KeyReleased:
-                switch (event.key.code) {
-                    case sf::Keyboard::Up:
-                        moveUp();
-                        break;
-                    case sf::Keyboard::Down:
-                        moveDown();
-                        break;
-                    case sf::Keyboard::Return:
-                        inCurrentState = false;
-                        break;
+            case sf::Event::MouseMoved:
+                // Button play
+                if ((event.mouseMove.x >= 400 && event.mouseMove.x <= 590) && (event.mouseMove.y >= 200 && event.mouseMove.y <= 270)) {
+                    mainMenuLabel[0]->setFillColor(sf::Color::Black);
                 }
+                else {
+                    mainMenuLabel[0]->setFillColor(sf::Color::White);
+                }
+                // Button rules
+                if ((event.mouseMove.x >= 400 && event.mouseMove.x <= 630) && (event.mouseMove.y >= 300 && event.mouseMove.y <= 370)) {
+                    mainMenuLabel[1]->setFillColor(sf::Color::Black);
+                }
+                else {
+                    mainMenuLabel[1]->setFillColor(sf::Color::White);
+                }
+                // Button credits
+                if ((event.mouseMove.x >= 400 && event.mouseMove.x <= 680) && (event.mouseMove.y >= 400 && event.mouseMove.y <= 470)) {
+                    mainMenuLabel[2]->setFillColor(sf::Color::Black);
+                }
+                else {
+                    mainMenuLabel[2]->setFillColor(sf::Color::White);
+                }
+                // Button exit
+                if ((event.mouseMove.x >= 400 && event.mouseMove.x <= 545) && (event.mouseMove.y >= 500 && event.mouseMove.y <= 570)) {
+                    mainMenuLabel[3]->setFillColor(sf::Color::Black);
+                }
+                else {
+                    mainMenuLabel[3]->setFillColor(sf::Color::White);
+                }
+                break;
+            case sf::Event::MouseButtonPressed:
+                // If left mouse button is pressed
+                if (event.mouseButton.button == 0) {
+                    // Button play
+                    if ((event.mouseButton.x >= 400 && event.mouseButton.x <= 590) && (event.mouseButton.y >= 200 && event.mouseButton.y <= 270)) {
+                        optionMenu = 0;
+                        inCurrentState = false;
+                    }
+                    // Button rules
+                    else if ((event.mouseButton.x >= 400 && event.mouseButton.x <= 630) && (event.mouseButton.y >= 300 && event.mouseButton.y <= 370)) {
+                        optionMenu = 1;
+                        inCurrentState = false;
+                    }
+                    // Button credits
+                    else if ((event.mouseButton.x >= 400 && event.mouseButton.x <= 680) && (event.mouseButton.y >= 400 && event.mouseButton.y <= 470)) {
+                        optionMenu = 2;
+                        inCurrentState = false;
+                    }
+                    // Button exit
+                    else if ((event.mouseButton.x >= 400 && event.mouseButton.x <= 545) && (event.mouseButton.y >= 500 && event.mouseButton.y <= 570)) {
+                        optionMenu = 3;
+                        inCurrentState = false;
+                    }
+                }
+                break;
         }
     }
 }
@@ -64,37 +104,11 @@ void MainMenu::draw(sf::RenderWindow &window) {
 
 void MainMenu::update(sf::RenderWindow &window, int& currentState) {
     if (!inCurrentState) {
-        if (mainMenuPressed() == 3)
+        if (optionMenu == 3)
             window.close();
         else {
-            currentState = mainMenuPressed() + 1;
+            currentState = optionMenu + 1;
         }
-    }
-}
-
-void MainMenu::moveUp() {
-    if (optionMenu - 1 >= 0) {
-        mainMenuLabel[optionMenu]->setFillColor(sf::Color::White);
-
-        optionMenu--;
-        if (optionMenu == -1) {
-            optionMenu = 4;
-        }
-        cout << "Opcion del menu: " << optionMenu << endl;
-        mainMenuLabel[optionMenu]->setFillColor(sf::Color::Black);
-    }
-}
-
-void MainMenu::moveDown() {
-    if (optionMenu + 1 <= Max_main_menu) {
-        mainMenuLabel[optionMenu]->setFillColor(sf::Color::White);
-
-        optionMenu++;
-        if (optionMenu == 4) {
-            optionMenu = 0;
-        }
-        cout << "Opcion del menu: " <<  optionMenu << endl;
-        mainMenuLabel[optionMenu]->setFillColor(sf::Color::Black);
     }
 }
 

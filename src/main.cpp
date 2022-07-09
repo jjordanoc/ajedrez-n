@@ -3,11 +3,9 @@
 #include "../src/backend/game/Engine.h"
 
 
-
 int main() {
-    auto game = Game::getInstance();
-    game->run();
-
+    Game &game = Game::getInstance();
+    game.run();
     return 0;
 }
 

@@ -1,25 +1,20 @@
-#ifndef PROYECTOPROGRA2_CREDITS_H
-#define PROYECTOPROGRA2_CREDITS_H
-
+#ifndef PROYECTO_RULES_H
+#define PROYECTO_RULES_H
 
 #pragma once
 
 #include <iostream>
-#include <memory>
+#include <string>
 
-#include "../states/State.h"
 #include "../graphics/Label.h"
+#include "State.h"
+
+#include <SFML/Graphics.hpp>
 
 #include "global/Paths.h"
 #include "global/Window.h"
 
-#include <SFML/Graphics.hpp>
-
-
-#define members 5
-
-
-class Credits: public State {
+class Rules: public State {
 private:
     // Declarar el fondo
     sf::Texture backgroundTexture;
@@ -28,11 +23,16 @@ private:
     sf::Font font;
     std::unique_ptr<Label> titleLabel;
     std::unique_ptr<Label> titleN;
-    std::unique_ptr<Label> creditsLabel;
-    Label* membersLabel[members]{};
+    std::unique_ptr<Label> rulesLabel;
     std::unique_ptr<Label> backLabel;
+
+    // Rules
+    std::unique_ptr<Label> rule1;
+    std::unique_ptr<Label> rule2;
+    std::unique_ptr<Label> rule3;
+    std::unique_ptr<Label> rule4;
 public:
-    Credits();
+    Rules();
 
     void handleEvents(sf::RenderWindow& window) override;
 
@@ -42,8 +42,8 @@ public:
 
     void update(sf::RenderWindow& window, int& currentState) override;
 
-    ~Credits() override;
+    ~Rules() override;
 };
 
 
-#endif //PROYECTOPROGRA2_CREDITS_H
+#endif//PROYECTO_RULES_H

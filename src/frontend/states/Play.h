@@ -5,60 +5,54 @@
 
 #include <iostream>
 #include <memory>
-#include <thread>
 
-#include "State.h"
 #include "../graphics/Label.h"
+#include "State.h"
+#include <thread>
 
 #include <SFML/Graphics.hpp>
 
-#include "../global/Window.h"
-#include "../global/Paths.h"
+#include "global/Paths.h"
+#include "global/Window.h"
 
-#include "../../backend/global/Global.h"
-#include "../../backend/game/Engine.h"
 #include "../../backend/game/AI.h"
+#include "../../backend/game/Engine.h"
 #include "../../backend/pieces/Piece.h"
+#include "global/Global.h"
 
 
-using namespace std;
-
-
-class Play: public State {
+class Play : public State {
 private:
+    // Declarar el fondo
+    sf::Texture backgroundTexture;
+    sf::RectangleShape background;
+
     sf::Texture boardTexture;
     sf::RectangleShape boardSprite;
-
+    std::unique_ptr<Label> winnerText;
     std::vector<std::pair<float, float>> possibleMoves;
     std::vector<sf::RectangleShape*> piecesPressedSquare;
-
-    pair<chess::PosType, chess::PosType> posPieceSelected;
-
+    std::pair<chess::PosType, chess::PosType> posPieceSelected;
     chess::Engine &engine = chess::Engine::getInstance();
-
-    bool AiIsThinking = false;
     bool isEndGame = false;
+    bool isDraw = false;
     chess::Color winner;
-
-    chess::AI ai = chess::AI(chess::BLACK, 6);
-
     void drawBoard();
     void piecePressed(sf::RenderWindow &window, double windowX, double windowY);
     void piecePossibleMoveSquarePressed(sf::RenderWindow &window, double windowX, double windowY);
+
 public:
     Play();
 
     void draw(sf::RenderWindow &window) override;
 
-    void handleEvents(sf::RenderWindow &window) override;
+    void handleEvents(sf::RenderWindow &window);
 
     void render(sf::RenderWindow &window) override;
 
     void update(sf::RenderWindow &window, int &currentState) override;
 
     void checkState();
-
-    void AiTurn();
 
     ~Play();
 };

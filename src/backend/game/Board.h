@@ -8,7 +8,7 @@
 #include <limits>
 #include <cmath>
 // Liberias locales
-#include "../global/Global.h"
+#include "global/Global.h"
 #include "../pieces/Piece.h"
 #include "../pieces/PieceFactory.h"
 
@@ -23,6 +23,7 @@ namespace chess {
         bool isMakingLongCastling = false;
         int fiftyMoveCount = 0;
         bool isMakingEnPassant = false;
+        int n = 0;
     public:
         Board();
         Board(const Board &another);
@@ -43,6 +44,8 @@ namespace chess {
         void deleteEnPassant();
         ScoreType evaluation();
         void move(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol);
+        void setN(int n);
+        int getN() const;
     };
 
 }// namespace chess

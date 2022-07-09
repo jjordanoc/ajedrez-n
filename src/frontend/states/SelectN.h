@@ -11,10 +11,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../global/Paths.h"
-#include "../global/Window.h"
+#include "global/Paths.h"
+#include "global/Window.h"
 
-using namespace std;
 
 class SelectN : public State {
 private:
@@ -23,14 +22,15 @@ private:
     sf::RectangleShape background;
 
     sf::Font font;
-    unique_ptr<Label> titleLabel;
-    unique_ptr<Label> titleNlabel;
-    unique_ptr<Label> backLabel;
-    unique_ptr<Label> playLabel;
+    std::unique_ptr<Label> titleLabel;
+    std::unique_ptr<Label> titleNlabel;
+    std::unique_ptr<Label> backLabel;
+    std::unique_ptr<Label> playLabel;
 
     // Input N
-    string nValue;
-    unique_ptr<Label> inputNlabel;
+    std::string nValue;
+    std::unique_ptr<Label> dialogN;
+    std::unique_ptr<Label> inputNlabel;
 
     int option;  // 0: back y 1: play
 public:

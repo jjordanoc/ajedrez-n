@@ -1,45 +1,62 @@
 #include "Game.h"
 
 Game::Game() {
-    gameWindow.create(sf::VideoMode(windowWidth, windowHeight), "Ajedrez");
-
-    // Desactivate the context
-    gameWindow.setActive(false);
-
+    // Set the window icon
+    if (!windowIcon.loadFromFile("../../src/frontend/assets/textures/dark_pawn.png")) {
+        std::cout << "No sale\n";
+    }
+    gameWindow.setIcon(windowIcon.getSize().x, windowIcon.getSize().y, windowIcon.getPixelsPtr());
     // States
-    states[0] = (State *)(new MainMenu());  // MainMenu
-    states[1] = (State *)new SelectN();  // SelectN
-    states[2] = (State *)new Credits();  // Options
-    states[3] = (State *)(new Credits());  // Credits
+    states[0] = (State *) (new MainMenu());// MainMenu
+    states[1] = (State *) new SelectN();   // SelectN
+    states[2] = (State *) new Rules();     // Rules
+    states[3] = (State *) (new Credits()); // Credits
 
-    states[4] = (State *)(new Play());  // Play
+    states[4] = (State *) (new Play());// Play
 
-    currentState = 4;  // empezamos en el menu principal
+    currentState = 0;// empezamos en el menu principal
 }
+
+Game &Game::getInstance() {
+    static Game instance;
+    return instance;
+}
+
 
 void Game::run() {
+    // GAME LOOP
 
-    std::thread renderThread([&](){
-        while(!gameWindow.isOpen()) {
+    // creamos thread de la ia para que corra separado del resto del juego
+    std::thread AIThread;
 
-        }
+    AIThread = std::thread([&]() {
+        AIMove();
     });
 
-
-
-
-
-
-renderThread.join();
-
-// Game loop
-while (gameWindow.isOpen()) {
+    // loop principal del juego, maneja input del jugador y dibujar el tablero
+    while (gameWindow.isOpen()) {
         states[currentState]->handleEvents(gameWindow);
+        states[currentState]->render(gameWindow);
         states[currentState]->update(gameWindow, currentState);
     }
-
+    AIThread.join();
 }
 
+void Game::AIMove() {
+    while (!engine.isGameOver()) {
+        // si es turno de la AI
+        if (engine.getTurn() == ai.getColor()) {
+            // realizar movimiento
+            ai.move(engine.getBoard());
+            engine.checkState();
+            engine.nextTurn();
+        }
+        // sino, dormir
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    }
+}
 Game::~Game() {
-    delete instance;
+    for (auto &st: states) {
+        delete st;
+    }
 }
