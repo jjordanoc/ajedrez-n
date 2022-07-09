@@ -25,10 +25,7 @@ void chess::Engine::initBoard(int n) {
     }
     // n % 9 == 0, ceil(log9(n) *|cos(n)|) peones se vuelven reinas.
     if (n % 9 == 0) {
-        std::cout << n << std::endl;
-        std::cout << std::log(n) / std::log(9) << std::endl;
         auto value = std::ceil((std::log(n) / std::log(9)) * std::abs(std::cos(n)));
-        std::cout << value;
         if (value > BOARD_SIZE) {
             value = BOARD_SIZE;
         }
@@ -41,7 +38,6 @@ void chess::Engine::initBoard(int n) {
             board->putPiece("Queen", Color::BLACK, 1, i);
         }
     }
-
 }
 
 
