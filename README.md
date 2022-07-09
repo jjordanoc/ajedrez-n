@@ -23,7 +23,11 @@ $Ajedrez^{n}$ es un juego de ajedrez distinto al tradicional, pues ofrece infini
 
 ## Guía de uso
 
-- ya no hay menu pipipi
+- Al iniciar la aplicación, se visualizará un menú en donde se verán 4 opciones en donde se podrá elegir entre jugar el ajedrez, observar las reglas al ingresar un valor a n al jugar, observar los autores del proyecto y salir de la aplicación. 
+- Lo esencial radica en la opción Jugar, es en esta que se puede ingresar un valor entero n que determina las reglas del juego. Una vez hecho esto, se le da a jugar y el juego comienza. Por defecto el jugador asume las piezas blancas. Deberá seleccionar con el click izquierdo las piezas y se mostrarán los posibles movimientos.
+- Todas las interacciones posibles son realizadas con el click izquierdo tanto para seleccionar las opciones en el menú como para realizar el movimiento de una pieza.
+- La tecla Esc sirven para retroceder de la ventana sin necesidad de darle al botón de Back. En el caso que se encuentre en el menú, la aplicación terminará.
+
 
 ## Licencia de uso
 
