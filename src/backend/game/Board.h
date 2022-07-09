@@ -22,8 +22,7 @@ namespace chess {
         bool isMakingLongCastling = false;
         int fiftyMoveCount = 0;
         bool isMakingEnPassant = false;
-        int n;
-        void classicGame();
+        int n = 0;
     public:
         Board();
         Board(const Board &another);

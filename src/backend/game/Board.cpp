@@ -16,6 +16,7 @@ chess::Board::Board(const chess::Board &another) {
     isMakingLongCastling = another.isMakingLongCastling;
     isMakingShortCastling = another.isMakingShortCastling;
     pieceFactory = another.pieceFactory;
+    n = another.n;
 }
 
 void chess::Board::checkPawnPromotion(PosType newRow, PosType newCol) {
