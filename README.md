@@ -53,7 +53,7 @@ Proyecto realizado bajo la licencia [Apache 2.0](https://www.apache.org/licenses
 - **Facade:** Se composiciona en la acción de mover una pieza diversos métodos.
 
 ## Diagrama 
-![image info](../proyecto-final-grupo-7/src/frontend/assets/textures/final_uml_diagram.png)
+![image info](src/frontend/assets/textures/final_uml_diagram.png)
 
 ## Autores
 
