@@ -13,9 +13,8 @@ namespace chess {
         static Engine &getInstance();
         void initBoard(int n);
         void nextTurn();
-        Board& getBoard();
+        Board &getBoard();
         Color getTurn();
-        void playerMove(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol);
         GameState getWinner() const;
         void forceGameOver();
         bool isGameOver() const;
