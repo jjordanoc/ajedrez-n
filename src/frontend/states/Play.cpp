@@ -6,12 +6,11 @@ Play::Play() {
     boardSprite.setTexture(&boardTexture);
     engine.initBoard();
     drawBoard();
+    winnerText = std::make_unique<Label>(FONT_PATH, sf::Color::Black, "", 100, (windowWidth / 2) - 50, (windowHeight / 2) + 50);
 }
 
 void Play::drawBoard() {
     boardSprite.setSize(sf::Vector2f(600, 600));
-    float boardX = windowWidth / 2.0 - 600 / 2.0;
-    float boardY = windowHeight / 2.0 - 600 / 2.0;
     boardSprite.setPosition(boardX, boardY);
 }
 
@@ -28,15 +27,15 @@ void Play::piecePressed(sf::RenderWindow &window, double windowX, double windowY
         if (currentPiece != nullptr && currentPiece->getColor() == chess::WHITE) {
             piecesPressedSquare.clear();
             possibleMoves.clear();
-            posPieceSelected = make_pair(row, col);
+            posPieceSelected = std::make_pair(row, col);
 
             if (piecesPressedSquare.empty()) {
                 for (auto c: currentPiece->possibleMoves(row, col, engine.getBoard())) {
-                    possibleMoves.emplace_back(make_pair(c.second * 75.0 + boardX, c.first * 75.0 + boardY));
+                    possibleMoves.emplace_back(std::make_pair(c.second * 75.0 + boardX, c.first * 75.0 + boardY));
                 }
             } else {
                 for (auto c: currentPiece->possibleMoves(row, col, engine.getBoard())) {
-                    *(std::next(std::begin(possibleMoves), counter++)) = make_pair(c.second * 75.0 + boardX, c.first * 75.0 + boardY);
+                    *(std::next(std::begin(possibleMoves), counter++)) = std::make_pair(c.second * 75.0 + boardX, c.first * 75.0 + boardY);
                 }
             }
         }
@@ -113,11 +112,11 @@ void Play::render(sf::RenderWindow &window) {
     } else {
         window.clear(sf::Color::Black);
         draw(window);
-        string information;
+        std::string information;
         if (isDraw) {
             information = "It's a draw.";
         } else {
-            string winnerString;
+            std::string winnerString;
             if (engine.getWinner() == chess::GameState::WHITE_WINS) {
                 winnerString = "White";
             }
@@ -126,8 +125,8 @@ void Play::render(sf::RenderWindow &window) {
             }
             information = winnerString + " wins.";
         }
-        auto label = Label(FONT_PATH, sf::Color::Black, information, 100, (windowWidth / 2) - 50, (windowHeight / 2) + 50);
-        label.draw(window);
+        winnerText->setNewText(information);
+        winnerText->draw(window);
         window.display();
     }
 }
@@ -143,7 +142,7 @@ void Play::draw(sf::RenderWindow &window) {
         for (int j = 0; j < BOARD_SIZE; ++j) {
             auto piece = currentBoard.at(i).at(j);
             if (piece != nullptr) {
-                if (engine.getTurn() == chess::WHITE && dynamic_pointer_cast<chess::King>(piece) != nullptr && dynamic_pointer_cast<chess::King>(piece)->getIsInCheck()) {
+                if (engine.getTurn() == chess::WHITE && std::dynamic_pointer_cast<chess::King>(piece) != nullptr && std::dynamic_pointer_cast<chess::King>(piece)->getIsInCheck()) {
                     auto piecePressedSquare = new sf::RectangleShape{sf::Vector2f(75.f, 75.f)};
                     piecePressedSquare->setFillColor(sf::Color(190, 0, 0, 200));
                     piecePressedSquare->setPosition(j * 75.0 + boardX, i * 75.0 + boardY);

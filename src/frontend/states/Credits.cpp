@@ -7,11 +7,11 @@ Credits::Credits() {
     background.setTexture(&backgroundTexture);
 
     // Titulo
-    titleLabel = make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ", 100, 250, 20);
+    titleLabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ", 100, 250, 20);
     // ^n
-    titleN = make_unique<Label>(FONT_PATH, sf::Color::White, "n", 50, 715, 20);
+    titleN = std::make_unique<Label>(FONT_PATH, sf::Color::White, "n", 50, 715, 20);
     // Credits
-    creditosLabel = make_unique<Label>(FONT_PATH, sf::Color::White, "Creditos:", 70, 60, 150);
+    creditsLabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "Creditos:", 70, 60, 150);
     // Integrantes
     membersLabel[0] = new Label(FONT_PATH, sf::Color::White, "Josue Arriaga", 50, 100, 245);
     membersLabel[1] = new Label(FONT_PATH, sf::Color::White, "Jose Chachi", 50, 100, 315);
@@ -19,7 +19,7 @@ Credits::Credits() {
     membersLabel[3] = new Label(FONT_PATH, sf::Color::White, "Renato Cernades", 50, 100, 455);
     membersLabel[4] = new Label(FONT_PATH, sf::Color::White, "Nicolas Arroyo", 50, 100, 525);
     // Back button
-    backLabel = make_unique<Label>(FONT_PATH, sf::Color::White, "Back", 50, 10, 640);
+    backLabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "Back", 50, 10, 640);
 }
 
 void Credits::handleEvents(sf::RenderWindow &window) {
@@ -61,7 +61,7 @@ void Credits::render(sf::RenderWindow &window) {
 void Credits::draw(sf::RenderWindow &window) {
     titleLabel->draw(window);
     titleN->draw(window);
-    creditosLabel->draw(window);
+    creditsLabel->draw(window);
     for (auto& label : membersLabel){
         label->draw(window);
     }

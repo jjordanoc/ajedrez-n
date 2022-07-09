@@ -17,8 +17,6 @@
 
 #define Max_main_menu 4
 
-using namespace std;
-
 
 class MainMenu : public State {
 private:
@@ -28,8 +26,8 @@ private:
 
     int optionMenu;
     sf::Font font;
-    unique_ptr<Label> mainMenuTitle;
-    unique_ptr<Label> mainMenuTitleN;
+    std::unique_ptr<Label> mainMenuTitle;
+    std::unique_ptr<Label> mainMenuTitleN;
     Label *mainMenuLabel[Max_main_menu]{};
 public:
     MainMenu();

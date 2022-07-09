@@ -1,9 +1,9 @@
 #include "Label.h"
 
-Label::Label(const string& font_path, sf::Color color, const string& information, int sz, int x, int y): information(information), sz(sz), x(x), y(y) {
+Label::Label(const std::string& font_path, sf::Color color, const std::string& information, int sz, int x, int y): information(information), sz(sz), x(x), y(y) {
     if (!font.loadFromFile(font_path))
     {
-        cout << "No font available\n";
+        std::cout << "No font available\n";
     }
 
     text.setFont(font);
@@ -20,7 +20,7 @@ void Label::setFillColor(sf::Color newColor) {
 void Label::draw(sf::RenderWindow &window) {
     window.draw(text);
 }
-void Label::setNewText(const string &newText) {
+void Label::setNewText(const std::string &newText) {
     text.setString(newText);
 }
 

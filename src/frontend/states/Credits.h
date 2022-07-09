@@ -18,7 +18,6 @@
 
 #define members 5
 
-using namespace std;
 
 class Credits: public State {
 private:
@@ -27,11 +26,11 @@ private:
     sf::RectangleShape background;
 
     sf::Font font;
-    unique_ptr<Label> titleLabel;
-    unique_ptr<Label> titleN;
-    unique_ptr<Label> creditosLabel;
+    std::unique_ptr<Label> titleLabel;
+    std::unique_ptr<Label> titleN;
+    std::unique_ptr<Label> creditsLabel;
     Label* membersLabel[members]{};
-    unique_ptr<Label> backLabel;
+    std::unique_ptr<Label> backLabel;
 public:
     Credits();
 

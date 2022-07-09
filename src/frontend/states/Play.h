@@ -21,16 +21,14 @@
 #include "global/Global.h"
 
 
-using namespace std;
-
-
 class Play : public State {
 private:
     sf::Texture boardTexture;
     sf::RectangleShape boardSprite;
+    std::unique_ptr<Label> winnerText;
     std::vector<std::pair<float, float>> possibleMoves;
     std::vector<sf::RectangleShape*> piecesPressedSquare;
-    pair<chess::PosType, chess::PosType> posPieceSelected;
+    std::pair<chess::PosType, chess::PosType> posPieceSelected;
     chess::Engine &engine = chess::Engine::getInstance();
     bool isEndGame = false;
     bool isDraw = false;

@@ -6,16 +6,16 @@ SelectN::SelectN() {
     background.setTexture(&backgroundTexture);
 
     // Titulo
-    titleLabel = make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ", 100, 245, 50);
+    titleLabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ", 100, 245, 50);
     // ^n
-    titleNlabel = make_unique<Label>(FONT_PATH, sf::Color::White, "n", 50, 715, 50);
+    titleNlabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "n", 50, 715, 50);
     // Back button
-    backLabel = make_unique<Label>(FONT_PATH, sf::Color::White, "Back", 50, 10, 640);
+    backLabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "Back", 50, 10, 640);
     // Play button
-    playLabel = make_unique<Label>(FONT_PATH, sf::Color::White, "Play", 50, 837, 640);
+    playLabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, "Play", 50, 837, 640);
 
     // Input N
-    inputNlabel = make_unique<Label>(FONT_PATH, sf::Color::White, nValue, 60, 480 - 30, 360);
+    inputNlabel = std::make_unique<Label>(FONT_PATH, sf::Color::White, nValue, 60, 480 - 30, 360);
 }
 
 void SelectN::handleEvents(sf::RenderWindow &window) {

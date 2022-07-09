@@ -17,7 +17,6 @@ namespace chess {
         void nextTurn();
         Board& getBoard();
         Color getTurn();
-        void playerMove(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol);
         GameState getWinner() const;
         void forceGameOver();
         bool isGameOver() const;

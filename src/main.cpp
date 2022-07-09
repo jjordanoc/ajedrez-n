@@ -3,7 +3,6 @@
 #include "../src/backend/game/Engine.h"
 
 
-
 int main() {
     Game &game = Game::getInstance();
     game.run();

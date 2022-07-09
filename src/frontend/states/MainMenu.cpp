@@ -7,9 +7,9 @@ MainMenu::MainMenu() {
     background.setTexture(&backgroundTexture);
 
     // Titulo
-    mainMenuTitle = make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ", 100, 245, 50);
+    mainMenuTitle = std::make_unique<Label>(FONT_PATH, sf::Color::White, "AJEDREZ", 100, 245, 50);
     // ^n
-    mainMenuTitleN = make_unique<Label>(FONT_PATH, sf::Color::White, "n", 50, 715, 50);
+    mainMenuTitleN = std::make_unique<Label>(FONT_PATH, sf::Color::White, "n", 50, 715, 50);
     //Opcion play
     mainMenuLabel[0] = new Label(FONT_PATH, sf::Color::White, "Jugar", 70, 400, 200);
     //Opcion opciones

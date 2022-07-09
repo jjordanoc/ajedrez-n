@@ -3,7 +3,7 @@
 Game::Game() {
     // Set the window icon
     if (!windowIcon.loadFromFile("../../src/frontend/assets/textures/dark_pawn.png")) {
-        cout << "No sale\n";
+        std::cout << "No sale\n";
     }
     gameWindow.setIcon(windowIcon.getSize().x, windowIcon.getSize().y, windowIcon.getPixelsPtr());
     // States
@@ -24,12 +24,12 @@ Game &Game::getInstance() {
 
 
 void Game::run() {
-    // Game loop
+    // GAME LOOP
 
     // creamos thread de la ia para que corra separado del resto del juego
-    thread AIThread;
+    std::thread AIThread;
 
-    AIThread = thread([&](){
+    AIThread = std::thread([&](){
         AIMove();
     });
 
@@ -52,7 +52,7 @@ void Game::AIMove() {
             engine.nextTurn();
         }
         // sino, dormir
-        this_thread::sleep_for(chrono::milliseconds(500));
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
 }
 Game::~Game() {
