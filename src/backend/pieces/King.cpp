@@ -23,6 +23,7 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::King::possibleMove
     auto boardData = currentBoard.getBoardData();
     std::vector<std::pair<PosType, PosType>> moves;
     int numChecks = 0;
+    // find possible moves
     for (int i = -1; i <= 1; i += 1) {
         for (int j = -1; j <= 1; j += 1) {
             if (i == 0 && j == 0) {

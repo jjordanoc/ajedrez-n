@@ -6,19 +6,20 @@ std::string chess::Rook::repr() {
     return "Rook" + std::to_string(color);
 }
 
-std::vector<std::pair<chess::PosType, chess::PosType>> chess::Rook::possibleMoves(PosType fromRow, PosType fromCol, Board& currentBoard) {
+std::vector<std::pair<chess::PosType, chess::PosType>> chess::Rook::possibleMoves(PosType fromRow, PosType fromCol, Board &currentBoard) {
     auto boardData = currentBoard.getBoardData();
     std::vector<std::pair<PosType, PosType>> moves;
     std::vector<bool> flags(4, false);
     PosType numChecks = 0;
-    //    Las torres se mueven solo ceil(|8 - log67(n)|) casillas.
-    auto value = (std::log(currentBoard.getN())/std::log(67));
+    // rooks can move at most ceil(|8 - log67(n)|) squares
+    auto value = (std::log(currentBoard.getN()) / std::log(67));
     if (!inBounds(value, value)) {
         value = 0;
     }
     if (currentBoard.getN() == 0) {
         value = 0;
     }
+    // find possible moves
     for (int i = 0; i <= std::ceil(std::abs(BOARD_SIZE - value)); i++) {
         if (i == 0) {
             continue;
@@ -68,14 +69,15 @@ void chess::Rook::verifyPossibleChecks(chess::PosType fromRow, chess::PosType fr
     auto boardData = currentBoard.getBoardData();
     std::vector<bool> flags(4, false);
     PosType numChecks = 0;
-    //    Las torres se mueven solo ceil(|8 - log67(n)|) casillas.
-    auto value = (std::log(currentBoard.getN())/std::log(67));
+    // rooks can move at most ceil(|8 - log67(n)|) squares
+    auto value = (std::log(currentBoard.getN()) / std::log(67));
     if (!inBounds(value, value)) {
         value = 0;
     }
     if (currentBoard.getN() == 0) {
         value = 0;
     }
+    // verify possible checks
     for (int i = 0; i <= std::ceil(std::abs(BOARD_SIZE - value)); i++) {
         if (i == 0) {
             continue;

@@ -32,7 +32,7 @@ private:
     std::unique_ptr<Label> dialogN;
     std::unique_ptr<Label> inputNlabel;
 
-    int option;  // 0: back y 1: play
+    int option;// 0: back y 1: play
 public:
     SelectN();
 

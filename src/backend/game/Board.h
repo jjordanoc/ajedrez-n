@@ -4,13 +4,13 @@
 // Liberias de terceros
 #include "iomanip"
 #include <array>
-#include <memory>
-#include <limits>
 #include <cmath>
+#include <limits>
+#include <memory>
 // Liberias locales
-#include "global/Global.h"
 #include "../pieces/Piece.h"
 #include "../pieces/PieceFactory.h"
+#include "global/Global.h"
 
 
 namespace chess {
@@ -24,6 +24,7 @@ namespace chess {
         int fiftyMoveCount = 0;
         bool isMakingEnPassant = false;
         int n = 0;
+
     public:
         Board();
         Board(const Board &another);

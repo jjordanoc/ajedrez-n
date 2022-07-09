@@ -39,7 +39,7 @@ void chess::Board::checkCastling(PosType oldRow, PosType oldCol, PosType newRow,
     if (!isMakingCastling) {
         auto king = mainBoard.at(oldRow).at(oldCol);
         if (std::dynamic_pointer_cast<King>(king) != nullptr) {
-            if(king->getColor() == chess::WHITE && king->getMoveCount() == 0){
+            if (king->getColor() == chess::WHITE && king->getMoveCount() == 0) {
                 if (newCol == 2 && newRow == 7) {
                     isMakingLongCastling = true;
                     isMakingCastling = true;
@@ -47,7 +47,7 @@ void chess::Board::checkCastling(PosType oldRow, PosType oldCol, PosType newRow,
                     isMakingShortCastling = true;
                     isMakingCastling = true;
                 }
-            } else if(king->getColor() == chess::BLACK && king->getMoveCount() == 0) {
+            } else if (king->getColor() == chess::BLACK && king->getMoveCount() == 0) {
                 if (newCol == 2 && newRow == 0) {
                     isMakingLongCastling = true;
                     isMakingCastling = true;
@@ -56,7 +56,6 @@ void chess::Board::checkCastling(PosType oldRow, PosType oldCol, PosType newRow,
                     isMakingCastling = true;
                 }
             }
-
         }
     }
 }
@@ -293,9 +292,9 @@ void chess::Board::deleteEnPassant() {
 
 chess::ScoreType chess::Board::evaluation() {
     // Evaluation of checkmate
-    if(isCheckMate(BLACK)){
+    if (isCheckMate(BLACK)) {
         return MIN_SCORE;
-    } else if(isCheckMate(WHITE)){
+    } else if (isCheckMate(WHITE)) {
         return MAX_SCORE;
     }
     // Evaluation of the pieces
@@ -332,8 +331,7 @@ chess::ScoreType chess::Board::evaluation() {
     // If position checks, it is more valuable
     if (isChecked(BLACK)) {
         whitePoints += CHECK_VALUE;
-    }
-    else if (isChecked(WHITE)) {
+    } else if (isChecked(WHITE)) {
         blackPoints += CHECK_VALUE;
     }
     // If the score is positive, white are winning
@@ -349,7 +347,7 @@ void chess::Board::move(chess::PosType oldRow, chess::PosType oldCol, chess::Pos
     checkPawnPromotion(newRow, newCol);
 }
 
-void chess::Board::setN(int _n){
+void chess::Board::setN(int _n) {
     n = _n;
 }
 

@@ -25,6 +25,7 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Pawn::possibleMove
         off = -1;
     }
     PosType numChecks = 0;
+    // Find possible moves
     for (int i = -1; i <= 1; i += 2) {
         // Enemy in pawn's diagonal
         if (inBounds(fromRow + off, fromCol + i)) {
@@ -41,7 +42,7 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Pawn::possibleMove
                     for (int k = 0; k < BOARD_SIZE; k++) {
                         auto piece = std::dynamic_pointer_cast<Pawn>(boardData.at(j).at(k));
                         // j, k are the position of the piece
-                        if (piece != nullptr && piece->getColor() != color && piece->getIsEnPassant() &&  fromRow + off == j + off && fromCol + i == k) {
+                        if (piece != nullptr && piece->getColor() != color && piece->getIsEnPassant() && fromRow + off == j + off && fromCol + i == k) {
                             addPlausibleMoves(fromRow, fromCol, fromRow + off, fromCol + i, moves, currentBoard);
                         }
                     }
@@ -73,6 +74,7 @@ void chess::Pawn::verifyPossibleChecks(chess::PosType fromRow, chess::PosType fr
         off = -1;
     }
     PosType numChecks = 0;
+    // verify possible checks
     for (int i = -1; i <= 1; i += 2) {
         if (inBounds(fromRow + off, fromCol + i)) {
             if (boardData.at(fromRow + off).at(fromCol + i) != nullptr) {

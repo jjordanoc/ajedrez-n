@@ -9,6 +9,7 @@ namespace chess {
         bool isEnPassant = false;
         std::string spriteD = "../../src/frontend/assets/textures/dark_pawn.png";
         std::string spriteW = "../../src/frontend/assets/textures/white_pawn.png";
+
     public:
         Pawn(const Color &color);
         void incrementMoveCount() override;

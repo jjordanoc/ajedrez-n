@@ -56,11 +56,11 @@ chess::ScoreType chess::AI::minimax(chess::Board &table, bool playMax, int depth
 chess::ScoreType chess::AI::alphaBetaPrunedMinimax(chess::Board &table, bool playMax, ScoreType alpha, ScoreType beta, int depth) {
     // ejemplo: playmax inicia en negro
     perf += 1;
-    ScoreType score = table.evaluation(); // evaluar tablero actual
-    if (score == MAX_SCORE || score == MIN_SCORE || depthLimit <= depth) { // si el score es el de un jaque mate o llegamos a la profundidad maxima permitida, retornar el puntaje
+    ScoreType score = table.evaluation();                                 // evaluar tablero actual
+    if (score == MAX_SCORE || score == MIN_SCORE || depthLimit <= depth) {// si el score es el de un jaque mate o llegamos a la profundidad maxima permitida, retornar el puntaje
         return score;
     }
-    if (playMax) { // falso, pues inicia el negro
+    if (playMax) {// falso, pues inicia el negro
         ScoreType maxEvaluation = MIN_SCORE;
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -81,15 +81,15 @@ chess::ScoreType chess::AI::alphaBetaPrunedMinimax(chess::Board &table, bool pla
             }
         }
         return maxEvaluation;
-    } else { // se ejecuta
-        ScoreType minEvaluation = MAX_SCORE; // el peor puntaje para el negro
+    } else {
+        ScoreType minEvaluation = MAX_SCORE;
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
-                if (table.getPiece(i, j) != nullptr && table.getPiece(i, j)->getColor() == chess::BLACK) { // si la pieza es negra
-                    auto piece = table.getPiece(i, j); // obtener la pieza en la posicion
-                    auto possibleMoves = piece->possibleMoves(i, j, table); // ver sus posibles movimientos
-                    for (auto &move: possibleMoves) { // para cada posible movimiento de cada pieza
-                        chess::Board tmp = chess::Board(table); // se crea un tablero a parte en el que
+                if (table.getPiece(i, j) != nullptr && table.getPiece(i, j)->getColor() == chess::BLACK) {
+                    auto piece = table.getPiece(i, j);                     // obtener la pieza en la posicion
+                    auto possibleMoves = piece->possibleMoves(i, j, table);// ver sus posibles movimientos
+                    for (auto &move: possibleMoves) {                      // para cada posible movimiento de cada pieza
+                        chess::Board tmp = chess::Board(table);
                         tmp.movePiece(i, j, move.first, move.second);
                         auto evaluation = alphaBetaPrunedMinimax(tmp, true, alpha, beta, depth += 1);
                         minEvaluation = std::min(minEvaluation, evaluation);
@@ -97,7 +97,6 @@ chess::ScoreType chess::AI::alphaBetaPrunedMinimax(chess::Board &table, bool pla
                         if (beta <= alpha) {
                             return minEvaluation;
                         }
-
                     }
                 }
             }
@@ -108,19 +107,18 @@ chess::ScoreType chess::AI::alphaBetaPrunedMinimax(chess::Board &table, bool pla
 
 
 void chess::AI::move(chess::Board &table) {
-    // ejemplo: color negro
     ScoreType bestScore = MAX_SCORE;
-    auto bestMove = std::make_pair(0, 0);                 // 0, 0
-    auto bestPos = std::make_pair(0, 0);                  // 0, 0
+    auto bestMove = std::make_pair(0, 0);
+    auto bestPos = std::make_pair(0, 0);
     for (int i = 0; i < BOARD_SIZE; ++i) {
         for (int j = 0; j < BOARD_SIZE; ++j) {
             auto piece = table.getPiece(i, j);
-            if (piece != nullptr && piece->getColor() == color) {      // seleccionar pieza negra
+            if (piece != nullptr && piece->getColor() == color) {
                 auto possibleMoves = piece->possibleMoves(i, j, table);// posibles movimientos de la pieza
                 for (const auto &e: possibleMoves) {                   // para cada posible movimiento
                     chess::Board tmp = chess::Board(table);            // crear un tablero alternativo
                     tmp.move(i, j, e.first, e.second);                 // hacer el movimiento en un tablero a parte (subarbol)
-                    auto score = alphaBetaPrunedMinimax(tmp, true); // evaluar el movimiento mediante minimax con alpha-beta pruning
+                    auto score = alphaBetaPrunedMinimax(tmp, true);    // evaluar el movimiento mediante minimax con alpha-beta pruning
                     perf += 1;                                         // contar los nodos del arbol para su posterior validacion
                     if (score < bestScore) {
                         bestScore = score;
@@ -131,7 +129,7 @@ void chess::AI::move(chess::Board &table) {
             }
         }
     }
-    table.move(bestPos.first, bestPos.second, bestMove.first, bestMove.second); // realizar el mejor movimiento desde la mejor posicion
+    table.move(bestPos.first, bestPos.second, bestMove.first, bestMove.second);// realizar el mejor movimiento desde la mejor posicion
 }
 chess::Color chess::AI::getColor() {
     return color;

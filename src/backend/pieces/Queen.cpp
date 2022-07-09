@@ -23,6 +23,7 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Queen::possibleMov
     std::vector<bool> flags(8, false);
 
     PosType numChecks = 0;
+    // find possible moves
     for (int i = 0; i < BOARD_SIZE; i++) {
         if (i == 0) {
             continue;
@@ -67,6 +68,7 @@ void chess::Queen::verifyPossibleChecks(chess::PosType fromRow, chess::PosType f
     auto boardData = currentBoard.getBoardData();
     std::vector<bool> flags(8, false);
     PosType numChecks = 0;
+    // verify possible checks
     for (int i = 0; i < BOARD_SIZE; i++) {
         if (i == 0) {
             continue;

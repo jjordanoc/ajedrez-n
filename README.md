@@ -43,7 +43,6 @@ Proyecto realizado bajo la licencia [Apache 2.0](https://www.apache.org/licenses
 ## Test de aplicación
 
 - **Board Test:** Permite comprobar que el tablero se ha podido iniciar correctamente con todas las piezas necesarias.
-- **Checkmate Test:** Evalua si funciona el jaque mate al realizar una serie de movimientos con las piezas ya testeadas con anterioridad.
 
 ### Patrones de diseño
 
@@ -59,6 +58,12 @@ Proyecto realizado bajo la licencia [Apache 2.0](https://www.apache.org/licenses
 |:---------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------:|:---------------------------------------------------:|
 |           ![Joaquín](https://avatars.githubusercontent.com/u/83974213)            |                   ![Renato](https://avatars.githubusercontent.com/u/83974266)                   |          ![Josué](https://avatars.githubusercontent.com/u/83974555)             |              ![José](https://avatars.githubusercontent.com/u/83974741)              |       ![Nicolás](https://avatars.githubusercontent.com/u/83975293)                                              |
 | <a href="https://github.com/jjordanoc" target="_blank">`github.com/jjordanoc`</a> | <a href="https://github.com/RenatoCernades0107" target="_blank">`github.com/RenatoCernades`</a> | <a href="https://github.com/jmac-94" target="_blank">`github.com/jmac94`</a>  | <a href="https://github.com/JoseChachi" target="_blank">`github.com/JoseChachi`</a> |<a href="https://github.com/NicolasArroyo" target="_blank">`github.com/NicolasArroyo`</a>|
+
+
+## Presentación
+
+[Enlace al video de presentación](https://youtu.be/jZlsfN8YAII)
+
 
 ## Bibliografía
 

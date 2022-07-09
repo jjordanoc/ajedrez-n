@@ -32,29 +32,25 @@ void MainMenu::handleEvents(sf::RenderWindow &window) {
                 // Button play
                 if ((event.mouseMove.x >= 400 && event.mouseMove.x <= 590) && (event.mouseMove.y >= 200 && event.mouseMove.y <= 270)) {
                     mainMenuLabel[0]->setFillColor(sf::Color::Black);
-                }
-                else {
+                } else {
                     mainMenuLabel[0]->setFillColor(sf::Color::White);
                 }
                 // Button rules
                 if ((event.mouseMove.x >= 400 && event.mouseMove.x <= 630) && (event.mouseMove.y >= 300 && event.mouseMove.y <= 370)) {
                     mainMenuLabel[1]->setFillColor(sf::Color::Black);
-                }
-                else {
+                } else {
                     mainMenuLabel[1]->setFillColor(sf::Color::White);
                 }
                 // Button credits
                 if ((event.mouseMove.x >= 400 && event.mouseMove.x <= 680) && (event.mouseMove.y >= 400 && event.mouseMove.y <= 470)) {
                     mainMenuLabel[2]->setFillColor(sf::Color::Black);
-                }
-                else {
+                } else {
                     mainMenuLabel[2]->setFillColor(sf::Color::White);
                 }
                 // Button exit
                 if ((event.mouseMove.x >= 400 && event.mouseMove.x <= 545) && (event.mouseMove.y >= 500 && event.mouseMove.y <= 570)) {
                     mainMenuLabel[3]->setFillColor(sf::Color::Black);
-                }
-                else {
+                } else {
                     mainMenuLabel[3]->setFillColor(sf::Color::White);
                 }
                 break;
@@ -97,12 +93,12 @@ void MainMenu::render(sf::RenderWindow &window) {
 void MainMenu::draw(sf::RenderWindow &window) {
     mainMenuTitle->draw(window);
     mainMenuTitleN->draw(window);
-    for (auto& label : mainMenuLabel){
+    for (auto &label: mainMenuLabel) {
         label->draw(window);
     }
 }
 
-void MainMenu::update(sf::RenderWindow &window, int& currentState) {
+void MainMenu::update(sf::RenderWindow &window, int &currentState) {
     if (!inCurrentState) {
         if (optionMenu == 3)
             window.close();
@@ -113,9 +109,7 @@ void MainMenu::update(sf::RenderWindow &window, int& currentState) {
 }
 
 MainMenu::~MainMenu() {
-    for (auto& label : mainMenuLabel){
+    for (auto &label: mainMenuLabel) {
         delete label;
     }
 }
-
-

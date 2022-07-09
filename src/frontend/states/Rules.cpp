@@ -34,8 +34,7 @@ void Rules::handleEvents(sf::RenderWindow &window) {
             case sf::Event::MouseMoved:
                 if ((event.mouseMove.x >= 10 && event.mouseMove.x <= 160) && (event.mouseMove.y >= 640 && event.mouseMove.y <= 690)) {
                     backLabel->setFillColor(sf::Color::Black);
-                }
-                else {
+                } else {
                     backLabel->setFillColor(sf::Color::White);
                 }
                 break;

@@ -18,21 +18,12 @@ void chess::Engine::initBoard(int n) {
     }
     board->setN(n);
 
-    //    Initialize the board base on the parameter n
-    //    n == 0, modo de juego clásico.
-    //    n % 2 == 0, ceil(log(n)) peones pueden comer de frente.
-    //    n % 4 == 0, ceil(log4(n)) peones pueden retroceder.
-    //    n % 5 == 0, los reyes pueden moverse como alfiles.
-    //    n % 6 == 0, ceil(log7(n)) peones pueden moverse como reyes.
-    //    n % 7 == 0, Cada ceil(log7(n)) turnos, una pieza es removida.
-    //    n % 8 == 0, los caballos pueden hacer 2 movimientos seguidos.
-
     // Initialize the base board
     classicGame();
     if (n == 0) {
         return;
     }
-
+    // n % 9 == 0, ceil(log9(n) *|cos(n)|) peones se vuelven reinas.
     if (n % 9 == 0) {
         std::cout << n << std::endl;
         std::cout << std::log(n) / std::log(9) << std::endl;
@@ -50,7 +41,7 @@ void chess::Engine::initBoard(int n) {
             board->putPiece("Queen", Color::BLACK, 1, i);
         }
     }
-    //    n % 9 == 0, ceil(log9(n) *|cos(n)|) peones se vuelven reinas.
+
 }
 
 

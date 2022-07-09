@@ -1,6 +1,6 @@
-#include "frontend/Game.h"
 #include "../src/backend/game/AI.h"
 #include "../src/backend/game/Engine.h"
+#include "frontend/Game.h"
 
 
 int main() {
@@ -8,4 +8,3 @@ int main() {
     game.run();
     return 0;
 }
-

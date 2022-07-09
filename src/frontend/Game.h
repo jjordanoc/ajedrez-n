@@ -1,19 +1,19 @@
 #ifndef PROYECTOPROGRA2_GAME_H
 #define PROYECTOPROGRA2_GAME_H
 
-#include <iostream>
 #include <cmath>
+#include <iostream>
 #include <memory>
 
 #include "global/Window.h"
 
-#include "states/State.h"
-#include "states/MainMenu.h"
 #include "states/Credits.h"
+#include "states/MainMenu.h"
 #include "states/Rules.h"
+#include "states/State.h"
 
-#include "states/SelectN.h"
 #include "states/Play.h"
+#include "states/SelectN.h"
 #include <thread>
 
 #include <SFML/Graphics.hpp>
@@ -33,6 +33,7 @@ private:
     int currentState;
     void AIMove();
     Game();
+
 public:
     static Game &getInstance();
     void run();

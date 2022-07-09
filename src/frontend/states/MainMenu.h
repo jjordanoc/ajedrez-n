@@ -10,8 +10,8 @@
 #include "../graphics/Label.h"
 #include "State.h"
 
-#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "global/Paths.h"
 
@@ -29,6 +29,7 @@ private:
     std::unique_ptr<Label> mainMenuTitle;
     std::unique_ptr<Label> mainMenuTitleN;
     Label *mainMenuLabel[Max_main_menu]{};
+
 public:
     MainMenu();
 

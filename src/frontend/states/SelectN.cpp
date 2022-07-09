@@ -1,6 +1,6 @@
 #include "SelectN.h"
-#include "global/Global.h"
 #include "backend/game/Engine.h"
+#include "global/Global.h"
 
 SelectN::SelectN() {
     // Cargar el fondo
@@ -36,15 +36,13 @@ void SelectN::handleEvents(sf::RenderWindow &window) {
                 // Back button
                 if ((event.mouseMove.x >= 10 && event.mouseMove.x <= 160) && (event.mouseMove.y >= 640 && event.mouseMove.y <= 690)) {
                     backLabel->setFillColor(sf::Color::Black);
-                }
-                else {
+                } else {
                     backLabel->setFillColor(sf::Color::White);
                 }
                 // Play button
                 if ((event.mouseMove.x >= 837 && event.mouseMove.x <= 943) && (event.mouseMove.y >= 640 && event.mouseMove.y <= 690)) {
                     playLabel->setFillColor(sf::Color::Black);
-                }
-                else {
+                } else {
                     playLabel->setFillColor(sf::Color::White);
                 }
                 break;
@@ -70,14 +68,12 @@ void SelectN::handleEvents(sf::RenderWindow &window) {
                 // Unicode = 8 is the unicode of backslash
                 if (event.text.unicode == 8 && !nValue.empty()) {
                     nValue.pop_back();
-                }
-                else if (48 <= event.text.unicode && event.text.unicode <= 57) {
-                    nValue.push_back((char)event.text.unicode);
+                } else if (48 <= event.text.unicode && event.text.unicode <= 57) {
+                    nValue.push_back((char) event.text.unicode);
                 }
                 inputNlabel->setNewText(nValue);
                 break;
         }
-
     }
 }
 

@@ -15,6 +15,7 @@ namespace chess {
         Color color = BLACK;
         int depthLimit = 5;
         unsigned long long perf = 0;
+
     public:
         AI();
         AI(Color color, int depthLimit);

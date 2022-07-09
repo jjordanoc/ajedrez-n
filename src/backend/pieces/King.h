@@ -8,6 +8,7 @@ namespace chess {
         bool isChecked = false;
         std::string spriteD = "../../src/frontend/assets/textures/dark_king.png";
         std::string spriteW = "../../src/frontend/assets/textures/white_king.png";
+
     public:
         King(const Color &color);
 

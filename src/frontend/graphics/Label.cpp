@@ -1,8 +1,7 @@
 #include "Label.h"
 
-Label::Label(const std::string& font_path, sf::Color color, const std::string& information, int sz, int x, int y): information(information), sz(sz), x(x), y(y) {
-    if (!font.loadFromFile(font_path))
-    {
+Label::Label(const std::string &font_path, sf::Color color, const std::string &information, int sz, int x, int y) : information(information), sz(sz), x(x), y(y) {
+    if (!font.loadFromFile(font_path)) {
         std::cout << "No font available\n";
     }
 

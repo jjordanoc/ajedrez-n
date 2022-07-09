@@ -21,6 +21,7 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Bishop::possibleMo
     std::vector<std::pair<PosType, PosType>> moves;
     std::vector<bool> flags(4, false);
     chess::PosType numChecks = 0;
+    // find possible moves
     for (int i = 0; i < BOARD_SIZE; i++) {
         if (i == 0) {
             continue;
@@ -46,10 +47,8 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Bishop::possibleMo
                     addPlausibleMoves(fromRow, fromCol, pos.first, pos.second, moves, currentBoard);
                 }
             }
-
         }
     }
-
 
 
     if (numChecks != 0) {
@@ -63,6 +62,7 @@ void chess::Bishop::verifyPossibleChecks(chess::PosType fromRow, chess::PosType 
     auto boardData = currentBoard.getBoardData();
     std::vector<bool> flags(4, false);
     chess::PosType numChecks = 0;
+    // verify possible checks
     for (int i = 0; i < BOARD_SIZE; i++) {
         if (i == 0) {
             continue;

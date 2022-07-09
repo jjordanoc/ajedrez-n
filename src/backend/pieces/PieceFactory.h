@@ -4,7 +4,7 @@
 #include <functional>
 #include <memory>
 #include <unordered_map>
-// Librerias locales
+
 #include "Bishop.h"
 #include "King.h"
 #include "Knight.h"

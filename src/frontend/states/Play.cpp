@@ -124,8 +124,7 @@ void Play::render(sf::RenderWindow &window) {
             std::string winnerString;
             if (engine.getWinner() == chess::GameState::WHITE_WINS) {
                 winnerString = "White";
-            }
-            else if (engine.getWinner() == chess::GameState::BLACK_WINS) {
+            } else if (engine.getWinner() == chess::GameState::BLACK_WINS) {
                 winnerString = "Black";
             }
             information = winnerString + " wins.";

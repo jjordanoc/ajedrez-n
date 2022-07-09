@@ -34,8 +34,7 @@ void Credits::handleEvents(sf::RenderWindow &window) {
             case sf::Event::MouseMoved:
                 if ((event.mouseMove.x >= 10 && event.mouseMove.x <= 160) && (event.mouseMove.y >= 640 && event.mouseMove.y <= 690)) {
                     backLabel->setFillColor(sf::Color::Black);
-                }
-                else {
+                } else {
                     backLabel->setFillColor(sf::Color::White);
                 }
                 break;
@@ -62,20 +61,20 @@ void Credits::draw(sf::RenderWindow &window) {
     titleLabel->draw(window);
     titleN->draw(window);
     creditsLabel->draw(window);
-    for (auto& label : membersLabel){
+    for (auto &label: membersLabel) {
         label->draw(window);
     }
     backLabel->draw(window);
 }
 
-void Credits::update(sf::RenderWindow &window, int& currentState) {
+void Credits::update(sf::RenderWindow &window, int &currentState) {
     if (!inCurrentState) {
         currentState = 0;
     }
 }
 
 Credits::~Credits() {
-    for (auto& label : membersLabel){
+    for (auto &label: membersLabel) {
         delete label;
     }
 }

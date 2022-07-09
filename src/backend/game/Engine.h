@@ -9,6 +9,7 @@ namespace chess {
         Color turn;
         GameState winner = IN_GAME;
         Engine();
+
     public:
         static Engine &getInstance();
         void initBoard(int n);
