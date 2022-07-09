@@ -14,12 +14,14 @@ namespace chess {
     class AI {
         Color color = BLACK;
         int depthLimit = 5;
+        unsigned long long perf = 0;
     public:
         AI();
         AI(Color color, int depthLimit);
         ScoreType minimax(chess::Board &table, bool playMax, int depth);
         ScoreType alphaBetaPrunedMinimax(chess::Board &table, bool playMax, ScoreType alpha = MIN_SCORE, ScoreType beta = MAX_SCORE, int depth = 0);
         void move(chess::Board &table);
+        unsigned long long getPerf() const;
         Color getColor();
     };
 }// namespace chess

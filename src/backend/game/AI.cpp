@@ -143,3 +143,5 @@ void chess::AI::move(chess::Board &table) {
 chess::Color chess::AI::getColor() {
     return color;
 }
+
+unsigned long long chess::AI::getPerf() const { return perf; }

@@ -143,6 +143,12 @@ void Play::draw(sf::RenderWindow &window) {
         for (int j = 0; j < BOARD_SIZE; ++j) {
             auto piece = currentBoard.at(i).at(j);
             if (piece != nullptr) {
+                if (engine.getTurn() == chess::WHITE && dynamic_pointer_cast<chess::King>(piece) != nullptr && dynamic_pointer_cast<chess::King>(piece)->getIsInCheck()) {
+                    auto piecePressedSquare = new sf::RectangleShape{sf::Vector2f(75.f, 75.f)};
+                    piecePressedSquare->setFillColor(sf::Color(190, 0, 0, 200));
+                    piecePressedSquare->setPosition(j * 75.0 + boardX, i * 75.0 + boardY);
+                    window.draw(*piecePressedSquare);
+                }
                 piece->drawPiece(window, i, j);
             }
         }

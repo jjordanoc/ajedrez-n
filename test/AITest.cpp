@@ -11,7 +11,7 @@
 class AITest : public ::testing::Test {
 protected:
     chess::Engine &engine = chess::Engine::getInstance();
-    chess::AI AI = chess::AI();
+
     void SetUp() override {
         std::cout << "Set up" << std::endl;
         engine.initBoard();
@@ -57,16 +57,37 @@ protected:
 //    std::cout << AI.minimax(engine.getBoard(), true, 5) << std::endl;
 //}
 
-TEST_F(AITest, TestGame) {
-
+TEST_F(AITest, Perft2) {
+    chess::AI AI = chess::AI(chess::BLACK, 1);
+    chess::Engine engine1 = chess::Engine();
+    AI.move(engine1.getBoard());
+    ASSERT_EQ(AI.getPerf(), 20);
 }
 
+TEST_F(AITest, Perft3) {
+    chess::AI AI = chess::AI(chess::BLACK, 2);
+    chess::Engine engine2 = chess::Engine();
+    AI.move(engine2.getBoard());
+    ASSERT_EQ(AI.getPerf(), 400);
+}
 
-// TEST_F allows you to access
-//TEST_F(IATest, CanMovePiece) {
-//    ASSERT_EQ(1, 1);
+//TEST_F(AITest, Perft4) {
+//    chess::AI AI = chess::AI(chess::BLACK, 3);
+//    chess::Engine engine3 = chess::Engine();
+//    AI.move(engine3.getBoard());
+//    ASSERT_EQ(AI.getPerf(), 8902);
 //}
 //
-//TEST_F(IATest, FailTest) {
-//    ASSERT_EQ(1, 0);
+//TEST_F(AITest, Perft5) {
+//    chess::AI AI = chess::AI(chess::BLACK, 4);
+//    chess::Engine engine4 = chess::Engine();
+//    AI.move(engine4.getBoard());
+//    ASSERT_EQ(AI.getPerf(), 197281);
+//}
+//
+//TEST_F(AITest, Perft6) {
+//    chess::AI AI = chess::AI(chess::BLACK, 5);
+//    chess::Engine engine5 = chess::Engine();
+//    AI.move(engine5.getBoard());
+//    ASSERT_EQ(AI.getPerf(), 4865609);
 //}

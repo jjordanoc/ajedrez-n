@@ -7,6 +7,7 @@ namespace chess {
     class Engine {
         std::unique_ptr<Board> board;
         Color turn;
+        GameState winner = IN_GAME;
         unsigned long long n = 0;
 
     public:
@@ -17,7 +18,10 @@ namespace chess {
         Board& getBoard();
         Color getTurn();
         void playerMove(PosType oldRow, PosType oldCol, PosType newRow, PosType newCol);
-        ~Engine();
+        GameState getWinner() const;
+        void forceGameOver();
+        bool isGameOver() const;
+        void checkState();
     };
 
 }// namespace chess
