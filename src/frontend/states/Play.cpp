@@ -2,6 +2,11 @@
 #include <thread>
 
 Play::Play() {
+    // Cargar el fondo
+    backgroundTexture.loadFromFile(BACKGROUND_PATH);
+    background.setSize(sf::Vector2f(windowWidth, windowHeight));
+    background.setTexture(&backgroundTexture);
+
     boardTexture.loadFromFile("../../src/frontend/assets/textures/board.png");
     boardSprite.setTexture(&boardTexture);
     drawBoard();
@@ -105,7 +110,8 @@ void Play::handleEvents(sf::RenderWindow &window) {
 void Play::render(sf::RenderWindow &window) {
     // main game loop
     if (!isEndGame) {
-        window.clear(sf::Color::Black);
+        window.clear();
+        window.draw(background);
         draw(window);
         window.display();
     } else {

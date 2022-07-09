@@ -16,7 +16,6 @@ void chess::Engine::initBoard(int n) {
             board->getBoardData().at(i).at(j) = nullptr;
         }
     }
-    std::cout << "Este es n: " << n << std::endl;
     board->setN(n);
 
     //    Initialize the board base on the parameter n

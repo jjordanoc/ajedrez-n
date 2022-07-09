@@ -40,13 +40,6 @@ public:
 
     void update(sf::RenderWindow &window, int &currentState) override;
 
-    void moveUp();
-    void moveDown();
-
-    int mainMenuPressed() {
-        return optionMenu;
-    }
-
     ~MainMenu();
 };
 
