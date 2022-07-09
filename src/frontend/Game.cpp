@@ -1,6 +1,11 @@
 #include "Game.h"
 
 Game::Game() {
+    // Set the window icon
+    if (!windowIcon.loadFromFile("../../src/frontend/assets/textures/dark_pawn.png")) {
+        cout << "No sale\n";
+    }
+    gameWindow.setIcon(windowIcon.getSize().x, windowIcon.getSize().y, windowIcon.getPixelsPtr());
     // States
     states[0] = (State *)(new MainMenu());  // MainMenu
     states[1] = (State *)new SelectN();  // SelectN
@@ -9,7 +14,7 @@ Game::Game() {
 
     states[4] = (State *)(new Play());  // Play
 
-    currentState = 4;  // empezamos en el menu principal
+    currentState = 0;  // empezamos en el menu principal
 }
 
 Game &Game::getInstance() {

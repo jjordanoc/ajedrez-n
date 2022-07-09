@@ -29,7 +29,7 @@ private:
     sf::Texture boardTexture;
     sf::RectangleShape boardSprite;
     std::vector<std::pair<float, float>> possibleMoves;
-    std::vector<sf::RectangleShape *> piecesPressedSquare;
+    std::vector<sf::RectangleShape*> piecesPressedSquare;
     pair<chess::PosType, chess::PosType> posPieceSelected;
     chess::Engine &engine = chess::Engine::getInstance();
     bool isEndGame = false;

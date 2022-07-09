@@ -26,6 +26,7 @@ private:
     sf::RenderWindow gameWindow{sf::VideoMode(windowWidth, windowHeight), "Ajedrez"};
     chess::AI ai = chess::AI(chess::BLACK, 5);
     chess::Engine &engine = chess::Engine::getInstance();
+    sf::Image windowIcon;
     // States
     State *states[numberOfStates]{};
     int currentState;
