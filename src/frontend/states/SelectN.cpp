@@ -1,4 +1,7 @@
 #include "SelectN.h"
+#include "global/Global.h"
+#include "backend/game/Engine.h"
+
 SelectN::SelectN() {
     // Cargar el fondo
     backgroundTexture.loadFromFile(BACKGROUND_PATH);
@@ -56,6 +59,7 @@ void SelectN::handleEvents(sf::RenderWindow &window) {
                         if ((event.mouseButton.x >= 837 && event.mouseButton.x <= 943) && (event.mouseButton.y >= 640 && event.mouseButton.y <= 690)) {
                             option = 1;
                             inCurrentState = false;
+                            chess::Engine::getInstance().initBoard(stoi(nValue));
                         }
                     }
                 }

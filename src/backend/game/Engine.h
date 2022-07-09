@@ -8,12 +8,10 @@ namespace chess {
         std::unique_ptr<Board> board;
         Color turn;
         GameState winner = IN_GAME;
-        unsigned long long n = 0;
-
-    public:
         Engine();
+    public:
         static Engine &getInstance();
-        void initBoard();
+        void initBoard(int n);
         void nextTurn();
         Board& getBoard();
         Color getTurn();

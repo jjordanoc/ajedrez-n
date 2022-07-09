@@ -66,7 +66,6 @@ void chess::Knight::verifyPossibleChecks(chess::PosType fromRow, chess::PosType 
             const std::unordered_map<PosType, std::pair<short, short>> mappings = {
                     {0, {fromRow + i, fromCol + j}},
                     {1, {fromRow + j, fromCol + i}}};
-
             for (auto const &[key, pos]: mappings) {
                 if (inBounds(pos.first, pos.second)) {
                     if (boardData.at(pos.first).at(pos.second) != nullptr) {

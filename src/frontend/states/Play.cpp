@@ -4,7 +4,6 @@
 Play::Play() {
     boardTexture.loadFromFile("../../src/frontend/assets/textures/board.png");
     boardSprite.setTexture(&boardTexture);
-    engine.initBoard();
     drawBoard();
 }
 

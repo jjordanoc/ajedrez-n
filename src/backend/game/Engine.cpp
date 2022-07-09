@@ -1,7 +1,7 @@
 #include "Engine.h"
+#include <cmath>
 
 chess::Engine::Engine() : board(std::make_unique<Board>()), turn(chess::WHITE) {
-    initBoard();
 }
 
 chess::Engine &chess::Engine::getInstance() {
@@ -9,7 +9,7 @@ chess::Engine &chess::Engine::getInstance() {
     return instance;
 }
 
-void chess::Engine::initBoard() {
+void chess::Engine::initBoard(int n) {
     // Initialize an empty board
     for (unsigned long long i = 0; i < BOARD_SIZE; ++i) {
         for (unsigned long long j = 0; j < BOARD_SIZE; ++j) {
@@ -20,36 +20,29 @@ void chess::Engine::initBoard() {
     // Initialize the board base on the parameter n
 
     // Initialize the base board
-
-    board->putPiece("King", Color::WHITE, 7, 4);
-    board->putPiece("King", Color::BLACK, 0, 4);
-
-    board->putPiece("Queen", Color::WHITE, 7, 3);
-    board->putPiece("Queen", Color::BLACK, 0, 3);
-
-    board->putPiece("Rook", Color::WHITE, 7, 0);
-    board->putPiece("Rook", Color::WHITE, 7, 7);
-    board->putPiece("Rook", Color::BLACK, 0, 0);
-    board->putPiece("Rook", Color::BLACK, 0, 7);
-
-    board->putPiece("Knight", Color::WHITE, 7, 1);
-    board->putPiece("Knight", Color::WHITE, 7, 6);
-    board->putPiece("Knight", Color::BLACK, 0, 1);
-    board->putPiece("Knight", Color::BLACK, 0, 6);
-
-    board->putPiece("Bishop", Color::WHITE, 7, 2);
-    board->putPiece("Bishop", Color::WHITE, 7, 5);
-    board->putPiece("Bishop", Color::BLACK, 0, 2);
-    board->putPiece("Bishop", Color::BLACK, 0, 5);
-
-
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        board->putPiece("Pawn", Color::WHITE, 6, i);
+    classicGame();
+    if (n == 0) {
+        return;
     }
 
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        board->putPiece("Pawn", Color::BLACK, 1, i);
+    if (n % 9 == 0) {
+        std::cout << n << std::endl;
+        std::cout << std::log(n) / std::log(9) << std::endl;
+        auto value = std::ceil((std::log(n) / std::log(9)) * std::abs(std::cos(n)));
+        std::cout << value;
+        if (value > BOARD_SIZE) {
+            value = BOARD_SIZE;
+        }
+
+        for (int i = 0; i < value; i++) {
+            board->putPiece("Queen", Color::WHITE, 6, i);
+        }
+
+        for (int i = 0; i < value; i++) {
+            board->putPiece("Queen", Color::BLACK, 1, i);
+        }
     }
+    //    n % 9 == 0, ceil(log9(n) *|cos(n)|) peones se vuelven reinas.
 }
 
 void chess::Engine::nextTurn() {
@@ -60,13 +53,13 @@ void chess::Engine::nextTurn() {
     }
 }
 
-chess::GameState chess::Engine::getWinner() const {return winner;}
+chess::GameState chess::Engine::getWinner() const { return winner; }
 
 bool chess::Engine::isGameOver() const {
     return winner != chess::IN_GAME;
 }
 
-void chess::Engine::checkState(){
+void chess::Engine::checkState() {
 
     if (board->isCheckMate(chess::WHITE)) {
         winner = chess::WHITE_WINS;

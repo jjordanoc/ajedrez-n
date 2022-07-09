@@ -24,13 +24,12 @@ class Game {
 private:
     // Instanciamos la pantalla principal del juego
     sf::RenderWindow gameWindow{sf::VideoMode(windowWidth, windowHeight), "Ajedrez"};
-    chess::AI ai = chess::AI(chess::BLACK, 5);
+    chess::AI ai = chess::AI(chess::BLACK, 3);
     chess::Engine &engine = chess::Engine::getInstance();
     sf::Image windowIcon;
     // States
     State *states[numberOfStates]{};
     int currentState;
-    std::thread aithread;
     void AIMove();
     Game();
 public:
