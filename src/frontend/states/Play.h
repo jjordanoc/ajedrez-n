@@ -23,6 +23,10 @@
 
 class Play : public State {
 private:
+    // Declarar el fondo
+    sf::Texture backgroundTexture;
+    sf::RectangleShape background;
+
     sf::Texture boardTexture;
     sf::RectangleShape boardSprite;
     std::unique_ptr<Label> winnerText;
