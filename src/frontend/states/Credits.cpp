@@ -15,7 +15,7 @@ Credits::Credits() {
     // Integrantes
     membersLabel[0] = new Label(FONT_PATH, sf::Color::White, "Josue Arriaga", 50, 100, 245);
     membersLabel[1] = new Label(FONT_PATH, sf::Color::White, "Jose Chachi", 50, 100, 315);
-    membersLabel[2] = new Label(FONT_PATH, sf::Color::White, "Joaquin O'connor", 50, 100, 385);
+    membersLabel[2] = new Label(FONT_PATH, sf::Color::White, "Joaquin Jordan", 50, 100, 385);
     membersLabel[3] = new Label(FONT_PATH, sf::Color::White, "Renato Cernades", 50, 100, 455);
     membersLabel[4] = new Label(FONT_PATH, sf::Color::White, "Nicolas Arroyo", 50, 100, 525);
     // Back button

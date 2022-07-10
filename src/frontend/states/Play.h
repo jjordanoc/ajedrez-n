@@ -34,9 +34,6 @@ private:
     std::vector<sf::RectangleShape *> piecesPressedSquare;
     std::pair<chess::PosType, chess::PosType> posPieceSelected;
     chess::Engine &engine = chess::Engine::getInstance();
-    bool isEndGame = false;
-    bool isDraw = false;
-    chess::Color winner;
     void drawBoard();
     void piecePressed(sf::RenderWindow &window, double windowX, double windowY);
     void piecePossibleMoveSquarePressed(sf::RenderWindow &window, double windowX, double windowY);
@@ -51,8 +48,6 @@ public:
     void render(sf::RenderWindow &window) override;
 
     void update(sf::RenderWindow &window, int &currentState) override;
-
-    void checkState();
 
     ~Play();
 };

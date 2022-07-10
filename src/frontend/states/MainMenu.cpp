@@ -1,4 +1,5 @@
 #include "MainMenu.h"
+#include "backend/game/Engine.h"
 
 MainMenu::MainMenu() {
     // Cargar el fondo
@@ -100,8 +101,10 @@ void MainMenu::draw(sf::RenderWindow &window) {
 
 void MainMenu::update(sf::RenderWindow &window, int &currentState) {
     if (!inCurrentState) {
-        if (optionMenu == 3)
+        if (optionMenu == 3) {
+            chess::Engine::getInstance().forceGameOver();
             window.close();
+        }
         else {
             currentState = optionMenu + 1;
         }

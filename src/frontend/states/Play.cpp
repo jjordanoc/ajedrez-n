@@ -10,7 +10,7 @@ Play::Play() {
     boardTexture.loadFromFile("../../src/frontend/assets/textures/board.png");
     boardSprite.setTexture(&boardTexture);
     drawBoard();
-    winnerText = std::make_unique<Label>(FONT_PATH, sf::Color::Black, "", 100, (windowWidth / 2) - 50, (windowHeight / 2) + 50);
+    winnerText = std::make_unique<Label>(FONT_PATH, sf::Color::Black, "", 100, (windowWidth / 2) - 275, (windowHeight / 2) - 50);
 }
 
 void Play::drawBoard() {
@@ -71,7 +71,7 @@ void Play::piecePossibleMoveSquarePressed(sf::RenderWindow &window, double windo
                 int newCol = (possibleMove.first - boardX) / 75.0;
                 int newRow = (possibleMove.second - boardY) / 75.0;
                 board.move(posPieceSelected.first, posPieceSelected.second, newRow, newCol);
-                checkState();
+                engine.checkState();
                 engine.nextTurn();
                 piecesPressedSquare.clear();
                 possibleMoves.clear();
@@ -109,16 +109,18 @@ void Play::handleEvents(sf::RenderWindow &window) {
 
 void Play::render(sf::RenderWindow &window) {
     // main game loop
-    if (!isEndGame) {
+    if (!engine.isGameOver()) {
         window.clear();
         window.draw(background);
         draw(window);
         window.display();
+
     } else {
         window.clear(sf::Color::Black);
+        window.draw(background);
         draw(window);
         std::string information;
-        if (isDraw) {
+        if (engine.getWinner() == chess::GameState::DRAW) {
             information = "It's a draw.";
         } else {
             std::string winnerString;
@@ -163,23 +165,6 @@ void Play::update(sf::RenderWindow &window, int &currentState) {
         possibleMoves.clear();
         piecesPressedSquare.clear();
         currentState = 1;
-    }
-}
-
-void Play::checkState() {
-    auto currentBoard = engine.getBoard();
-    // Check states
-    if (currentBoard.isCheckMate(chess::WHITE)) {
-        isEndGame = true;
-        winner = chess::WHITE;
-    } else if (currentBoard.isCheckMate(chess::BLACK)) {
-        winner = chess::BLACK;
-        isEndGame = true;
-    }
-
-    if (engine.getBoard().isStaleMate(chess::WHITE) || engine.getBoard().isStaleMate(chess::BLACK) || engine.getBoard().fiftyMoveDraw()) {
-        isEndGame = true;
-        isDraw = true;
     }
 }
 
