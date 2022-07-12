@@ -3,7 +3,7 @@
 
 
 chess::Queen::Queen(const chess::Color &color) : Piece(color) {
-    value = 99999;
+    value = QUEEN_VALUE;
     if (color == BLACK)
         pieceTexture.loadFromFile(spriteD);
     else if (color == WHITE)

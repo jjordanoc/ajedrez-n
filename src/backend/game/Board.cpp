@@ -17,6 +17,9 @@ chess::Board::Board(const chess::Board &another) {
     isMakingShortCastling = another.isMakingShortCastling;
     pieceFactory = another.pieceFactory;
     n = another.n;
+    whiteMoveCount = another.whiteMoveCount;
+    blackMoveCount = another.blackMoveCount;
+    fiftyMoveCount = another.fiftyMoveCount;
 }
 
 void chess::Board::checkPawnPromotion(PosType newRow, PosType newCol) {
@@ -114,7 +117,6 @@ bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, Pos
         isMakingCastling = false;
         isMakingLongCastling = false;
         isMakingShortCastling = false;
-        return true;
     }
 
     if (isMakingEnPassant) {
@@ -122,21 +124,24 @@ bool chess::Board::movePiece(PosType oldRow, PosType oldCol, PosType newRow, Pos
         mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
         mainBoard.at(newRow - off).at(newCol) = nullptr;
         isMakingEnPassant = false;
-        return true;
     }
 
     if (mainBoard.at(newRow).at(newCol) == nullptr) {
         mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
-
-        return true;
     } else if (mainBoard.at(newRow).at(newCol)->repr() != "King0" &&
                mainBoard.at(newRow).at(newCol)->repr() != "King1") {
         mainBoard.at(newRow).at(newCol) = std::move(mainBoard.at(oldRow).at(oldCol));
-        // This statement it's not necessary because we can validate the possible moves and this isn't a possible move
-        return true;
     }
 
-    return false;
+    auto piece = mainBoard.at(newRow).at(newCol);
+    if (piece != nullptr && piece->getColor() == WHITE) {
+        whiteMoveCount++;
+    }
+    else if (piece != nullptr && piece->getColor() == BLACK) {
+        blackMoveCount++;
+    }
+
+    return true;
 }
 
 std::shared_ptr<chess::Piece> chess::Board::getPiece(PosType row, PosType col) {
@@ -304,11 +309,12 @@ chess::ScoreType chess::Board::evaluation() {
         for (int j = 0; j < BOARD_SIZE; ++j) {
             auto piece = mainBoard.at(i).at(j);
             if (piece != nullptr) {
+                // Normal piece values
                 if (piece->getColor() == BLACK) {
                     blackPoints += piece->getValue();
                     if (std::dynamic_pointer_cast<Pawn>(piece) != nullptr) {
                         if ((i >= BOARD_SIZE / 2 && i <= BOARD_SIZE / 2 + 1) || (j >= BOARD_SIZE / 2 && j <= BOARD_SIZE / 2 + 1)) {
-                            blackPoints += 50;
+                            blackPoints += PAWN_CENTER_CONTROL_VALUE;
                         }
                     }
                     if (std::dynamic_pointer_cast<King>(piece) != nullptr) {
@@ -318,16 +324,40 @@ chess::ScoreType chess::Board::evaluation() {
                     whitePoints += piece->getValue();
                     if (std::dynamic_pointer_cast<Pawn>(piece) != nullptr) {
                         if ((i >= BOARD_SIZE / 2 && i <= BOARD_SIZE / 2 + 1) || (j >= BOARD_SIZE / 2 && j <= BOARD_SIZE / 2 + 1)) {
-                            whitePoints += 50;
+                            whitePoints += PAWN_CENTER_CONTROL_VALUE;
                         }
                     }
                     if (std::dynamic_pointer_cast<King>(piece) != nullptr) {
                         blackPoints += (std::pow(j - BOARD_SIZE / 2, 2) - std::pow(j, 2)) * 4;
                     }
                 }
+
             }
         }
     }
+
+    // Benefit some openings
+
+    // Openings that benefit white
+    if (whiteMoveCount < 2) {
+
+
+        // Queen's Gambit (1.d4, 2.d5, 2.c4)
+        if (std::dynamic_pointer_cast<Pawn>(mainBoard.at(4).at(3)) != nullptr) whitePoints += BEST_OPENING_VALUE;
+        if (std::dynamic_pointer_cast<Pawn>(mainBoard.at(3).at(3)) != nullptr) whitePoints += BEST_OPENING_VALUE;
+        if (std::dynamic_pointer_cast<Pawn>(mainBoard.at(4).at(2)) != nullptr) whitePoints += BEST_OPENING_VALUE;
+
+    }
+
+    // Openings that benefit black
+    if (blackMoveCount < 2) {
+
+        // Sicilian Defence (1.e4 c5 2.Cf3)
+        if (std::dynamic_pointer_cast<Pawn>(mainBoard.at(4).at(4)) != nullptr) blackPoints += BEST_OPENING_VALUE;
+        if (std::dynamic_pointer_cast<Pawn>(mainBoard.at(3).at(2)) != nullptr) blackPoints += BEST_OPENING_VALUE;
+        if (std::dynamic_pointer_cast<Knight>(mainBoard.at(5).at(2)) != nullptr) blackPoints += BEST_OPENING_VALUE;
+    }
+
     // If position checks, it is more valuable
     if (isChecked(BLACK)) {
         whitePoints += CHECK_VALUE;

@@ -1,9 +1,9 @@
 #include "Bishop.h"
 #include "../game/Board.h"
-#include "Pawn.h"
+
 
 chess::Bishop::Bishop(const Color &color) : Piece(color) {
-    value = 300;
+    value = BISHOP_VALUE;
     if (color == BLACK)
         pieceTexture.loadFromFile(spriteD);
     else if (color == WHITE)

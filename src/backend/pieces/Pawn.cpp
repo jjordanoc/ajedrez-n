@@ -2,7 +2,7 @@
 #include "../game/Board.h"
 
 chess::Pawn::Pawn(const Color &color) : Piece(color) {
-    value = 100;
+    value = PAWN_VALUE;
     if (color == BLACK)
         pieceTexture.loadFromFile(spriteD);
     else if (color == WHITE)

@@ -32,3 +32,4 @@ TEST_F(BoardTest, evaluateCheckMate) {
     board.movePiece(0, 3, 4, 7);
     ASSERT_EQ(board.evaluation(), MIN_SCORE);
 }
+

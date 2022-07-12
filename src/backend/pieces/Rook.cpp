@@ -2,6 +2,17 @@
 #include "../game/Board.h"
 #include <cmath>
 
+chess::Rook::Rook(const chess::Color &color) : Piece(color) {
+    value = ROOK_VALUE;
+    if (color == BLACK)
+        pieceTexture.loadFromFile(spriteD);
+    else if (color == WHITE)
+        pieceTexture.loadFromFile(spriteW);
+
+    pieceSprite.setTexture(pieceTexture);
+}
+
+
 std::string chess::Rook::repr() {
     return "Rook" + std::to_string(color);
 }
@@ -54,15 +65,6 @@ std::vector<std::pair<chess::PosType, chess::PosType>> chess::Rook::possibleMove
         isCheckingKing = false;
     }
     return moves;
-}
-chess::Rook::Rook(const chess::Color &color) : Piece(color) {
-    value = 500;
-    if (color == BLACK)
-        pieceTexture.loadFromFile(spriteD);
-    else if (color == WHITE)
-        pieceTexture.loadFromFile(spriteW);
-
-    pieceSprite.setTexture(pieceTexture);
 }
 
 void chess::Rook::verifyPossibleChecks(chess::PosType fromRow, chess::PosType fromCol, chess::Board &currentBoard) {

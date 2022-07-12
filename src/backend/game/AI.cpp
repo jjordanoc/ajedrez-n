@@ -9,6 +9,8 @@ chess::AI::AI() = default;
 
 chess::AI::AI(chess::Color color, int depthLimit) : color(color), depthLimit(depthLimit) {}
 
+
+
 chess::ScoreType chess::AI::minimax(chess::Board &table, bool playMax, int depth = 0) {
 
     ScoreType score = table.evaluation();

@@ -24,6 +24,9 @@ namespace chess {
         int fiftyMoveCount = 0;
         bool isMakingEnPassant = false;
         int n = 0;
+        // Counts the moves made by each color
+        int blackMoveCount = 0;
+        int whiteMoveCount = 0;
 
     public:
         Board();

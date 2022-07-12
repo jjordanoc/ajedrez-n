@@ -2,7 +2,7 @@
 #include "../game/Board.h"
 
 chess::Knight::Knight(const Color &color) : Piece(color) {
-    value = 300;
+    value = KNIGHT_VALUE;
     if (color == BLACK)
         pieceTexture.loadFromFile(spriteD);
     else if (color == WHITE)

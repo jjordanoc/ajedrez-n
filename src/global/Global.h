@@ -4,9 +4,22 @@
 #include <string>
 
 #define BOARD_SIZE 8
+
 #define MAX_SCORE 99999999
 #define MIN_SCORE -MAX_SCORE
-#define CHECK_VALUE 2000
+
+#define AI_DEPTH 5
+
+#define CHECK_VALUE 200
+#define QUEEN_VALUE 1200
+#define ROOK_VALUE 700
+#define KNIGHT_VALUE 500
+#define BISHOP_VALUE 400
+#define PAWN_VALUE 100
+
+#define PAWN_CENTER_CONTROL_VALUE 50
+
+#define BEST_OPENING_VALUE 300
 
 
 namespace chess {
@@ -22,7 +35,7 @@ namespace chess {
         DRAW,
         IN_GAME
     };
-}
+}// namespace chess
 
 
 #endif//PROYECTO_GLOBAL_H

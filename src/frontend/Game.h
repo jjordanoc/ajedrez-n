@@ -25,7 +25,7 @@ class Game {
 private:
     // Instanciamos la pantalla principal del juego
     sf::RenderWindow gameWindow{sf::VideoMode(windowWidth, windowHeight), "Ajedrez", sf::Style::Titlebar | sf::Style::Close};
-    chess::AI ai = chess::AI(chess::BLACK, 3);
+    chess::AI ai = chess::AI(chess::BLACK, AI_DEPTH);
     chess::Engine &engine = chess::Engine::getInstance();
     sf::Image windowIcon;
     // States
